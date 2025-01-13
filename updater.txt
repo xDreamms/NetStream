@@ -1,1 +1,1 @@
-{"DownloadLink":"https://github.com/NetStreamApp/NetStream/raw/refs/heads/main/NetStream.NetStream","LatestVersion":"1.0.0.1","Hash":""}
+{"DownloadLink":"https://github.com/xDreamms/NetStream/raw/refs/heads/main/NetStream.NetStream","LatestVersion":"1.0.0.1","Hash":""}
