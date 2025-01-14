@@ -59,7 +59,7 @@ Start exploring today and redefine the way you enjoy movies and TV shows!
 
 To unlock the full potential of NetStream, choose from one of our flexible subscription plans that suit your needs:
 
-- **7 Days Trial:** Experience everything for free!  
+- **90 Days Trial:** Experience everything for free!  
 - **30 Days** – **$4.99:** Get access to all features for 1 month.  
 - **90 Days** – **$13.99:** Enjoy 3 months of uninterrupted streaming.  
 - **180 Days** – **$24.99:** Half a year of ultimate entertainment.  
