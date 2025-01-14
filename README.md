@@ -1,5 +1,7 @@
 # NetStream: Your Ultimate Entertainment Experience
 
+[![Download Now](https://img.shields.io/badge/Download%20Now-Click%20Here-brightgreen?style=for-the-badge&logo=download)](https://github.com/xDreamms/NetStream/releases/download/v1.0.0.1/NetStream.msi)
+
 [YouTube](https://youtu.be/LenFUpJPwSc)
 
 ![NetStream Banner](1.png)
