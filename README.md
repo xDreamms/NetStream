@@ -61,7 +61,7 @@ Start exploring today and redefine the way you enjoy movies and TV shows!
 
 To unlock the full potential of NetStream, choose from one of our flexible subscription plans that suit your needs:
 
-- **90 Days Trial:** Experience everything for free!  
+- **90 Days Trial:** Experience everything for free!  (Only for first 10 users)
 - **30 Days** – **$4.99:** Get access to all features for 1 month.  
 - **90 Days** – **$13.99:** Enjoy 3 months of uninterrupted streaming.  
 - **180 Days** – **$24.99:** Half a year of ultimate entertainment.  
@@ -142,7 +142,7 @@ Bugün keşfetmeye başlayın ve film ve dizileri izleme şeklinizi yeniden tan�
 
 NetStream'in tüm potansiyelini açığa çıkarmak için ihtiyaçlarınıza uygun esnek abonelik planlarımızdan birini seçin:
 
-- **90 Günlük Deneme:** Her şeyi ücretsiz deneyimleyin!
+- **90 Günlük Deneme:** Her şeyi ücretsiz deneyimleyin! (Sadece ilk 10 kullanıcı için geçerlidir)
 - **30 Gün** – **$4.99:** 1 ay boyunca tüm özelliklere erişim.
 - **90 Gün** – **$13.99:** 3 ay boyunca kesintisiz yayın keyfi.
 - **180 Gün** – **$24.99:** Yarım yıl boyunca eğlencenin tadını çıkarın.
