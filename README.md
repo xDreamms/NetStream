@@ -57,15 +57,5 @@ NetStream isn't just a streaming platform; it's a complete entertainment compani
 🌍 **Your Gateway to the World of Entertainment—NetStream.**  
 Start exploring today and redefine the way you enjoy movies and TV shows!
 
-## 💳 Subscription Plans
-
-To unlock the full potential of NetStream, choose from one of our flexible subscription plans that suit your needs:
-
-- **90 Days Trial:** Experience everything for free!  (Only for first 10 users)
-- **30 Days** – **$4.99:** Get access to all features for 1 month.  
-- **90 Days** – **$13.99:** Enjoy 3 months of uninterrupted streaming.  
-- **180 Days** – **$24.99:** Half a year of ultimate entertainment.  
-- **360 Days** – **$44.99:** Full year of endless content.  
-- **Lifetime Access** – **$299.99:** One-time payment for lifetime access to all features and future updates.
 
 **Get started today and enjoy NetStream with the plan that fits you best!**
