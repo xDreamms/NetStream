@@ -444,3 +444,311 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: #ff0a17;
 }
+
+/* Türkçe İçerik Bölümü Stilleri */
+.turkish-content {
+    background: linear-gradient(135deg, var(--secondary-color), #000);
+    position: relative;
+    overflow: hidden;
+}
+
+.turkish-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('noise.png');
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.movie-card {
+    overflow: hidden;
+}
+
+.movie-card img {
+    transition: transform 0.5s ease;
+}
+
+.movie-card:hover img {
+    transform: scale(1.05);
+}
+
+.movie-badge {
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+/* Geliştirilmiş FAQ Stilleri */
+.faq-section {
+    background: linear-gradient(to bottom, var(--secondary-color), #000);
+}
+
+.faq-item {
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.faq-question h3 {
+    color: var(--text-color);
+}
+
+.faq-question i {
+    transition: transform 0.3s ease;
+    color: var(--primary-color);
+}
+
+.faq-question[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 20px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 5px;
+}
+
+/* Bölüm başlıkları için ortak stil */
+.section-heading {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+
+.section-heading::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -15px;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+/* Geliştirilmiş Features Detail Stilleri */
+.features-detail {
+    background: linear-gradient(165deg, var(--primary-color), #151515);
+    position: relative;
+    overflow: hidden;
+    padding: 120px 0;
+}
+
+.features-detail .animated-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('noise.png');
+    opacity: 0.05;
+    pointer-events: none;
+}
+
+.section-badge {
+    display: inline-block;
+    background: linear-gradient(45deg, var(--primary-color), #ff5e3a);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
+    text-transform: uppercase;
+}
+
+.premium-feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 40px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.premium-feature-card:hover {
+    transform: translateY(-15px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary-color);
+}
+
+.premium-feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary-color), transparent);
+}
+
+.premium-feature-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(45deg, var(--primary-color), #ff3547);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(229, 9, 20, 0.3);
+}
+
+.premium-feature-content h3 {
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.premium-feature-content p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+}
+
+.feature-details {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+
+.feature-detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.feature-detail-item:last-child {
+    margin-bottom: 0;
+}
+
+.feature-detail-item i {
+    color: var(--primary-color);
+    margin-right: 12px;
+    font-size: 16px;
+}
+
+.floating-card {
+    background: rgba(34, 31, 31, 0.8);
+    border-radius: 20px;
+    padding: 40px;
+    margin-top: 50px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.floating-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), #ff5e3a);
+}
+
+.btn-glow {
+    position: relative;
+    background: linear-gradient(45deg, var(--primary-color), #ff3547);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 36px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    overflow: hidden;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+    transition: all 0.6s ease;
+    z-index: -1;
+}
+
+.btn-glow:hover {
+    box-shadow: 0 10px 25px rgba(229, 9, 20, 0.4);
+    transform: translateY(-3px);
+    color: white;
+}
+
+.btn-glow:hover::before {
+    left: 100%;
+}
+
+@media (max-width: 991px) {
+    .premium-feature-card {
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .floating-card {
+        padding: 30px;
+    }
+}
+
+/* Türkçe İçerik Bölümünde Yeni Stiller */
+.lang-options {
+    z-index: 2;
+}
+
+.bg-glass {
+    background: rgba(34, 31, 31, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.cta-box {
+    border-radius: 15px;
+    padding: 40px !important;
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), #ff5e3a);
+}
+
+/* Floating card içindeki buton rengi */
+.floating-card .btn-glow:hover {
+    box-shadow: 0 10px 25px rgba(229, 9, 20, 0.4);
+}
