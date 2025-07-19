@@ -1,0 +1,53 @@
+[
+  {
+    "id": "sitelink",
+    "type": "inputstring",
+    "name": "Site Link",
+    "value": "https://www.529053.xyz/"
+  },
+  {
+    "id": "cookieheader",
+    "type": "hiddendata",
+    "name": "CookieHeader",
+    "value": null
+  },
+  {
+    "id": "lasterror",
+    "type": "hiddendata",
+    "name": "LastError",
+    "value": null
+  },
+  {
+    "id": "category",
+    "type": "inputselect",
+    "name": "Category",
+    "value": "0",
+    "options": {
+      "0": "All categories",
+      "1": "Film and Television",
+      "2": "Music",
+      "3": "Images",
+      "4": "Books",
+      "5": "Zip Files",
+      "6": "Software",
+      "7": "Other"
+    }
+  },
+  {
+    "id": "sortrequestedfromsite",
+    "type": "inputselect",
+    "name": "Sort requested from site",
+    "value": "2",
+    "options": {
+      "2": "created",
+      "1": "size",
+      "0": "relevance"
+    }
+  },
+  {
+    "id": "tags",
+    "type": "inputtags",
+    "name": "Tags",
+    "value": ""
+  }
+]

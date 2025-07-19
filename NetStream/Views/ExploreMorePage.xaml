@@ -1,0 +1,109 @@
+﻿<Page x:Class="NetStream.ExploreMorePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NetStream"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:controls="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
+      mc:Ignorable="d" 
+      d:DesignHeight="1500" d:DesignWidth="1584"
+      Title="ExploreMorePage"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto"
+      FontFamily="{DynamicResource MaterialDesignFont}" Loaded="ExploreMorePage_OnLoaded" Unloaded="ExploreMorePage_OnUnloaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.08*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.02*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.9*"></RowDefinition>
+                <RowDefinition Height="1.4*"></RowDefinition>
+                <RowDefinition Height="0.3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Viewbox Grid.Row="1" HorizontalAlignment="Left">
+                <TextBlock x:Name="TextBlockCollectionName" Text="Popular Movies" Foreground="White" ></TextBlock>
+            </Viewbox>
+        </Grid>
+
+        <ListBox Margin="-10 0 0 0" VirtualizingPanel.ScrollUnit="Pixel" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" 
+                 VirtualizingPanel.IsVirtualizing="true" 
+                 VirtualizingPanel.VirtualizationMode="Recycling"  Grid.Row="1" Grid.Column="1"  SelectionChanged="MoviesDisplay_OnSelectionChanged" ScrollViewer.ScrollChanged="MoviesDisplay_OnScrollChanged"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="Transparent" x:Name="MoviesDisplay">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel  Cursor="Hand" Margin="10 10 0 0" Orientation="Vertical">
+                        <Border BorderBrush="#1F2021" VerticalAlignment="Top" Height="375" Width="250" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" BorderThickness="5">
+                            <Image   Source="{Binding Poster}"></Image>
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="ImageScale" ScaleX="1" ScaleY="1" ></ScaleTransform>
+                            </Border.RenderTransform>
+                            <Border.Triggers>
+                                <EventTrigger RoutedEvent="Image.MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:0.20" />
+                                            <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:0.20" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.20" />
+                                            <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.20" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Border.Triggers>
+                        </Border>
+
+                        <TextBlock FontWeight="Light" Style="{StaticResource Gotham}" VerticalAlignment="Top" Margin="0 20 0 0" FontSize="18" MaxWidth="200" HorizontalAlignment="Left" Grid.Row="1"  TextWrapping="Wrap" Text="{Binding Name}" Foreground="White"></TextBlock>
+
+                        <StackPanel Margin="-5 1 0 0" Orientation="Horizontal">
+
+
+
+                            <materialDesign:RatingBar  HorizontalAlignment="Left"
+                                                       x:Name="ReadOnlyRatingBar"
+                                                       IsReadOnly="True"
+                                                       Value="{Binding Rating}"></materialDesign:RatingBar>
+
+
+                            <TextBlock FontWeight="Light" Style="{StaticResource Gotham}" FontSize="15" Margin="15 3.5 0 0" Grid.Column="1" HorizontalAlignment="Left" Text="{Binding RatingNumber}" Foreground="#767676"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <controls:VirtualizingWrapPanel AllowDifferentSizedItems="True" HorizontalAlignment="Left" ScrollUnit="Pixel" CacheLengthUnit="Page" CacheLength="1.1" ScrollLineDelta="16" MouseWheelDelta="48"  SpacingMode="Uniform" VirtualizingStackPanel.IsVirtualizing="True"  VirtualizingStackPanel.VirtualizationMode="Recycling" IsItemsHost="True" Orientation="Horizontal"  />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+    </Grid>
+</Page>

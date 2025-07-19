@@ -1,0 +1,259 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Cumhur\\Desktop\\Libtorrent NetStream\\NetStream\\NetStream\\NetStream.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Cumhur\\Desktop\\Libtorrent NetStream\\NetStream\\NetStream\\NetStream.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Cumhur\\Desktop\\Libtorrent NetStream\\NetStream\\NetStream\\NetStream.csproj",
+        "projectName": "NetStream",
+        "projectPath": "C:\\Users\\Cumhur\\Desktop\\Libtorrent NetStream\\NetStream\\NetStream\\NetStream.csproj",
+        "packagesPath": "C:\\Users\\Cumhur\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Cumhur\\Desktop\\Libtorrent NetStream\\NetStream\\NetStream\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Cumhur\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows10.0.17763.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows10.0.17763": {
+            "targetAlias": "net8.0-windows10.0.17763.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0-windows10.0.17763": {
+          "targetAlias": "net8.0-windows10.0.17763.0",
+          "dependencies": {
+            "BTCPayServer.Client": {
+              "target": "Package",
+              "version": "[2.0.1, )"
+            },
+            "BencodeNET": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "DynamicData": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Emoji.Wpf": {
+              "target": "Package",
+              "version": "[0.3.4, )"
+            },
+            "Enums.NET": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "FirebaseAuthentication.net": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Google.Cloud.Firestore": {
+              "target": "Package",
+              "version": "[3.9.0, )"
+            },
+            "Google.Cloud.Storage.V1": {
+              "target": "Package",
+              "version": "[4.10.0, )"
+            },
+            "HandyControl": {
+              "target": "Package",
+              "version": "[3.5.1, )"
+            },
+            "HandyControl.Lang.en": {
+              "target": "Package",
+              "version": "[3.5.1, )"
+            },
+            "Infisical.Sdk": {
+              "target": "Package",
+              "version": "[2.3.7, )"
+            },
+            "LibVLCSharp": {
+              "target": "Package",
+              "version": "[3.9.0, )"
+            },
+            "LibVLCSharp.WPF": {
+              "target": "Package",
+              "version": "[3.9.0, )"
+            },
+            "MaterialDesignColors": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "MaterialDesignThemes": {
+              "target": "Package",
+              "version": "[5.1.0, )"
+            },
+            "Microsoft-WindowsAPICodePack-Shell": {
+              "target": "Package",
+              "version": "[1.1.5, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
+            "Microsoft.Toolkit.Uwp.Notifications": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.72, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "OpenCvSharp4": {
+              "target": "Package",
+              "version": "[4.10.0.20241108, )"
+            },
+            "OpenCvSharp4.Extensions": {
+              "target": "Package",
+              "version": "[4.10.0.20241108, )"
+            },
+            "OpenCvSharp4.runtime.win": {
+              "target": "Package",
+              "version": "[4.10.0.20241108, )"
+            },
+            "PixiEditor.ColorPicker": {
+              "target": "Package",
+              "version": "[3.4.1, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[8.5.0, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.11.7, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Serilog.Sinks.Async": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "SixLabors.ImageSharp": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "System.Management": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "System.Runtime.WindowsRuntime": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            },
+            "System.Windows.Interactivity.WPF": {
+              "target": "Package",
+              "version": "[2.0.20525, )"
+            },
+            "TMDbLib": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Tesseract": {
+              "target": "Package",
+              "version": "[5.2.0, )"
+            },
+            "Tinify": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "VirtualizingWrapPanel": {
+              "target": "Package",
+              "version": "[2.0.12, )"
+            },
+            "Vlc.DotNet.Wpf": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "WindowsAPICodePack-Shell": {
+              "target": "Package",
+              "version": "[1.1.1, )"
+            },
+            "YoutubeDLSharp": {
+              "target": "Package",
+              "version": "[1.1.1, )"
+            },
+            "YoutubeExplode": {
+              "target": "Package",
+              "version": "[6.4.3, )"
+            },
+            "YoutubeExplode.Converter": {
+              "target": "Package",
+              "version": "[6.4.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.Windows.SDK.NET.Ref",
+              "version": "[10.0.17763.57, 10.0.17763.57]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.Windows.SDK.NET.Ref.Windows": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

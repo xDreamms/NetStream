@@ -1,0 +1,29 @@
+﻿<hc:Window x:Class="NetStream.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetStream"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        Height="900" Title="NetStream" Icon="../output.ico" Closing="MainWindow_OnClosing" ShowIcon="False" ShowTitle="False" hc:Growl.GrowlParent="True"  NonClientAreaBackground="Black" Width="1607"  Background="Black"    WindowStartupLocation="CenterScreen" MinHeight="759" MinWidth="1343"  MouseDown="MainWindow_OnMouseDown">
+
+    <hc:Window.NonClientAreaContent>
+        <StackPanel Margin="10 7 0 0 " HorizontalAlignment="Left">
+               <TextBlock Text="NetStream" Style="{StaticResource Gotham}" ></TextBlock>
+        </StackPanel>
+    </hc:Window.NonClientAreaContent>
+    <!--<mde:MaterialWindow.TitleTemplate>
+        <DataTemplate>
+            <TextBlock Text="NetStream" Foreground="White" Margin="0 6 0 0" FontSize="15" Style="{StaticResource Gotham}"></TextBlock>
+        </DataTemplate>
+    </mde:MaterialWindow.TitleTemplate>-->
+    <!--<Window.Clip>
+        <RectangleGeometry x:Name="RectangleGeometry" Rect="0,0,1584,900" RadiusX="20" RadiusY="20"/>
+    </Window.Clip>-->
+    <Grid>
+        <Frame BorderThickness="0" x:FieldModifier="public" x:Name="MyFrame" NavigationUIVisibility="Hidden"></Frame>
+    </Grid>
+</hc:Window>

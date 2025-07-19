@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>C:\Users\Cumhur\Desktop\Libtorrent NetStream\NetStream\NetStream\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\AccountFavoritesPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AccountLoginPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AccountMyListPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AccountPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AccountWatchListPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CastCreditsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CastKnownForPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CastPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CastPhotosPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ChangeHwidWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CommentPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CustomMessageBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DiscoverPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DownloadsFilesPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DownloadsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DownloadsPageQ.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EpisodesPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ExploreMorePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Home.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\HomePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\InstallerWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\InstallerWindowFFsubsyncPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\InstallerWindowMainPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\InstallerWindowPythonPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\InstallerWindowQbittorrentPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\LoginPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\LoginWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MainAccountPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MovieDetailsOverViewPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MovieDetailsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MovieDetailsPhotosPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MovieDetailsTrailerPlayerPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MovieDetailsVideoPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MoviesPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\PlayerWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SearchPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SearchPageEmpty.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SearchPageResults.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SettingsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SignUpPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SplashScreenWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SubPlansPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SubtitleManagerWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TorrentsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TrailerPlayPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TvShowDetailsOverViewPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TvShowsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\WatchHistoryPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Language\StringResources.af.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.ar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.az.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.be.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.bg.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.cn.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.cs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.da.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.de.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.el.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.en.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.es.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.et.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.fa.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.fi.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.fr.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.ga.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.hi.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.hr.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.hu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.hy.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.id.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.it.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.ja.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.ka.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.kk.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.ko.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.ky.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.la.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.mg.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.mk.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.nl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.no.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.pl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.pt.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.ro.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.ru.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.sk.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.sl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.sq.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.sr.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.sv.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.tk.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.tr.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.ug.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.uk.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.uz.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Language\StringResources.vi.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AccountFavoritesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AccountLoginPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AccountMyListPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AccountPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AccountWatchListPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CastCreditsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CastKnownForPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CastPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CastPhotosPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ChangeHwidWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CommentPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CustomMessageBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DiscoverPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DownloadsFilesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DownloadsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\DownloadsPageQ.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EpisodesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ExploreMorePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Home.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\HomePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\InstallerWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\InstallerWindowFFsubsyncPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\InstallerWindowMainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\InstallerWindowPythonPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\InstallerWindowQbittorrentPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainAccountPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MovieDetailsOverViewPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MovieDetailsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MovieDetailsPhotosPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MovieDetailsTrailerPlayerPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MovieDetailsVideoPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MoviesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\PlayerWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SearchPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SearchPageEmpty.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SearchPageResults.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SignUpPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SplashScreenWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SubPlansPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SubtitleManagerWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TorrentsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TrailerPlayPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TvShowDetailsOverViewPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TvShowsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\WatchHistoryPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

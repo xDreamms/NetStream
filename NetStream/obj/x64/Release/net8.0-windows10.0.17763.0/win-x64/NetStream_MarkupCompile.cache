@@ -1,0 +1,20 @@
+﻿NetStream
+1.0.0.10
+
+winexe
+C#
+.cs
+C:\Users\Cumhur\Desktop\Libtorrent NetStream\NetStream\NetStream\obj\x64\Release\net8.0-windows10.0.17763.0\win-x64\
+NetStream
+none
+false
+TRACE;RELEASE;NET;NET8_0;NETCOREAPP
+C:\Users\Cumhur\Desktop\Libtorrent NetStream\NetStream\NetStream\App.xaml
+98-1366952608
+1562-1341560542
+129-781043828
+292-453601476
+Language\StringResources.af.xaml;Language\StringResources.ar.xaml;Language\StringResources.az.xaml;Language\StringResources.be.xaml;Language\StringResources.bg.xaml;Language\StringResources.cn.xaml;Language\StringResources.cs.xaml;Language\StringResources.da.xaml;Language\StringResources.de.xaml;Language\StringResources.el.xaml;Language\StringResources.en.xaml;Language\StringResources.es.xaml;Language\StringResources.et.xaml;Language\StringResources.fa.xaml;Language\StringResources.fi.xaml;Language\StringResources.fr.xaml;Language\StringResources.ga.xaml;Language\StringResources.hi.xaml;Language\StringResources.hr.xaml;Language\StringResources.hu.xaml;Language\StringResources.hy.xaml;Language\StringResources.id.xaml;Language\StringResources.it.xaml;Language\StringResources.ja.xaml;Language\StringResources.ka.xaml;Language\StringResources.kk.xaml;Language\StringResources.ko.xaml;Language\StringResources.ky.xaml;Language\StringResources.la.xaml;Language\StringResources.mg.xaml;Language\StringResources.mk.xaml;Language\StringResources.nl.xaml;Language\StringResources.no.xaml;Language\StringResources.pl.xaml;Language\StringResources.pt.xaml;Language\StringResources.ro.xaml;Language\StringResources.ru.xaml;Language\StringResources.sk.xaml;Language\StringResources.sl.xaml;Language\StringResources.sq.xaml;Language\StringResources.sr.xaml;Language\StringResources.sv.xaml;Language\StringResources.tk.xaml;Language\StringResources.tr.xaml;Language\StringResources.ug.xaml;Language\StringResources.uk.xaml;Language\StringResources.uz.xaml;Language\StringResources.vi.xaml;Themes\Generic.xaml;Views\AccountFavoritesPage.xaml;Views\AccountLoginPage.xaml;Views\AccountMyListPage.xaml;Views\AccountPage.xaml;Views\AccountWatchListPage.xaml;Views\CastCreditsPage.xaml;Views\CastKnownForPage.xaml;Views\CastPage.xaml;Views\CastPhotosPage.xaml;Views\ChangeHwidWindow.xaml;Views\CommentPage.xaml;Views\CustomMessageBox.xaml;Views\DiscoverPage.xaml;Views\DownloadsFilesPage.xaml;Views\DownloadsPage.xaml;Views\DownloadsPageQ.xaml;Views\EpisodesPage.xaml;Views\ExploreMorePage.xaml;Views\Home.xaml;Views\HomePage.xaml;Views\InstallerWindow.xaml;Views\InstallerWindowFFsubsyncPage.xaml;Views\InstallerWindowMainPage.xaml;Views\InstallerWindowPythonPage.xaml;Views\InstallerWindowQbittorrentPage.xaml;Views\LoginPage.xaml;Views\LoginWindow.xaml;Views\MainAccountPage.xaml;Views\MainWindow.xaml;Views\MovieDetailsOverViewPage.xaml;Views\MovieDetailsPage.xaml;Views\MovieDetailsPhotosPage.xaml;Views\MovieDetailsTrailerPlayerPage.xaml;Views\MovieDetailsVideoPage.xaml;Views\MoviesPage.xaml;Views\PlayerWindow.xaml;Views\SearchPage.xaml;Views\SearchPageEmpty.xaml;Views\SearchPageResults.xaml;Views\SettingsPage.xaml;Views\SignUpPage.xaml;Views\SplashScreenWindow.xaml;Views\SubPlansPage.xaml;Views\SubtitleManagerWindow.xaml;Views\TorrentsPage.xaml;Views\TrailerPlayPage.xaml;Views\TvShowDetailsOverViewPage.xaml;Views\TvShowsPage.xaml;Views\WatchHistoryPage.xaml;
+
+False
+

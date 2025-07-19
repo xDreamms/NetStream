@@ -1,0 +1,128 @@
+﻿<hc:Window x:Class="NetStream.Views.SubtitleManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetStream.Views" Closed="SubtitleManagerWindow_OnClosed"
+        mc:Ignorable="d"
+        Title="{DynamicResource SubtitlesString}" Height="450" Width="800"    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:countryFlags="clr-namespace:CountryFlags;assembly=CountryFlags"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        Loaded="SubtitleManagerWindow_OnLoaded" ResizeMode="NoResize"   SizeChanged="SubtitleManagerWindow_OnSizeChanged"  Background="Transparent" WindowStartupLocation="CenterOwner" MinHeight="759" MinWidth="1343"  MouseDown="SubtitleManagerWindow_OnMouseDown">
+
+    <Grid Background="#111111">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.02*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.02*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.02*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+       
+        
+
+        <Grid x:Name="MenuGrid" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1" Margin="0 0 0 30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock PreviewMouseLeftButtonDown="OpenSubtitlesOrgMenu_OnPreviewMouseLeftButtonDown" x:Name="OpenSubtitlesOrgMenu" Cursor="Hand" Grid.Column="3" Style="{StaticResource Gotham}" Text="OpenSubtitles.Org" FontSize="22" Foreground="#414141"></TextBlock>
+            <Rectangle x:Name="MenuLine" Height="3" Fill="White" Grid.Column="1" VerticalAlignment="Bottom"></Rectangle>
+            <TextBlock PreviewMouseLeftButtonDown="OpenSubtitlesComMenu_OnPreviewMouseLeftButtonDown" x:Name="OpenSubtitlesComMenu" Cursor="Hand" Grid.Column="1" Style="{StaticResource Gotham}" Text="OpenSubtitles.Com" FontSize="22" Foreground="White"></TextBlock>
+        </Grid>
+
+        <StackPanel HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="0 0 0 20">
+
+            <TextBlock FontWeight="Light" FontSize="15"  Style="{StaticResource Gotham}"  Text="{DynamicResource SubtitleLanguageString}" Foreground="White"></TextBlock>
+            <ComboBox Width="320"  x:Name="ComboBoxSubtitleLanguage" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="4"
+                      materialDesign:HintAssist.Hint="{DynamicResource SelectLanguageString}"
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}">
+            </ComboBox>
+        </StackPanel>
+
+        <TextBlock x:Name="DownloadRemaining" Grid.Row="1" Text="" FontSize="20" Style="{StaticResource Gotham}" HorizontalAlignment="Right" Foreground="White" Grid.Column="1">
+
+        </TextBlock>
+
+        <ListBox  Grid.Row="4" Grid.Column="1"   ScrollViewer.CanContentScroll="True" 
+VirtualizingPanel.IsVirtualizing="true" 
+VirtualizingPanel.VirtualizationMode="Recycling"   SelectionChanged="SubtitlesDisplay_OnSelectionChanged"  ScrollViewer.ScrollChanged="SubtitlesDisplay_OnScrollChanged"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Background="Transparent" x:Name="SubtitlesDisplay">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel x:Name="StackPanelSubtitle" Loaded="StackPanelSubtitle_OnLoaded" Cursor="Hand" Orientation="Horizontal" Width="{Binding ActualWidth, ElementName=SubtitlesDisplay}">
+
+                        <Image Margin="10 0 0 0"  Width="120" Height="120" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Source="{Binding Country}">
+                                <Image.RenderTransform>
+                                    <ScaleTransform x:Name="ImageScale" ScaleX="1" ScaleY="1" ></ScaleTransform>
+                                </Image.RenderTransform>
+                                <Image.Triggers>
+                                    <EventTrigger RoutedEvent="Image.MouseEnter">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1.05" Duration="0:0:0.20" />
+                                                <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1.05" Duration="0:0:0.20" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <EventTrigger RoutedEvent="MouseLeave">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleX)" To="1" Duration="0:0:0.20" />
+                                                <DoubleAnimation Storyboard.TargetName="ImageScale" Storyboard.TargetProperty="(ScaleTransform.ScaleY)" To="1" Duration="0:0:0.20" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Image.Triggers>
+                        </Image>
+                      
+                        
+                        <StackPanel Margin="15 20 0 0" Orientation="Vertical">
+                            <TextBlock FontSize="20" Foreground="White" Text="{Binding Name}"></TextBlock>
+                            <TextBlock FontSize="14" Foreground="White" Text="{Binding Votes, StringFormat='{}Vote count: {0}'}"></TextBlock>
+                            <TextBlock FontSize="14" Foreground="White" Text="{Binding Ratings, StringFormat='{}Rating: {0}'}"></TextBlock>
+                            <TextBlock FontSize="14" Foreground="White" Text="{Binding DownloadCount, StringFormat='{}Download Count: {0}'}"></TextBlock>
+                        </StackPanel>
+                        <Button VerticalAlignment="Top" Margin="20  17 0 0" Loaded="FrameworkElement_OnLoaded"
+                                PreviewMouseLeftButtonDown="UIElement_OnPreviewMouseLeftButtonDown"
+                            Width="Auto"
+                            Content="Apply Without Sync"
+                            Style="{StaticResource MaterialDesignOutlinedLightButton}"
+                        />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel VirtualizingStackPanel.IsVirtualizing="True"  VirtualizingStackPanel.VirtualizationMode="Recycling" IsItemsHost="True" Orientation="Vertical"  />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+    </Grid>
+</hc:Window>

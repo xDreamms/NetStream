@@ -1,0 +1,79 @@
+﻿<hc:Window x:Class="NetStream.Views.SubPlansPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NetStream.Views"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:controls="clr-namespace:WpfToolkit.Controls;assembly=VirtualizingWrapPanel"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      mc:Ignorable="d" 
+      Height="850" Width="1400"
+      Background="#111111" WindowStartupLocation="CenterScreen" MouseDown="SubPlansPage_OnMouseDown" Unloaded="SubPlansPage_OnUnloaded" ResizeMode="NoResize" >
+
+    <materialDesign:DialogHost x:Name="DialogHost">
+        <materialDesign:DialogHost.DialogContent>
+            <StackPanel Margin="15">
+                <ProgressBar 
+                    IsIndeterminate="True"
+                    Style="{StaticResource MaterialDesignCircularProgressBar}"
+                    Value="0"
+                />
+                <TextBlock x:Name="TextBlockInfo" FontSize="15" Margin="0 20 0 0" Text="{DynamicResource AwaitingPayment}"></TextBlock>
+                <Button PreviewMouseLeftButtonDown="BtnCancelDialog_OnPreviewMouseLeftButtonDown" Margin="0 20 0 0" Name="BtnCloseDialog" Content="{DynamicResource Cancel}" />
+            </StackPanel>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.03*"></RowDefinition>
+            <RowDefinition Height="0.06*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.03*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Viewbox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
+                <TextBlock Text="{DynamicResource Plans}" Style="{StaticResource Gotham}" Foreground="White"></TextBlock>
+        </Viewbox>
+
+        <ListBox Margin="0 0 0 0" VirtualizingPanel.ScrollUnit="Pixel" VerticalAlignment="Top" ScrollViewer.CanContentScroll="True" 
+          VirtualizingPanel.IsVirtualizing="true" 
+          VirtualizingPanel.VirtualizationMode="Recycling"  Grid.Row="2" Grid.Column="1"    ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="Transparent" x:Name="SubPlansDisplay">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <materialDesign:Card  Padding="10" Margin="0 30 30 30" >
+                        <StackPanel  Orientation="Vertical">
+                            <Image Margin="0 10 0 0" Width="Auto" Height="150" Source="{Binding PlanImage}"></Image>
+                                <TextBlock HorizontalAlignment="Center" Margin="0 20 0 0" FontSize="18" Style="{StaticResource Gotham}" Text="{Binding LocalizedName}"></TextBlock>
+                            <TextBlock Margin="4 10 0 0"  FontSize="16" Style="{StaticResource Gotham}" Text="{Binding PlanPriceString}"></TextBlock>
+                            <Button Loaded="FrameworkElement_OnLoaded" PreviewMouseLeftButtonDown="BuyButtonPreviewMouseLeftDown" HorizontalAlignment="Stretch" Margin="0 15 0 10"
+                                Content="{DynamicResource Buy}"
+                                Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                            />
+                        </StackPanel>
+                    </materialDesign:Card>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <controls:VirtualizingWrapPanel AllowDifferentSizedItems="True" HorizontalAlignment="Center" ScrollUnit="Pixel" CacheLengthUnit="Page" CacheLength="1.1" ScrollLineDelta="16" MouseWheelDelta="48"  SpacingMode="Uniform" VirtualizingStackPanel.IsVirtualizing="True"  VirtualizingStackPanel.VirtualizationMode="Recycling" IsItemsHost="True" Orientation="Horizontal"  />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+    </Grid>
+        </materialDesign:DialogHost>
+</hc:Window>
