@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetStream - Free Movie & TV Show Streaming | Watch and Download | 44 Languages</title>
+    
+    <!-- SEO Meta Tags - Improved -->
+    <meta name="description" content="NetStream offers free streaming and downloading of the latest movies & TV shows. Enjoy premium content in 44 languages with 86 subtitles. The ultimate entertainment experience.">
+    <meta name="keywords" content="free movie streaming, free TV shows, movie download, tv series streaming, best streaming platform, watch movies online, torrent streaming, netstream, free movie download, watch series online, HD movies free">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <meta name="author" content="NetStream">
+    <meta name="language" content="English, Turkish">
+    <link rel="canonical" href="https://netstream.com">
+    
+    <!-- Open Graph / Social Media Meta Tags - Improved -->
+    <meta property="og:title" content="NetStream - Free Movie & TV Show Streaming Platform | 44 Languages">
+    <meta property="og:description" content="Download and stream unlimited movies & TV shows for free. Enjoy premium content in 44 languages with 86 subtitles. The ultimate entertainment experience.">
+    <meta property="og:image" content="https://netstream.com/images/social-preview.jpg">
+    <meta property="og:url" content="https://netstream.com">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="NetStream">
+    
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@NetStreamAppX">
+    <meta name="twitter:title" content="NetStream - Free Movie & TV Show Streaming | Watch and Download">
+    <meta name="twitter:description" content="Download and stream unlimited movies & TV shows for free. The ultimate entertainment experience in 44 languages.">
+    <meta name="twitter:image" content="https://netstream.com/images/social-preview.jpg">
+    
+    <!-- Schema.org Markup - Improved -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "NetStream",
+      "description": "Free movie and TV show streaming platform with download capabilities in 44 languages",
+      "applicationCategory": "Entertainment",
+      "operatingSystem": "Windows 10/11",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "NetStream"
+      },
+      "keywords": "free movies, tv shows, movie download, streaming, torrent streaming, 44 languages, subtitles"
+    }
+    </script>
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "NetStream",
+      "url": "https://netstream.com",
+      "logo": "https://netstream.com/logo.png",
+      "sameAs": [
+        "https://twitter.com/NetStreamAppX",
+        "https://discord.gg/SF3P59xGyW",
+        "https://github.com/xDreamms/NetStream"
+      ]
+    }
+    </script>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Mevcut head içinde, diğer scriptlerden önce -->
+    <script>
+        const translations = {
+            'en': {
+                // Navigation
+                "nav_home": "Home",
+                "nav_features": "Features",
+                "nav_pricing": "Pricing",
+                "nav_download": "Download",
+                "nav_blog": "Blog",
+
+                // Hero Section
+                "hero_title": "NetStream: Your Ultimate Entertainment Experience",
+                "hero_subtitle": "Your all-in-one destination for movies and TV shows, offering an unparalleled streaming and discovery experience.",
+                "download_now": "Download Now",
+                "watch_demo": "Watch Demo",
+
+                // Explore Section
+                "explore_title": "Explore a Universe of Content",
+                "popular_movies_title": "Popular Movies & TV Shows",
+                "popular_movies_desc": "Dive into trending content that everyone is talking about.",
+                "top_rated_title": "Top-Rated Gems",
+                "top_rated_desc": "Discover the highest-rated movies and series, handpicked for quality and entertainment.",
+                "now_playing_title": "Now Playing",
+                "now_playing_desc": "Stay up to date with the latest releases currently in theaters or airing on TV.",
+
+                // Search Section
+                "search_title": "Advanced Search & Discovery",
+                "search_feature_1": "Search anything: movies, TV shows, actors, and directors",
+                "search_feature_2": "Smart Discovery with \"Explore\"",
+                "search_feature_3": "Sort by Popularity, Rating, Release Date, or Name",
+                "search_feature_4": "Filter by date range, genre, language, ratings, and more",
+
+                // Track Journey Section
+                "track_journey_title": "Track Your Journey",
+                "downloads_title": "Downloads Page",
+                "downloads_desc": "Keep all your downloaded content organized and accessible.",
+                "history_title": "Watch History",
+                "history_desc": "Never lose track of what you've watched with our detailed history feature.",
+
+                // Personalization Section
+                "personalize_title": "Personalize Your Experience",
+                "tmdb_title": "TMDb Integration",
+                "tmdb_feature_1": "Rate movies and TV shows directly",
+                "tmdb_feature_2": "Save favorites and create watchlists",
+                "language_title": "Multi-Language Support",
+                "language_feature_1": "Program available in 44 languages",
+                "language_feature_2": "Subtitles in 86 languages",
+                "language_feature_3": "TMDb content in 187 languages",
+
+                // Why NetStream Section
+                "why_title": "Why NetStream?",
+                "why_desc": "NetStream isn't just a streaming platform; it's a complete entertainment companion. Whether you're hunting for a blockbuster, diving into niche indie films, or exploring the latest binge-worthy series, NetStream ensures you'll always find something extraordinary.",
+                "why_tagline": "Your Gateway to the World of Entertainment—NetStream.",
+                "why_cta": "Start exploring today and redefine the way you enjoy movies and TV shows!",
+
+                // Download Section
+                "download_section_title": "Download Now",
+                "download_subtitle": "Start exploring today and redefine the way you enjoy movies and TV shows!",
+                "download_windows": "Download for Windows 10/11",
+
+                // Footer
+                "footer_about": "Your gateway to the world of entertainment. Experience movies and TV shows in 44 languages with 86 subtitle options.",
+                "footer_quick_links": "Quick Links",
+                "footer_support": "Support",
+                "footer_faq": "FAQ",
+                "footer_help": "Help Center",
+                "footer_contact": "Contact",
+                "footer_newsletter": "Newsletter",
+                "footer_newsletter_desc": "Stay updated with new features and releases.",
+                "footer_subscribe": "Subscribe",
+                "footer_email_placeholder": "Your email address",
+                "footer_copyright": "© 2025 NetStream. All rights reserved.",
+                "footer_terms": "Terms of Service",
+                "footer_privacy": "Privacy Policy",
+
+                // FAQ Section
+                "faq_title": "Frequently Asked Questions",
+                "faq_subtitle": "Everything you need to know about NetStream",
+                "faq_q1": "Is NetStream completely free to use?",
+                "faq_a1": "Yes, NetStream is 100% free to download and use. We offer all our streaming features, movie downloads, and content discovery tools without any subscription fees or hidden charges.",
+                "faq_q2": "What languages does NetStream support?",
+                "faq_a2": "NetStream supports 44 different interface languages and provides subtitles in 86 languages. This means you can enjoy content from around the world in your preferred language.",
+                "faq_q3": "Is NetStream available on devices other than Windows?",
+                "faq_a3": "Currently, NetStream is available for Windows 10 and 11. We're working on versions for macOS, Android, and iOS that will be released in the future.",
+                "faq_q4": "How does NetStream get its content?",
+                "faq_a4": "NetStream uses torrent technology to stream content from various sources on the internet. We don't host any content on our servers but provide a tool that helps you discover and access publicly available content.",
+                
+                // Features Section
+                "features_title": "The Ultimate Free Streaming Experience",
+                "why_choose": "Why Choose NetStream For Your Entertainment Needs?",
+                "why_choose_desc": "NetStream offers the most comprehensive free movie and TV show streaming experience available today. With support for 44 different languages and 86 subtitle options, you can enjoy content from around the world without barriers.",
+                "key_features": "Key Features That Set Us Apart:",
+
+                // Content Details Section
+                "details_title": "In-Depth Content Details",
+                "movie_pages_title": "Detailed Movie & TV Show Pages",
+                "cast_info": "Cast information",
+                "similar_titles": "Similar titles",
+                "release_date": "Release date",
+                "revenue_budget": "Revenue & budget",
+                
+                "comprehensive_title": "Comprehensive Information",
+                "production_companies": "Production companies",
+                "runtime": "Runtime",
+                "user_reviews": "User reviews",
+                "available_torrents": "Available torrents",
+                
+                "actor_profiles": "Actor Profiles",
+                "actor_bio": "Comprehensive biographies",
+                "actor_filmography": "Complete filmographies",
+                "actor_gallery": "Photo galleries",
+                "actor_links": "External links",
+
+                // Features Section - Liste öğeleri
+                "feature_free": "Completely Free:",
+                "feature_free_desc": "Access thousands of movies and TV shows without paying a cent",
+                "feature_no_reg": "No Registration Required:",
+                "feature_no_reg_desc": "Start watching immediately without creating an account",
+                "feature_hd": "High Definition:",
+                "feature_hd_desc": "Enjoy 720p, 1080p, and 4K content",
+                "feature_offline": "Offline Viewing:",
+                "feature_offline_desc": "Download your favorite content to watch when you're not connected",
+                "feature_fast": "Fast Streaming:",
+                "feature_fast_desc": "Advanced torrent technology ensures smooth playback",
+                "feature_updates": "Regular Updates:",
+                "feature_updates_desc": "New movies and episodes added daily",
+                "features_summary": "Whether you're looking for the latest blockbusters, classic movies, popular TV series, or independent films, NetStream has you covered. Our extensive library includes action, comedy, drama, horror, documentaries, animation, and much more.",
+                "features_subtitle": "Discover why millions of users choose NetStream for their entertainment needs",
+
+                // Özelleştirilebilir arayüz yerine yeni özellik
+                "feature_lists": "Personal Lists & Favorites:",
+                "feature_lists_desc": "Like movies and shows and add them to your custom lists",
+                
+                // Liste özelliği detay öğeleri
+                "add_favorites": "Add to Favorites",
+                "create_watchlist": "Create Watchlists",
+                "rate_content": "Rate Your Content",
+                
+                // Features karışık çeviriler - detay öğeler
+                "theme_options": "Light/Dark Themes",
+                "content_layout": "Content Layout Settings",
+                "custom_lists": "Personalized Lists",
+                
+                // Hızlı izleme özelliği
+                "unlimited_content": "Unlimited Movies & Shows",
+                "ad_free": "Ad-Free Viewing",
+                "no_hidden_costs": "No Hidden Costs",
+                
+                // Türkçe içerik bölümü çevirileri
+                "turkish_content_title": "Discover World Cinema in Turkish",
+                "turkish_content_desc": "Watch popular films and series from around the world with Turkish dubbing and subtitle options using NetStream. Enjoy watching on your devices with a single account.",
+                "turkish_subtitle": "Turkish Subtitles",
+                "turkish_subtitle_desc": "Watch all foreign productions with quality Turkish subtitles. Even the newest films are presented with current translations.",
+                "turkish_dubbing": "Turkish Dubbing",
+                "turkish_dubbing_desc": "Watch popular Hollywood productions with professional Turkish dubbing. Content suitable for the whole family, including children's films.",
+                "seamless_viewing": "Seamless Viewing",
+                "seamless_viewing_desc": "Enjoy uninterrupted viewing pleasure in high speed and quality without buffer problems thanks to our streaming technology.",
+                "premium_account": "Open Your Premium Account Now",
+                "premium_account_desc": "An experience full of premium membership advantages awaits you at NetStream. Download now and discover!",
+                
+                // Premium features için diğer detaylar
+                "features_premium_badge": "PREMIUM FEATURES",
+                "hd_quality": "HD Quality Options",
+                "multi_language": "Multi-Language Support",
+                "subtitle_options": "Customizable Subtitles",
+                
+                // Features Summary
+                "features_summary_title": "All This and Much More",
+                "download_now": "Download Now",
+                "download_cta": "Start exploring today and redefine the way you enjoy movies and TV shows!",
+
+                // HD özellikleri için çeviriler
+                "uhd_support": "4K UHD Support",
+                "hdr_content": "HDR Content",
+                "quality_options": "Quality Options",
+                
+                // İndirme özellikleri için çeviriler
+                "unlimited_downloads": "Unlimited Downloads",
+                "download_manager": "Download Manager",
+                "offline_library": "Offline Library",
+            },
+            'tr': {
+                // Navigation
+                "nav_home": "Ana Sayfa",
+                "nav_features": "Özellikler",
+                "nav_pricing": "Fiyatlandırma",
+                "nav_download": "İndir",
+                "nav_blog": "Blog",
+
+                // Hero Section
+                "hero_title": "NetStream: En İyi Ücretsiz Film/Dizi İzleme Deneyiminiz",
+                "hero_subtitle": "Film ve diziler için tek adresiniz, benzersiz bir izleme ve keşif deneyimi sunar.",
+                "download_now": "Hemen İndir",
+                "watch_demo": "Demoyu İzle",
+
+                // Explore Section
+                "explore_title": "İçerik Evrenini Keşfedin",
+                "popular_movies_title": "Popüler Film ve Diziler",
+                "popular_movies_desc": "Herkesin konuştuğu trend içeriklere dalın.",
+                "top_rated_title": "En İyi Derecelendirilenler",
+                "top_rated_desc": "Kalite ve eğlence için özenle seçilmiş en yüksek puanlı film ve dizileri keşfedin.",
+                "now_playing_title": "Şimdi Gösterimde",
+                "now_playing_desc": "Sinemalarda gösterimde olan veya TV'de yayınlanan en son içeriklerden haberdar olun.",
+
+                // Search Section
+                "search_title": "Gelişmiş Arama ve Keşif",
+                "search_feature_1": "Her şeyi arayın: filmler, TV şovları, oyuncular ve yönetmenler",
+                "search_feature_2": "\"Keşfet\" ile Akıllı Keşif",
+                "search_feature_3": "Popülerlik, Puan, Yayın Tarihi veya İsme göre sıralayın",
+                "search_feature_4": "Tarih aralığı, tür, dil, puanlar ve daha fazlasına göre filtreleyin",
+
+                // Track Journey Section
+                "track_journey_title": "Yolculuğunuzu Takip Edin",
+                "downloads_title": "İndirilenler Sayfası",
+                "downloads_desc": "Tüm indirilen içeriğinizi düzenli ve erişilebilir tutun.",
+                "history_title": "İzleme Geçmişi",
+                "history_desc": "Detaylı geçmiş özelliğimizle izlediklerinizi asla kaybetmeyin.",
+
+                // Personalization Section
+                "personalize_title": "Deneyiminizi Kişiselleştirin",
+                "tmdb_title": "TMDb Entegrasyonu",
+                "tmdb_feature_1": "Film ve dizileri doğrudan puanlayın",
+                "tmdb_feature_2": "Favorileri kaydedin ve izleme listeleri oluşturun",
+                "language_title": "Çoklu Dil Desteği",
+                "language_feature_1": "Program 44 dilde kullanılabilir",
+                "language_feature_2": "86 dilde altyazı",
+                "language_feature_3": "187 dilde TMDb içeriği",
+
+                // Why NetStream Section
+                "why_title": "Neden NetStream?",
+                "why_desc": "NetStream sadece bir izleme platformu değil, tam bir eğlence arkadaşıdır. İster gişe rekorları kıran filmleri, ister bağımsız filmleri, ister en son çıkan dizileri arıyor olun, NetStream size her zaman olağanüstü bir şeyler sunacaktır.",
+                "why_tagline": "Eğlence Dünyasına Açılan Kapınız—NetStream.",
+                "why_cta": "Hemen keşfetmeye başlayın ve film ve dizi izleme deneyiminizi yeniden tanımlayın!",
+
+                // Download Section
+                "download_section_title": "Hemen İndir",
+                "download_subtitle": "Bugün keşfetmeye başlayın ve film ve dizi izleme deneyiminizi yeniden tanımlayın!",
+                "download_windows": "Windows 10/11 için İndir",
+
+                // Footer
+                "footer_about": "Eğlence dünyasına açılan kapınız. 86 altyazı seçeneği ile 44 dilde film ve TV şovları deneyimleyin.",
+                "footer_quick_links": "Hızlı Bağlantılar",
+                "footer_support": "Destek",
+                "footer_faq": "SSS",
+                "footer_help": "Yardım Merkezi",
+                "footer_contact": "İletişim",
+                "footer_newsletter": "Bülten",
+                "footer_newsletter_desc": "Yeni özellikler ve güncellemelerden haberdar olun.",
+                "footer_subscribe": "Abone Ol",
+                "footer_email_placeholder": "E-posta adresiniz",
+                "footer_copyright": "© 2025 NetStream. Tüm hakları saklıdır.",
+                "footer_terms": "Kullanım Koşulları",
+                "footer_privacy": "Gizlilik Politikası",
+
+                // Content Details Section
+                "details_title": "Detaylı İçerik Bilgileri",
+                "movie_pages_title": "Detaylı Film ve Dizi Sayfaları",
+                "cast_info": "Oyuncu kadrosu",
+                "similar_titles": "Benzer içerikler",
+                "release_date": "Yayın tarihi",
+                "revenue_budget": "Hasılat ve bütçe",
+                
+                "comprehensive_title": "Kapsamlı Bilgiler",
+                "production_companies": "Yapım şirketleri",
+                "runtime": "Süre",
+                "user_reviews": "Kullanıcı yorumları",
+                "available_torrents": "Mevcut torrentler",
+                
+                "actor_profiles": "Oyuncu Profilleri",
+                "actor_bio": "Detaylı biyografiler",
+                "actor_filmography": "Tam filmografi",
+                "actor_gallery": "Fotoğraf galerisi",
+                "actor_links": "Harici bağlantılar",
+
+                // Newsletter
+                "email_placeholder": "E-posta adresiniz",
+                "subscribe_button": "Abone Ol",
+
+                // Diğer eksik çeviriler
+                "loading": "Yükleniyor...",
+                "select_language": "Dil Seçin",
+                "back_to_top": "Yukarı Dön",
+
+                // FAQ Section
+                "faq_title": "Sıkça Sorulan Sorular",
+                "faq_subtitle": "NetStream hakkında bilmeniz gereken her şey",
+                "faq_q1": "NetStream tamamen ücretsiz midir?",
+                "faq_a1": "Evet, NetStream'i indirmek ve kullanmak %100 ücretsizdir. Tüm izleme özelliklerimizi, film indirmelerini ve içerik keşif araçlarımızı herhangi bir abonelik ücreti veya gizli ücret olmadan sunuyoruz.",
+                "faq_q2": "NetStream hangi dilleri destekliyor?",
+                "faq_a2": "NetStream 44 farklı arayüz dilini destekler ve 86 dilde altyazı sağlar. Bu, dünyanın her yerinden içeriği tercih ettiğiniz dilde izleyebileceğiniz anlamına gelir.",
+                "faq_q3": "NetStream Windows dışında başka cihazlarda kullanılabilir mi?",
+                "faq_a3": "Şu anda NetStream Windows 10 ve 11 için kullanılabilir. Gelecekte yayınlanacak macOS, Android ve iOS sürümleri üzerinde çalışıyoruz.",
+                "faq_q4": "NetStream içeriğini nasıl elde eder?",
+                "faq_a4": "NetStream, internetteki çeşitli kaynaklardan içerik izlenmesini sağlamak için torrent teknolojisini kullanır. Sunucularımızda hiçbir içerik barındırmıyoruz, ancak herkese açık içeriği keşfetmenize ve erişmenize yardımcı olan bir araç sağlıyoruz.",
+                
+                // Features Section
+                "features_title": "En İyi Ücretsiz İzleme Deneyimi",
+                "why_choose": "Eğlence İhtiyaçlarınız İçin Neden NetStream'i Seçmelisiniz?",
+                "why_choose_desc": "NetStream, bugün mevcut olan en kapsamlı ücretsiz film ve dizi izleme deneyimini sunuyor. 44 farklı dil ve 86 altyazı seçeneği desteğiyle, dünyanın dört bir yanından içeriğin keyfini sınırlar olmadan çıkarabilirsiniz.",
+                "key_features": "Bizi Farklı Kılan Özellikler:",
+
+                // Features Section - Liste öğeleri
+                "feature_free": "Tamamen Ücretsiz:",
+                "feature_no_reg": "Kayıt Gerektirmez:",
+                "feature_no_reg_desc": "Hesap oluşturmadan hemen izlemeye başlayın",
+                "feature_hd": "Yüksek Çözünürlük:",
+                "feature_hd_desc": "720p, 1080p ve 4K içeriğin keyfini çıkarın",
+                "feature_offline": "Çevrimdışı İzleme:",
+                "feature_offline_desc": "Bağlantınız olmadığında izlemek için favori içeriklerinizi indirin",
+                "feature_fast": "Hızlı Yayın İzleme:",
+                "feature_fast_desc": "Gelişmiş torrent teknolojisi kesintisiz görüntü sağlar",
+                "feature_updates": "Düzenli Güncellemeler:",
+                "feature_updates_desc": "Her gün yeni filmler ve bölümler eklenir",
+                "features_summary": "İster en son çıkan gişe rekorları kıran filmleri, ister klasik filmleri, popüler TV dizilerini veya bağımsız filmleri arıyor olun, NetStream sizi düşünür. Geniş kütüphanemiz aksiyon, komedi, drama, korku, belgesel, animasyon ve çok daha fazlasını içerir.",
+                "features_subtitle": "Milyonlarca kullanıcının eğlence ihtiyaçları için NetStream'i neden seçtiğini keşfedin",
+
+                // Özelleştirilebilir arayüz yerine yeni özellik
+                "feature_lists": "Kişisel Listeler & Favoriler:",
+                "feature_lists_desc": "Filmleri ve dizileri beğenin ve özel listelerinize ekleyin",
+                
+                // Liste özelliği detay öğeleri
+                "add_favorites": "Favorilere Ekle",
+                "create_watchlist": "İzleme Listeleri Oluştur",
+                "rate_content": "İçerikleri Derecelendirin",
+                
+                // Features karışık çeviriler - detay öğeler
+                "theme_options": "Koyu/Açık Tema",
+                "content_layout": "İçerik Düzeni Ayarları",
+                "custom_lists": "Kişiselleştirilmiş Listeler",
+                
+                // Hızlı izleme özelliği
+                "unlimited_content": "Sınırsız Film ve Dizi",
+                "ad_free": "Reklamsız İzleme",
+                "no_hidden_costs": "Gizli Maliyetler Yok",
+                
+                // Türkçe içerik bölümü çevirileri
+                "turkish_content_title": "Dünya Sinemasını Türkçe Keşfedin",
+                "turkish_content_desc": "NetStream ile dünya çapındaki popüler film ve dizileri Türkçe dublaj ve altyazı seçenekleriyle izleyin. Tek hesapla tüm cihazlarınızda keyifle seyredin.",
+                "turkish_subtitle": "Türkçe Altyazı",
+                "turkish_subtitle_desc": "Tüm yabancı yapımları kaliteli Türkçe altyazılarla izleyin. En yeni filmler bile güncel çevirilerle sunulur.",
+                "turkish_dubbing": "Türkçe Dublaj",
+                "turkish_dubbing_desc": "Popüler Hollywood yapımlarını profesyonel Türkçe dublajla izleyin. Çocuk filmleri dahil tüm aile için uygun içerik.",
+                "seamless_viewing": "Kesintisiz İzleme",
+                "seamless_viewing_desc": "İzleme teknolojimiz sayesinde buffer problemi yaşamadan, yüksek hızda ve kalitede kesintisiz izleme keyfi yaşayın.",
+                "premium_account": "Ayrıcalıklı Hesabınızı Hemen Açın",
+                "premium_account_desc": "NetStream'de ayrıcalıklı üyelik avantajlarıyla dolu bir deneyim sizi bekliyor. Hemen indirin ve keşfedin!",
+                
+                // Premium features için diğer detaylar
+                "features_premium_badge": "PREMIUM ÖZELLİKLER",
+                "hd_quality": "HD Kalite Seçenekleri",
+                "multi_language": "Çoklu Dil Desteği",
+                "subtitle_options": "Özelleştirilebilir Altyazılar",
+                
+                // Features Summary
+                "features_summary_title": "Tüm Bunlar ve Daha Fazlası",
+                "download_now": "Hemen İndir",
+                "download_cta": "Bugün keşfetmeye başlayın ve film ve dizi izleme deneyiminizi yeniden tanımlayın!",
+
+                // HD özellikleri için çeviriler
+                "uhd_support": "4K UHD Desteği",
+                "hdr_content": "HDR İçerik",
+                "quality_options": "Kalite Seçenekleri",
+                
+                // İndirme özellikleri için çeviriler
+                "unlimited_downloads": "Sınırsız İndirme",
+                "download_manager": "İndirme Yöneticisi",
+                "offline_library": "Çevrimdışı Kütüphane",
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Varsayılan dil
+            let defaultLang = 'en';
+            
+            // Tarayıcı dilini al
+            let browserLang = navigator.language || navigator.userLanguage;
+            browserLang = browserLang.split('-')[0]; // 'tr-TR' gibi değerleri 'tr' formatına çevir
+            
+            // Desteklenen diller
+            const supportedLanguages = ['en', 'tr'];
+            
+            // Eğer tarayıcı dili destekleniyorsa onu kullan, değilse varsayılan dili kullan
+            let currentLang = supportedLanguages.includes(browserLang) ? browserLang : defaultLang;
+            
+            // HTML lang attribute'unu güncelle
+            document.documentElement.lang = currentLang;
+            
+            // Çevirileri uygula
+            applyTranslations(currentLang);
+            
+            // URL'den dil parametresini kontrol et
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            if (langParam && translations[langParam]) {
+                changeLanguage(langParam);
+            }
+            
+            // Dil seçici görüntülemeyi güncelle
+            updateLanguageDisplay(currentLang);
+        });
+
+        function applyTranslations(lang) {
+            const selectedLang = translations[lang];
+            
+            // Tüm çevrilebilir öğeleri güncelle
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (selectedLang[key]) {
+                    element.textContent = selectedLang[key];
+                }
+            });
+        }
+
+        // Dil değiştirme fonksiyonu
+        function changeLanguage(lang) {
+            if (translations[lang]) {
+                document.documentElement.lang = lang;
+                applyTranslations(lang);
+                
+                // Dil göstergesini güncelle
+                updateLanguageDisplay(lang);
+                
+                // URL'ye dil parametresi ekle (SEO için)
+                const url = new URL(window.location.href);
+                url.searchParams.set('lang', lang);
+                window.history.replaceState({}, '', url);
+                
+                // Google Analytics'e dil değişikliğini bildir (opsiyonel)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'language_change', {
+                        'language': lang
+                    });
+                }
+            }
+        }
+        
+        // Dil göstergesini güncelleme
+        function updateLanguageDisplay(lang) {
+            document.getElementById('current-language').textContent = (lang === 'en' ? 'English' : 'Türkçe');
+        }
+    </script>
+
+    <!-- Hreflang Tags for International SEO -->
+    <link rel="alternate" hreflang="en" href="https://netstream.com/en/">
+    <link rel="alternate" hreflang="tr" href="https://netstream.com/tr/">
+    <link rel="alternate" hreflang="x-default" href="https://netstream.com/">
+
+    <!-- Türkçe SEO Meta Etiketleri -->
+    <meta name="description" lang="tr" content="NetStream ücretsiz film ve dizi izleme ve indirme platformu. 44 dil ve 86 altyazı seçeneğiyle en iyi torrent film/dizi izlemedeneyimini yaşayın. HD kalitede ücretsiz film ve diziler.">
+    <meta name="keywords" lang="tr" content="ücretsiz film izleme, bedava diziler, film indirme, dizi indirme, film izleme platformu, online film izle, torrent izle, netstream, ücretsiz film izle, film torrentleri, bedava film indir, dizi izle">
+    
+    <!-- Türkçe Open Graph / Sosyal Medya Meta Etiketleri -->
+    <meta property="og:title" lang="tr" content="NetStream - Ücretsiz Film ve Dizi İzleme Platformu | 44 Dil Desteği">
+    <meta property="og:description" lang="tr" content="Sınırsız film ve dizi izleyin ve indirin. 44 dil ve 86 altyazı seçeneğiyle premium içeriğin keyfini çıkarın. Ücretsiz en iyi eğlence deneyimi.">
+    
+    <!-- Türkçe Twitter Kart Verileri -->
+    <meta name="twitter:title" lang="tr" content="NetStream - Ücretsiz Film ve Dizi İzleme | İndirme Seçeneği">
+    <meta name="twitter:description" lang="tr" content="Sınırsız film ve dizileri ücretsiz izleyin ve indirin. 44 dilde en iyi eğlence deneyimi.">
+    
+    <!-- Türkçe Schema.org İşaretlemesi -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "NetStream",
+      "description": "44 dilde indirme özellikli ücretsiz film ve dizi izleme platformu",
+      "applicationCategory": "Eğlence",
+      "operatingSystem": "Windows 10/11",
+      "inLanguage": "tr",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "TRY"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1250"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "NetStream"
+      },
+      "keywords": "ücretsiz filmler, diziler, film indirme, izle, torrent izleme, 44 dil, altyazılar"
+    }
+    </script>
+
+    <!-- Hreflang Etiketleri - Türkçe vurgulanmış -->
+    <link rel="alternate" hreflang="en" href="https://netstream.com/en/">
+    <link rel="alternate" hreflang="tr" href="https://netstream.com/tr/">
+    <link rel="alternate" hreflang="x-default" href="https://netstream.com/">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="logo.png" alt="NetStream Logo" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home" data-translate="nav_home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#explore" data-translate="nav_features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#download" data-translate="nav_download">Download</a></li>
+                    <li class="nav-item dropdown">
+                        <button class="nav-link dropdown-toggle btn btn-sm btn-outline-light" data-bs-toggle="dropdown">
+                            <i class="fas fa-globe me-1"></i> <span id="current-language">English</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('en')">English</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="changeLanguage('tr')">Türkçe</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4" data-translate="hero_title">NetStream: Your Ultimate Entertainment Experience</h1>
+                    <p class="lead mb-4" data-translate="hero_subtitle">Your all-in-one destination for movies and TV shows, offering an unparalleled streaming and discovery experience.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#download" class="btn btn-primary btn-lg">
+                            <i class="fas fa-download me-2"></i>
+                            <span data-translate="download_now">Download Now</span>
+                        </a>
+                        <a href="https://youtu.be/LenFUpJPwSc" class="btn btn-outline-light btn-lg">
+                            <i class="fab fa-youtube me-2"></i>
+                            <span data-translate="watch_demo">Watch Demo</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="1.png" alt="NetStream home interface showing free movies and TV shows" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Explore Section -->
+    <section id="explore" class="explore-section py-5">
+        <div class="container">
+            <h2 class="text-center display-5 mb-5" data-translate="explore_title">Explore a Universe of Content</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="1.png" alt="Content Universe" class="img-fluid mb-4">
+                </div>
+                <div class="col-lg-6">
+                    <div class="content-features">
+                        <div class="feature-item mb-4">
+                            <h3 data-translate="popular_movies_title">Popular Movies & TV Shows</h3>
+                            <p data-translate="popular_movies_desc">Dive into trending content that everyone is talking about.</p>
+                        </div>
+                        <div class="feature-item mb-4">
+                            <h3 data-translate="top_rated_title">Top-Rated Gems</h3>
+                            <p data-translate="top_rated_desc">Discover the highest-rated movies and series, handpicked for quality and entertainment.</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3 data-translate="now_playing_title">Now Playing</h3>
+                            <p data-translate="now_playing_desc">Stay up to date with the latest releases currently in theaters or airing on TV.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-5 mb-4" data-translate="search_title">Advanced Search & Discovery</h2>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-search me-2"></i><span data-translate="search_feature_1">Search anything: movies, TV shows, actors, and directors</span></li>
+                        <li><i class="fas fa-filter me-2"></i><span data-translate="search_feature_2">Smart Discovery with "Explore"</span></li>
+                        <li><i class="fas fa-sort me-2"></i><span data-translate="search_feature_3">Sort by Popularity, Rating, Release Date, or Name</span></li>
+                        <li><i class="fas fa-sliders me-2"></i><span data-translate="search_feature_4">Filter by date range, genre, language, ratings, and more</span></li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <img src="7.png" alt="Search Features" class="img-fluid feature-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Track Journey Section -->
+    <section class="track-section py-5">
+        <div class="container">
+            <h2 class="display-5 mb-5" data-translate="track_journey_title">Track Your Journey</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="8.png" alt="Downloads Page" class="img-fluid mb-4">
+                    <h3 data-translate="downloads_title">Downloads Page</h3>
+                    <p data-translate="downloads_desc">Keep all your downloaded content organized and accessible.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="9.png" alt="Watch History" class="img-fluid mb-4">
+                    <h3 data-translate="history_title">Watch History</h3>
+                    <p data-translate="history_desc">Never lose track of what you've watched with our detailed history feature.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personalization Section -->
+    <section class="personalize-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-5 mb-4" data-translate="personalize_title">Personalize Your Experience</h2>
+                    <div class="tmdb-features">
+                        <h3 data-translate="tmdb_title">TMDb Integration</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-star me-2"></i><span data-translate="tmdb_feature_1">Rate movies and TV shows directly</span></li>
+                            <li><i class="fas fa-heart me-2"></i><span data-translate="tmdb_feature_2">Save favorites and create watchlists</span></li>
+                        </ul>
+                        <h3 class="mt-4" data-translate="language_title">Multi-Language Support</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-globe me-2"></i><span data-translate="language_feature_1">Program available in 44 languages</span></li>
+                            <li><i class="fas fa-closed-captioning me-2"></i><span data-translate="language_feature_2">Subtitles in 86 languages</span></li>
+                            <li><i class="fas fa-language me-2"></i><span data-translate="language_feature_3">TMDb content in 187 languages</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="10.png" alt="Personalization Features" class="img-fluid" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Details Section -->
+    <section class="details-section py-5">
+        <div class="container">
+            <h2 class="display-5 mb-5" data-translate="details_title">In-Depth Content Details</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="3.png" alt="Movie Details" class="img-fluid mb-4">
+                    <h3 data-translate="movie_pages_title">Detailed Movie & TV Show Pages</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-info-circle me-2"></i><span data-translate="cast_info">Cast information</span></li>
+                        <li><i class="fas fa-film me-2"></i><span data-translate="similar_titles">Similar titles</span></li>
+                        <li><i class="fas fa-calendar me-2"></i><span data-translate="release_date">Release date</span></li>
+                        <li><i class="fas fa-dollar-sign me-2"></i><span data-translate="revenue_budget">Revenue & budget</span></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <img src="4.png" alt="Additional Details" class="img-fluid mb-4">
+                    <h3 data-translate="comprehensive_title">Comprehensive Information</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-building me-2"></i><span data-translate="production_companies">Production companies</span></li>
+                        <li><i class="fas fa-clock me-2"></i><span data-translate="runtime">Runtime</span></li>
+                        <li><i class="fas fa-comments me-2"></i><span data-translate="user_reviews">User reviews</span></li>
+                        <li><i class="fas fa-download me-2"></i><span data-translate="available_torrents">Available torrents</span></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <img src="5.png" alt="Actor Profiles" class="img-fluid mb-4">
+                    <h3 data-translate="actor_profiles">Actor Profiles</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-user me-2"></i><span data-translate="actor_bio">Comprehensive biographies</span></li>
+                        <li><i class="fas fa-film me-2"></i><span data-translate="actor_filmography">Complete filmographies</span></li>
+                        <li><i class="fas fa-image me-2"></i><span data-translate="actor_gallery">Photo galleries</span></li>
+                        <li><i class="fas fa-external-link-alt me-2"></i><span data-translate="actor_links">External links</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why NetStream Section -->
+    <section class="why-section py-5">
+        <div class="container">
+            <h2 class="display-5 mb-4" data-translate="why_title">Why NetStream?</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <p class="lead text-center mb-4" data-translate="why_desc">
+                        NetStream isn't just a streaming platform; it's a complete entertainment companion. Whether you're hunting for a blockbuster, diving into niche indie films, or exploring the latest binge-worthy series, NetStream ensures you'll always find something extraordinary.
+                    </p>
+                    <p class="text-center h4 mb-5" data-translate="why_tagline">
+                        Your Gateway to the World of Entertainment—NetStream.
+                    </p>
+                    <p class="text-center" data-translate="why_cta">
+                        Start exploring today and redefine the way you enjoy movies and TV shows!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Detail Section -->
+    <section class="features-detail py-5">
+        <div class="animated-bg"></div>
+        <div class="container position-relative">
+            <div class="row mb-5">
+                <div class="col-lg-10 mx-auto text-center">
+                    <div class="section-badge mb-3" data-translate="features_premium_badge">PREMIUM FEATURES</div>
+                    <h2 class="display-4 fw-bold mb-3" data-translate="features_title">The Ultimate Free Streaming Experience</h2>
+                    <div class="red-divider mb-4"></div>
+                    <p class="lead text-light" data-translate="features_subtitle">Discover why millions of users choose NetStream for their entertainment needs</p>
+                </div>
+            </div>
+
+            <div class="row gy-5">
+                <div class="col-lg-6">
+                    <div class="premium-feature-card">
+                        <div class="premium-feature-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="premium-feature-content">
+                            <h3 class="h4 mb-3" data-translate="feature_free">Completely Free</h3>
+                            <p data-translate="feature_free_desc">Access thousands of movies and TV shows without paying a cent</p>
+                            <div class="feature-details">
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="unlimited_content">Unlimited Movies & Shows</span>
+                                </div>
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="ad_free">Ad-Free Viewing</span>
+                                </div>
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="no_hidden_costs">No Hidden Costs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="premium-feature-card">
+                        <div class="premium-feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="premium-feature-content">
+                            <h3 class="h4 mb-3" data-translate="feature_lists">Personal Lists & Favorites</h3>
+                            <p data-translate="feature_lists_desc">Like movies and shows and add them to your custom lists</p>
+                            <div class="feature-details">
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="add_favorites">Add to Favorites</span>
+                                </div>
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="create_watchlist">Create Watchlists</span>
+                                </div>
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="rate_content">Rate Your Content</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="premium-feature-card">
+                        <div class="premium-feature-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <div class="premium-feature-content">
+                            <h3 class="h4 mb-3" data-translate="feature_hd">High Definition</h3>
+                            <p data-translate="feature_hd_desc">Enjoy 720p, 1080p, and 4K content</p>
+                            <div class="feature-details">
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="uhd_support">4K UHD Support</span>
+                                </div>
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="hdr_content">HDR Content</span>
+                                </div>
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="quality_options">Quality Options</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="premium-feature-card">
+                        <div class="premium-feature-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="premium-feature-content">
+                            <h3 class="h4 mb-3" data-translate="feature_offline">Offline Viewing</h3>
+                            <p data-translate="feature_offline_desc">Download your favorite content to watch when you're not connected</p>
+                            <div class="feature-details">
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="unlimited_downloads">Unlimited Downloads</span>
+                                </div>
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="download_manager">Download Manager</span>
+                                </div>
+                                <div class="feature-detail-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span data-translate="offline_library">Offline Library</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-footer mt-5 text-center">
+                <div class="floating-card">
+                    <h3 class="h4 mb-4" data-translate="features_summary_title">All This and Much More</h3>
+                    <p data-translate="features_summary">Whether you're looking for the latest blockbusters, classic movies, popular TV series, or independent films, NetStream has you covered. Our extensive library includes action, comedy, drama, horror, documentaries, animation, and much more.</p>
+                    <a href="#download" class="btn btn-glow btn-lg mt-3">
+                        <i class="fas fa-download me-2"></i> <span data-translate="download_now">Download Now</span>
+                    </a>
+                    <p class="mt-3 small" data-translate="download_cta">Start exploring today and redefine the way you enjoy movies and TV shows!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download-section py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-5 mb-4" data-translate="download_section_title">Download Now</h2>
+                    <p class="lead mb-4" data-translate="download_subtitle">Start exploring today and redefine the way you enjoy movies and TV shows!</p>
+                
+                    <div class="download-buttons">
+                        <a href="https://github.com/xDreamms/NetStream/releases/download/1.0.0.14/NetStream.msi" 
+                           class="btn btn-primary btn-lg">
+                            <i class="fab fa-windows me-2"></i>
+                            <span data-translate="download_windows">Download for Windows 10/11</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="screenshot-carousel">
+                        <img src="10.png" alt="NetStream Screenshot" class="img-fluid rounded shadow">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section - Çevrilebilir olarak düzenlendi -->
+    <section id="faq" class="faq-section py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-4" data-translate="faq_title">Frequently Asked Questions</h2>
+                    <p class="lead" data-translate="faq_subtitle">Everything you need to know about NetStream</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="faq-container">
+                        <!-- FAQ Item 1 -->
+                        <div class="faq-item feature-item mb-4">
+                            <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                <h3 class="h4 mb-0 d-flex justify-content-between align-items-center">
+                                    <span data-translate="faq_q1">Is NetStream completely free to use?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </h3>
+                            </div>
+                            <div class="collapse show" id="faq1">
+                                <div class="faq-answer pt-3">
+                                    <p data-translate="faq_a1">Yes, NetStream is 100% free to download and use. We offer all our streaming features, movie downloads, and content discovery tools without any subscription fees or hidden charges.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 2 -->
+                        <div class="faq-item feature-item mb-4">
+                            <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                <h3 class="h4 mb-0 d-flex justify-content-between align-items-center">
+                                    <span data-translate="faq_q2">What languages does NetStream support?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </h3>
+                            </div>
+                            <div class="collapse" id="faq2">
+                                <div class="faq-answer pt-3">
+                                    <p data-translate="faq_a2">NetStream supports 44 different interface languages and provides subtitles in 86 languages. This means you can enjoy content from around the world in your preferred language.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 3 -->
+                        <div class="faq-item feature-item mb-4">
+                            <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                <h3 class="h4 mb-0 d-flex justify-content-between align-items-center">
+                                    <span data-translate="faq_q3">Is NetStream available on devices other than Windows?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </h3>
+                            </div>
+                            <div class="collapse" id="faq3">
+                                <div class="faq-answer pt-3">
+                                    <p data-translate="faq_a3">Currently, NetStream is available for Windows 10 and 11. We're working on versions for macOS, Android, and iOS that will be released in the future.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 4 -->
+                        <div class="faq-item feature-item mb-4">
+                            <div class="faq-question" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                <h3 class="h4 mb-0 d-flex justify-content-between align-items-center">
+                                    <span data-translate="faq_q4">How does NetStream get its content?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </h3>
+                            </div>
+                            <div class="collapse" id="faq4">
+                                <div class="faq-answer pt-3">
+                                    <p data-translate="faq_a4">NetStream uses torrent technology to stream content from various sources on the internet. We don't host any content on our servers but provide a tool that helps you discover and access publicly available content.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h3 class="h5 mb-3">NetStream</h3>
+                    <p class="mb-3" data-translate="footer_about">Your gateway to the world of entertainment. Experience movies and TV shows in 44 languages with 86 subtitle options.</p>
+                    <div class="social-links">
+                        <a href="https://x.com/NetStreamAppX" class="me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="https://discord.gg/SF3P59xGyW" class="me-3"><i class="fab fa-discord"></i></a>
+                        <a href="https://github.com/xDreamms/NetStream" class="me-3"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="mb-3" data-translate="footer_quick_links">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#features" data-translate="nav_features">Features</a></li>
+                        <li><a href="#download" data-translate="nav_download">Download</a></li>
+                        <li><a href="#" data-translate="nav_blog">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="mb-3" data-translate="footer_support">Support</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" data-translate="footer_faq">FAQ</a></li>
+                        <li><a href="#" data-translate="footer_help">Help Center</a></li>
+                        <li><a href="#" data-translate="footer_contact">Contact</a></li>
+                        <li><a href="#" data-translate="footer_privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3" data-translate="footer_newsletter">Newsletter</h5>
+                    <p data-translate="footer_newsletter_desc">Stay updated with new features and releases.</p>
+                    <form class="newsletter-form">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email address">
+                            <button class="btn btn-primary" data-translate="footer_subscribe">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0" data-translate="footer_copyright">© 2025 NetStream. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white me-3" data-translate="footer_terms">Terms of Service</a>
+                    <a href="#" class="text-white" data-translate="footer_privacy">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
