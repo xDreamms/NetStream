@@ -58,4 +58,4 @@ NetStream isn't just a streaming platform; it's a complete entertainment compani
 Start exploring today and redefine the way you enjoy movies and TV shows!
 
 
-**Get started today and enjoy NetStream with the plan that fits you best!**
+**Get started today and enjoy NetStream with the plan that fits you best!!**
