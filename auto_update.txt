@@ -1,1 +1,4 @@
-{"DownloadLink":"https://github.com/xDreamms/NetStream/raw/refs/heads/main/NetStream.NetStream","LatestVersion":"1.0.0.14","Hash":""}
+{
+  "latest_version": "1.0.0.0",
+  "download_link": "https://github.com/xDreamms/NetStream/releases/download/v1.0.1/NetStream-v1.0.1.zip"
+}
