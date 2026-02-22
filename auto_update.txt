@@ -1,4 +1,4 @@
 {
-  "latest_version": "2.1.0.0",
-  "download_link": "https://github.com/xDreamms/NetStream/releases/download/2.1.0.0/NetStream.zip"
+  "latest_version": "2.2.0.0",
+  "download_link": "https://github.com/xDreamms/NetStream/releases/download/2.2.0.0/NetStream.zip"
 }
