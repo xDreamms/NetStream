@@ -1,1 +1,93 @@
-
+{
+  "latest_version": "2.4.0.0",
+  "generated_at_utc": "2026-02-24T12:14:13.9127974Z",
+  "files": [
+    {
+      "path": "ffmpeg.zip",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/ffmpeg.zip",
+      "sha256": "d52ea2fb30f4f906f77050f3beb6ed24909a1920483c68b3f2792e37f0cccdf8",
+      "size": 185739326,
+      "type": "zip",
+      "extract_to": "ffmpeg"
+    },
+    {
+      "path": "JacketConfig.zip",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/JacketConfig.zip",
+      "sha256": "7824b49a76290d03e0d2f80163c65e8b8842b87c1417edafdec20d44b92fc7cb",
+      "size": 60207,
+      "type": "zip",
+      "extract_to": "JacketConfig"
+    },
+    {
+      "path": "libvlc.zip",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/libvlc.zip",
+      "sha256": "800e1ab5f51064d487df106bc18517a76330854f85a1ff312e58b78bbec03f5a",
+      "size": 91537104,
+      "type": "zip",
+      "extract_to": "libvlc"
+    },
+    {
+      "path": "av_libglesv2.dll",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/av_libglesv2.dll",
+      "sha256": "caff1be1faee32f7c5bfba9162ee617c347aad40772caa9a1aff794e3a191420",
+      "size": 4440576,
+      "type": "file"
+    },
+    {
+      "path": "ffsubsync_wrapper.exe",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/ffsubsync_wrapper.exe",
+      "sha256": "5f61839662238928a571a3b04fd77f6af21e2246575031960b5025b28e7f771e",
+      "size": 27325573,
+      "type": "file"
+    },
+    {
+      "path": "Jackett.Installer.Windows.exe",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/Jackett.Installer.Windows.exe",
+      "sha256": "582042ca7fe4ecad504f9d40db5e305e60da33177f9e28b89dff8d9208450954",
+      "size": 42510363,
+      "type": "file"
+    },
+    {
+      "path": "libHarfBuzzSharp.dll",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/libHarfBuzzSharp.dll",
+      "sha256": "a54cfda99ffb965d4daa307c381763051ee638b629bfc0f424feb7a8046a7e36",
+      "size": 1607208,
+      "type": "file"
+    },
+    {
+      "path": "libSkiaSharp.dll",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/libSkiaSharp.dll",
+      "sha256": "9a0d95e8caaa852c70d085af6a40a744242172ad9ea3fd6bc7599875a8a1dbcd",
+      "size": 9414216,
+      "type": "file"
+    },
+    {
+      "path": "LibTorrentSharp2.dll",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/LibTorrentSharp2.dll",
+      "sha256": "578b9c04f7dc42a3ed6f3d9cdbf744c36ba5173d7c8825ec2a5732439aab0618",
+      "size": 182272,
+      "type": "file"
+    },
+    {
+      "path": "NetStream.Desktop.exe",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/NetStream.Desktop.exe",
+      "sha256": "ab4fe28155e36dda98c8e631045371496cb9e22fe2ddcb26ad45a998f6a07de3",
+      "size": 131316224,
+      "type": "file"
+    },
+    {
+      "path": "torrent-rasterbar.dll",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/torrent-rasterbar.dll",
+      "sha256": "c5625789da7110909150edc6e12ed0c03c48155ab885bfa418b86a6c121ed9f6",
+      "size": 4142592,
+      "type": "file"
+    },
+    {
+      "path": "yt-dlp.exe",
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/yt-dlp.exe",
+      "sha256": "78a3ac4cd1eeb681d65e55fc1761ee14c87de8d8699afb09140d1049c15ae006",
+      "size": 18388925,
+      "type": "file"
+    }
+  ]
+}
