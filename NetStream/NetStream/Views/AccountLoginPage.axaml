@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:controls="using:Avalonia.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NetStream.Views.AccountLoginPage"
+             Background="#111111" Loaded="AccountLoginPage_OnLoaded" Unloaded="AccountLoginPage_OnUnloaded"
+             >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.40*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.40*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+
+            <Image x:Name="Logo" Width="150" Margin="0 0 0 0" Source="/Assets/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.png"/>
+
+            <TextBox Margin="0 50 0 0" Width="450" FontSize="18" Grid.Row="3" Grid.Column="1" x:Name="TextBoxUsername" 
+                     Watermark="{DynamicResource Username}" Classes="outline" BorderThickness="2" BorderBrush="#494949" 
+                     Foreground="White" Background="Transparent" FontFamily="{StaticResource GothamLight}" FontWeight="Light">
+            </TextBox>
+
+            <TextBox PasswordChar="•" LostFocus="TextBoxPassword_OnLostFocus" GotFocus="TextBoxPassword_OnGotFocus" 
+                    BorderBrush="#494949" Margin="0 20 0 0" Width="450" BorderThickness="2" FontSize="18" FontWeight="Light" 
+                    FontFamily="{StaticResource GothamLight}" Background="Transparent" Grid.Row="5" Grid.Column="1" x:Name="TextBoxPassword" 
+                    Watermark="{DynamicResource Password}" Classes="outline" 
+                    Foreground="White"/>
+            
+            <TextBlock FontFamily="{StaticResource GothamLight}" HorizontalAlignment="Left" Margin="0 10 0 0" FontWeight="Normal" 
+                      IsVisible="False" x:Name="TextBlockError" Text="" Foreground="Red" Grid.Row="7" Grid.Column="1"/>
+
+            <Button x:Name="LoginButton" FontWeight="Normal" FontFamily="{StaticResource GothamLight}" Classes="rounded" Margin="0 20 0 0" Height="53" Width="450" 
+                   Click="UIElement_OnPointerPressed" Grid.Row="0" Content="{DynamicResource Login}" Grid.Column="2"/>
+            
+            <Button Classes="flat rounded" PointerPressed="ButtonSignUp_OnPointerPressed" x:Name="ButtonSignUp" 
+                   FontWeight="Normal" FontFamily="{StaticResource GothamLight}" Margin="0 20 0 0" Height="53" Width="450" 
+                   Grid.Row="0" Content="{DynamicResource SignUpString}" Grid.Column="0"/>
+
+        </StackPanel>
+    </Grid>
+  
+</UserControl> 

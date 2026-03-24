@@ -1,0 +1,224 @@
+﻿<UserControl x:Class="NetStream.Views.MoviesPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream"
+             xmlns:material="using:Material.Icons.Avalonia"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:controls="clr-namespace:NetStream.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="3000" d:DesignWidth="1584"
+             Background="#111111" 
+             x:CompileBindings="False"
+             Loaded="Control_OnLoaded" Unloaded="Control_OnUnloaded">
+   
+     <UserControl.Styles>
+        <!-- Responsive styles -->
+        <Style Selector="TextBlock.responsive-header">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        
+        <!-- Style for small screens will be applied programmatically -->
+        <Style Selector="TextBlock.responsive-header-small">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        
+        <!-- Movie card styles for different sizes -->
+        <Style Selector="Border.movie-card">
+            <Setter Property="Height" Value="375" />
+            <Setter Property="Width" Value="250" />
+        </Style>
+        
+        <Style Selector="Border.movie-card-medium">
+            <Setter Property="Height" Value="270" />
+            <Setter Property="Width" Value="180" />
+        </Style>
+        
+        <Style Selector="Border.movie-card-small">
+            <Setter Property="Height" Value="210" />
+            <Setter Property="Width" Value="140" />
+        </Style>
+        
+        <!-- Movie title text responsive -->
+        <Style Selector="TextBlock.movie-title">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="MaxWidth" Value="200" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title-medium">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="MaxWidth" Value="180" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title-small">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="MaxWidth" Value="140" />
+        </Style>
+    </UserControl.Styles>
+    <Grid>
+        <!-- Yükleme Göstergesi -->
+        <!-- <Grid x:Name="LoadingIndicator" IsVisible="{Binding IsLoading}" Background="#99000000" ZIndex="100"> -->
+        <!--     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"> -->
+        <!--         <ProgressBar Classes="circular" IsIndeterminate="True"   Margin="0,0,0,15"/> -->
+        <!--         <TextBlock x:Name="TextBlockLoading" Text="{DynamicResource LoadingString}" HorizontalAlignment="Center" Foreground="White" FontSize="18" /> -->
+        <!--     </StackPanel> -->
+        <!-- </Grid> -->
+
+        <ScrollViewer ScrollChanged="MainScroll_OnScrollChanged" x:Name="MainScroll" Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+             <StackPanel Spacing="20">
+                <!-- Hero Banner Section -->
+                 <controls:MainMovieTvShow x:Name="MainMovieTvShow"></controls:MainMovieTvShow>
+
+                <!-- Popular Movies Section -->
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid x:Name="PopularMoviesHeaderGrid" Grid.Row="0" Margin="50,10,20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Classes="responsive-header" x:Name="PopularMoviesTitle" Text="{DynamicResource PopularMoviesString}"/>
+                        <TextBlock Grid.Column="1" 
+                                 FontSize="16" 
+                                 HorizontalAlignment="Right" 
+                                 Cursor="Hand" 
+                                 PointerPressed="ExploreMorePopularMovies_OnPointerPressed" 
+                                 x:Name="exploreMorePopularMovies" 
+                                 PointerEntered="ExploreMorePopularMovies_OnPointerEntered" 
+                                 PointerExited="ExploreMorePopularMovies_OnPointerExited" 
+                                 Text="{DynamicResource ExploreMoreString}" 
+                                 Foreground="#828282" 
+                                 FontWeight="Light" 
+                                 FontFamily="{StaticResource GothamLight}">
+                        </TextBlock>
+                    </Grid>
+
+                    <controls:HorizontalMovieItemsControl x:Name="PopularMoviesControl" Grid.Row="1" 
+                                                          ItemsSource="{Binding Source={x:Static local:Service.PopularMovies}}" 
+                                                          IsMovie="True" />
+                </Grid>
+
+                <!-- TopRated Movies Section -->
+                <Grid Margin="0,40,0,50">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid x:Name="TopRatedHeaderGrid" Grid.Row="0" Margin="50,15,20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Classes="responsive-header" x:Name="TopRatedTitle" Text="{DynamicResource TopRatedMoviesString}"/>
+                        <TextBlock Grid.Column="1" 
+                                 FontSize="16" 
+                                 HorizontalAlignment="Right" 
+                                 PointerPressed="ExploreMorePopularMovies_OnPointerPressed" 
+                                 Cursor="Hand" 
+                                 x:Name="exploreMoreTopRatedMovies" 
+                                 PointerEntered="ExploreMoreTopRatedMovies_OnMouseEnter" 
+                                 PointerExited="ExploreMoreTopRatedMovies_OnMouseLeave" 
+                                 Text="{DynamicResource ExploreMoreString}" 
+                                 Foreground="#828282" 
+                                 FontWeight="Light" 
+                                 FontFamily="{StaticResource GothamLight}">
+                        </TextBlock>
+                    </Grid>
+
+                    <controls:HorizontalMovieItemsControl x:Name="TopRatedMoviesControl" Grid.Row="1" 
+                                                          ItemsSource="{Binding Source={x:Static local:Service.PopularMovies}}" 
+                                                          IsMovie="True" />
+                </Grid>
+                
+                
+                 <!-- UpComing Movies Section -->
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid x:Name="UpcomingMoviesHeaderGrid" Grid.Row="0" Margin="50,10,20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Classes="responsive-header" x:Name="UpComingMoviesTitle" Text="{DynamicResource UpcomingMoviesString}"/>
+                        <TextBlock Grid.Column="1" 
+                                 FontSize="16" 
+                                 HorizontalAlignment="Right" 
+                                 Cursor="Hand" 
+                                 PointerPressed="ExploreMorePopularMovies_OnPointerPressed" 
+                                 x:Name="exploreMoreUpcomingMovies" 
+                                 PointerEntered="ExploreMoreUpcomingMovies_OnPointerEntered" 
+                                 PointerExited="ExploreMoreUpcomingMovies_OnPointerExited" 
+                                 Text="{DynamicResource ExploreMoreString}" 
+                                 Foreground="#828282" 
+                                 FontWeight="Light" 
+                                 FontFamily="{StaticResource GothamLight}">
+                        </TextBlock>
+                    </Grid>
+
+                    <controls:HorizontalMovieItemsControl x:Name="UpComingMoviesControl" Grid.Row="1" 
+                                                          ItemsSource="{Binding Source={x:Static local:Service.PopularMovies}}" 
+                                                          IsMovie="True" />
+                </Grid>
+                
+                 <!-- NOwPlaying Movies Section -->
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid x:Name="NowPlayingMoviesHeaderGrid" Grid.Row="0" Margin="50,10,20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Classes="responsive-header" x:Name="NowPlayingMoviesTitle" Text="{DynamicResource NowPlayingMoviesString}"/>
+                        <TextBlock Grid.Column="1" 
+                                 FontSize="16" 
+                                 HorizontalAlignment="Right" 
+                                 Cursor="Hand" 
+                                 PointerPressed="ExploreMorePopularMovies_OnPointerPressed" 
+                                 x:Name="exploreMoreNowPlayingMovies" 
+                                 PointerEntered="ExploreMoreNowPlayingMovies_OnPointerEntered" 
+                                 PointerExited="ExploreMoreNowPlayingMovies_OnPointerExited" 
+                                 Text="{DynamicResource ExploreMoreString}" 
+                                 Foreground="#828282" 
+                                 FontWeight="Light" 
+                                 FontFamily="{StaticResource GothamLight}">
+                        </TextBlock>
+                    </Grid>
+
+                    <controls:HorizontalMovieItemsControl  x:Name="NowPlayingMoviesControl" Grid.Row="1" 
+                                                          ItemsSource="{Binding Source={x:Static local:Service.PopularMovies}}" 
+                                                          IsMovie="True" />
+                </Grid>
+                
+                
+                
+            </StackPanel>
+           
+        </ScrollViewer>
+    </Grid>
+</UserControl> 

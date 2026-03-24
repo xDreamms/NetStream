@@ -1,0 +1,97 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="#111111"
+             Loaded="CastCreditsPage_OnLoaded" 
+             Unloaded="CastCreditsPage_OnUnloaded"
+             x:Class="NetStream.CastCreditsPageControl"
+             x:CompileBindings="False">
+    <Grid>
+       <Grid.RowDefinitions>
+           <RowDefinition Height="0.2*"/>
+           <RowDefinition Height="0.1*"/>
+           <RowDefinition Height="Auto"/>
+           <RowDefinition Height="50"/>
+            <RowDefinition Height="0.2*"/>
+           <RowDefinition Height="0.1*"/>
+           <RowDefinition Height="Auto"/>
+       </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" HorizontalAlignment="Left" x:Name="ActingTitle" FontSize="23" Text="{DynamicResource ActingString}" Foreground="White"/>
+        </Grid>
+
+        <ScrollViewer  Grid.Row="2" HorizontalAlignment="Stretch" 
+                       ScrollChanged="CreditsActingDisplay_OnScrollChanged"
+                       HorizontalScrollBarVisibility="Disabled" 
+                       VerticalScrollBarVisibility="Disabled"
+                       Background="Transparent"
+                       x:Name="CreditsActingDisplayScrollViewer" >
+            
+            <ItemsControl x:Name="CreditsActingDisplay">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel x:Name="CreditsActingItem" PointerPressed="InputElement_OnPointerPressed" Width="{Binding $parent[ItemsControl].Bounds.Width}"
+                                    Orientation="Vertical" Background="#181819" Cursor="Hand" Margin="0 10 20 0">
+                            <TextBlock x:Name="ActingReleaseDate" FontSize="18" Margin="15 15 0 5" Foreground="White" Text="{Binding ReleaseDate}"/>
+                            <TextBlock x:Name="ActingName" FontSize="18" Margin="15 0 0 5" Foreground="#FEFEFE" Text="{Binding Name}"/>
+                            <TextBlock x:Name="ActingRole" FontSize="18" Margin="15 0 0 15" Foreground="#8B8B8C" Text="{Binding Role}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                    <WrapPanel x:Name="ActingWrapLayout" Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            
+        </ScrollViewer>
+       
+
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" HorizontalAlignment="Left" x:Name="ProductionTitle" FontSize="23" Text="{DynamicResource ProductionString}" Foreground="White"/>
+        </Grid>
+
+        <ScrollViewer Grid.Row="6" HorizontalAlignment="Stretch" 
+                      ScrollChanged="CreditsProductionDisplay_OnScrollChanged"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Disabled"
+                      Background="Transparent"
+                      >
+            
+            <ItemsControl  x:Name="CreditsProductionDisplay" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel x:Name="CreditsProductionItem" PointerPressed="StackPanelCreditsProduction_OnPointerPressed" Width="{Binding $parent[ItemsControl].Bounds.Width}"
+                                    Orientation="Vertical" Background="#181819" Cursor="Hand" Margin="0 10 20 0">
+                            <TextBlock x:Name="ProductionReleaseDate" FontSize="18" Margin="15 15 0 5" Foreground="White" Text="{Binding ReleaseDate}"/>
+                            <TextBlock x:Name="ProductionName" FontSize="18" Margin="15 0 0 5" Foreground="#FEFEFE" Text="{Binding Name}"/>
+                            <TextBlock x:Name="ProductionJob" FontSize="18" Margin="15 0 0 15" Foreground="#8B8B8C" Text="{Binding Job}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel x:Name="ProductionWrapLayout" Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                   
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+       
+    </Grid>
+</UserControl> 

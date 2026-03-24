@@ -1,0 +1,98 @@
+<UserControl x:Class="NetStream.Views.RecommendationsPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream"
+             xmlns:controls="clr-namespace:NetStream.Controls"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d"
+             d:DesignHeight="1500" d:DesignWidth="1584"
+             Background="#111111"
+             x:CompileBindings="False"
+             Loaded="RecommendationsPage_OnLoaded"
+             Unloaded="RecommendationsPage_OnUnloaded">
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock.responsive-header">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid>
+        <ScrollViewer x:Name="MainScroll" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="20">
+
+                <!-- Page Title -->
+                <Grid Margin="50,30,20,0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Viewbox MaxHeight="28" MaxWidth="28" Margin="0,0,12,0">
+                            <avalonia:Icon Value="fa-solid fa-wand-magic-sparkles" Foreground="{DynamicResource ColorDefault}" />
+                        </Viewbox>
+                        <TextBlock x:Name="PageTitle" Classes="responsive-header"
+                                   Text="{DynamicResource RecommendedForYouString}"
+                                   FontSize="28" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock x:Name="SubTitle" Margin="50,0,20,0"
+                           Text="{DynamicResource BasedOnWatchHistoryString}"
+                           Foreground="#888888" FontSize="14"
+                           FontFamily="{StaticResource GothamLight}"/>
+
+                <!-- Loading indicator -->
+                <TextBlock x:Name="LoadingText" Margin="50,20,20,0"
+                           Text="{DynamicResource Loading}"
+                           Foreground="#888888" FontSize="16"
+                           FontFamily="{StaticResource GothamLight}"
+                           IsVisible="True"/>
+
+                <!-- No recommendations message -->
+                <TextBlock x:Name="NoRecommendationsText" Margin="50,40,20,0"
+                           Text="{DynamicResource NoRecommendationsString}"
+                           Foreground="#666666" FontSize="18"
+                           FontFamily="{StaticResource GothamRegular}"
+                           HorizontalAlignment="Center"
+                           IsVisible="False"/>
+
+                <!-- Recommended Movies Section -->
+                <Grid x:Name="RecommendedMoviesSection" Margin="0,20,0,0" IsVisible="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="50,10,20,0">
+                        <TextBlock Classes="responsive-header" x:Name="RecommendedMoviesTitle"
+                                   Text="{DynamicResource RecommendedMoviesString}"/>
+                    </Grid>
+
+                    <controls:HorizontalMovieItemsControl x:Name="RecommendedMoviesControl" Grid.Row="1"
+                                                       ItemsSource="{Binding Source={x:Static local:Service.RecommendedMovies}}"
+                                                       IsMovie="True" />
+                </Grid>
+
+                <!-- Recommended TV Shows Section -->
+                <Grid x:Name="RecommendedTvShowsSection" Margin="0,40,0,50" IsVisible="False">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="50,15,20,0">
+                        <TextBlock Classes="responsive-header" x:Name="RecommendedTvShowsTitle"
+                                   Text="{DynamicResource RecommendedTvShowsString}"/>
+                    </Grid>
+
+                    <controls:HorizontalMovieItemsControl x:Name="RecommendedTvShowsControl" Grid.Row="1"
+                                                      ItemsSource="{Binding Source={x:Static local:Service.RecommendedTvShows}}"
+                                                      IsMovie="False" />
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

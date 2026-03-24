@@ -1,0 +1,71 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <!--If you are willing to use Windows/MacOS native APIs you will need to create 3 projects.
+        One for Windows with net8.0-windows TFM, one for MacOS with net8.0-macos and one with net8.0 TFM for Linux.-->
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <Configurations>Debug;Release;iPhoneSimulator</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        
+        <!-- AOT Derleme Ayarları -->
+        <PublishAot>true</PublishAot>
+        <SelfContained>true</SelfContained>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+                 <!-- Reflection ve Serialization İçin Ayarlar -->
+        <TrimMode>partial</TrimMode>
+        <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+        <IsAotCompatible>false</IsAotCompatible>
+               
+        
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
+        <ApplicationIcon>..\NetStream\Assets\BACKoutput.ico</ApplicationIcon>
+    </PropertyGroup>
+
+
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia.Desktop"/>
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="VideoLAN.LibVLC.Windows" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\NetStream\NetStream.csproj"/>
+    </ItemGroup>
+
+    <!-- LibTorrentSharp2 native DLL -->
+    <ItemGroup>
+      <None Include="..\..\..\..\LibTorrentSharp2\x64\Release\LibTorrentSharp2.dll" Condition="Exists('..\..\..\..\LibTorrentSharp2\x64\Release\LibTorrentSharp2.dll')">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <Link>LibTorrentSharp2.dll</Link>
+      </None>
+    </ItemGroup>
+    <ItemGroup>
+      <Reference Include="Projektanker.Icons.Avalonia">
+        <HintPath>..\..\..\Projektanker.Icons.Avalonia.dll</HintPath>
+      </Reference>
+      <Reference Include="Projektanker.Icons.Avalonia.FontAwesome">
+        <HintPath>..\..\..\Projektanker.Icons.Avalonia.FontAwesome.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\..\copy these to build output\**\*"
+            Condition="Exists('..\..\copy these to build output')">
+        <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+        <TargetPath>%(RecursiveDir)%(Filename)%(Extension)</TargetPath>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

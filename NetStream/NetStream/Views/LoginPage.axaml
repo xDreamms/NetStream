@@ -1,0 +1,102 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:netStream="clr-namespace:NetStream"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             mc:Ignorable="d"
+             d:DesignHeight="882" d:DesignWidth="551"
+             x:Class="NetStream.Views.LoginPage"
+             KeyDown="TextBoxPassword_OnKeyDown"
+             SizeChanged="Control_OnSizeChanged" Background="#1E1E21">
+
+    <Grid>
+       
+        <dialogHostAvalonia:DialogHost x:Name="DialogHost" IsOpen="False">
+            <dialogHostAvalonia:DialogHost.DialogContent>
+
+                <Border Background="#222222" BorderBrush="#333333" BorderThickness="1" CornerRadius="4"
+                        BoxShadow="0 4 20 0 #66000000" Padding="20">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel x:Name="StackPanelError" IsVisible="False">
+                            <TextBlock x:Name="TextBlockDialogText" FontFamily="{StaticResource GothamRegular}" Margin="10"
+                                       Text="" Foreground="White" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Click="BtnCloseDialog_OnPreviewMouseLeftButtonDown" Margin="10"
+                                        Name="BtnCloseDialog" Content="{DynamicResource OkayString}" />
+                                <Button IsVisible="False" Click="BtnSendVerificationAgain" Margin="10"
+                                        Name="BtnSendVerification"
+                                        Content="{DynamicResource EmailVerificationSendString}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel x:Name="StackPanelResetPassword" IsVisible="False">
+                            <TextBlock FontFamily="{StaticResource GothamRegular}" FontWeight="Medium"
+                                       Text="{DynamicResource ResetPassword}" HorizontalAlignment="Center"
+                                       FontSize="24" Margin="0 0 0  0" Foreground="White">
+                            </TextBlock>
+                            <TextBox Margin="0 20 0 0" Width="300" FontSize="14"
+                                     Watermark="{DynamicResource EmailString}"
+                                     x:Name="TextBoxEmailForgotPassword" Foreground="White" BorderBrush="#494949"
+                                     BorderThickness="2">
+                            </TextBox>
+                            <Button Height="30" Width="300" Margin="0 20 0 0" x:Name="BtnResetPassword"
+                                    Click="BtnResetPassword_OnPreviewMouseLeftButtonDown"
+                                    Content="{DynamicResource Send}" CornerRadius="10"
+                                    Background="{DynamicResource SystemAccentColor}">
+                            </Button>
+                            <Button Height="30" Width="300" Margin="0 10 0 0" x:Name="BtnCancel" Theme="{StaticResource MaterialFlatButton}"
+                                    Click="BtnCancel_OnPreviewMouseLeftButtonDown"
+                                    Content="{DynamicResource Cancel}" CornerRadius="10">
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </dialogHostAvalonia:DialogHost.DialogContent>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="0.2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel  Grid.Row="1">
+            <Image Margin="0 50 0 0" Height="100" x:Name="NetStreamLogo" Source="/Assets/NetStreamLogo.png"></Image>
+
+            <TextBlock x:Name="TextWelcomeBack" FontFamily="{StaticResource GothamRegular}" FontWeight="Medium" Text="{DynamicResource WelcomeBack}" HorizontalAlignment="Center" FontSize="28" Margin="0 35 0  5" Foreground="White"></TextBlock>
+            <TextBlock x:Name="TextLoginExisting" FontFamily="{StaticResource GothamRegular}" FontSize="17" FontWeight="Normal" HorizontalAlignment="Center" Text="{DynamicResource LoginExistingAccount}" Foreground="White"></TextBlock>
+
+            <TextBox Margin="0 50 0 0" Width="500" FontSize="18" Watermark="{DynamicResource EmailString}" 
+                     x:Name="TextBoxEmail" Foreground="White" BorderBrush="#494949" BorderThickness="2" 
+                     FontFamily="{StaticResource GothamRegular}" FontWeight="Light">
+            </TextBox>
+
+            <TextBox PasswordChar="•" Margin="0 20 0 0" Width="500" BorderThickness="2" FontSize="18" 
+                     x:Name="TextBoxPassword" Watermark="{DynamicResource PasswordString}" 
+                     Foreground="White" BorderBrush="#494949" FontFamily="{StaticResource GothamRegular}" FontWeight="Light">
+            </TextBox>
+            
+            <Button Height="53" Width="500" Margin="0 20 0 0" x:Name="BtnSignIn" 
+                    Click="BtnSignIn_OnPreviewMouseLeftButtonDown" Content="{DynamicResource SignInString}" 
+                    CornerRadius="10" Background="{DynamicResource SystemAccentColor}"
+                    FontFamily="{StaticResource GothamRegular}" FontWeight="Normal">
+            </Button>
+
+            <Button  Theme="{StaticResource MaterialFlatButton}" Height="53" Width="500" Margin="0 20 0 0" x:Name="BtnSignUp" 
+                     Click="BtnSignUp_OnPreviewMouseLeftButtonDown" Content="{DynamicResource SignUpString}"
+                     CornerRadius="10" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal">
+            </Button>
+            
+            <TextBlock Cursor="Hand" x:Name="ResetPasswordButton" PointerPressed="ResetPasswordButton_OnPreviewMouseLeftButtonDown" 
+                       PointerEntered="ResetPasswordButton_OnMouseEnter" PointerExited="ResetPasswordButton_OnMouseLeave" 
+                       Margin="0 20 0 0" FontFamily="{StaticResource GothamRegular}" FontSize="16" HorizontalAlignment="Center" 
+                       Foreground="White" Text="{DynamicResource ForgotYourPassword}">
+            </TextBlock>
+        </StackPanel>
+            </Grid>
+            
+            
+         </dialogHostAvalonia:DialogHost>
+        
+    </Grid>
+</UserControl> 

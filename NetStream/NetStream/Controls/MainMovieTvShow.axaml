@@ -1,0 +1,158 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:netStream="clr-namespace:NetStream"
+             xmlns:controls="clr-namespace:NetStream.Controls"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NetStream.Controls.MainMovieTvShow" Background="Black" Loaded="Control_OnLoaded"
+             Unloaded="Control_OnUnloaded"
+             PointerPressed="MainMovieTvShow_OnPreviewMouseLeftButtonDown">
+    
+    <UserControl.Resources>
+        <netStream:WidthToFontSizeConverter x:Key="WidthToFontSizeConverter"/>
+        <netStream:MainOverviewWidthConverter x:Key="MainOverviewWidthConverter"/>
+        <netStream:TruncateMainMovieNameTextConverter x:Key="TruncateMainMovieNameTextConverter" MaxLength="90" />
+        <netStream:TruncateMainMovieOverViewTextConverter x:Key="TruncateMainMovieOverViewTextConverter" MaxLength="600" />
+        <netStream:MainMovieNameWidthToPercentageConverter x:Key="MainMovieNameWidthToPercentageConverter" />
+    </UserControl.Resources>
+    <Grid   Cursor="Hand" >
+                    <Grid x:DataType="netStream:MainMovie" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Grid Grid.Column="1">
+                            <netStream:AsyncImageControl2  x:Name="PosterImage" Source="{Binding Poster}" 
+                                                    Stretch="UniformToFill">
+                            </netStream:AsyncImageControl2>
+                        </Grid>
+
+                        <!-- Full-screen background for small screens -->
+                        <Border Grid.ColumnSpan="2" x:Name="SmallScreenBackground" IsVisible="False" 
+                                Background="#121212">
+                        </Border>
+
+                        <StackPanel Opacity="0" 
+                                  RenderTransformOrigin="0.5, 0.5" x:Name="MainMovieStackPanel" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Center">
+                            <StackPanel.RenderTransform>
+                                <TranslateTransform Y="50"/>
+                            </StackPanel.RenderTransform>
+                            
+                            <!-- Movie Title -->
+                            <TextBlock x:Name="MainMovieTitle" HorizontalAlignment="Left" Margin="10 0 0 0" 
+                                     FontWeight="Normal" FontFamily="{StaticResource GothamRegular}" 
+                                     Text="{Binding Name, Converter={StaticResource TruncateMainMovieNameTextConverter}}"   
+                                     TextWrapping="Wrap" 
+                                     TextTrimming="CharacterEllipsis"
+                                     Width="{Binding $parent[UserControl].Bounds.Width, Converter={StaticResource MainMovieNameWidthToPercentageConverter}}"
+                                     Foreground="White">
+                            </TextBlock>
+                            
+                            <!-- Movie Details (ratings, year, etc.) -->
+                            <StackPanel x:Name="MainMovieDetailsPanel" Margin="0 10 0 0" Orientation="Vertical">
+                                <!-- Tek WrapPanel içerisinde tüm öğeler -->
+                                <WrapPanel x:Name="WrapPanelMovieDetails" Orientation="Horizontal">
+                                    <Viewbox Margin="0 0 10 0" >
+                                        <controls:RatingBar IsReadOnly="True" x:Name="RatingControl" 
+                                                      HorizontalAlignment="Center" 
+                                                      StarSize="{Binding $parent[UserControl].Bounds.Width, Converter={StaticResource WidthToFontSizeConverter}, ConverterParameter=starSize}" 
+                                                      Spacing="3"
+                                                      Rating="{Binding Rating}" />
+                                    </Viewbox>
+                                    <Viewbox Margin="0 0 10 0" >
+                                        <TextBlock Text="{Binding RatingNumber}" FontWeight="Light" FontFamily="{StaticResource GothamLight}" Foreground="#808080"></TextBlock>
+                                    </Viewbox>
+                                   
+                                    <Ellipse Margin="0 0 10 0" Width="5" Height="5" Fill="#808080" VerticalAlignment="Center"></Ellipse>
+                                    <Viewbox Margin="0 0 10 0" >
+                                        <TextBlock Text="{Binding ReviewCount}" FontWeight="Light" FontFamily="{StaticResource GothamLight}" Foreground="#808080"></TextBlock>
+                                    </Viewbox>
+                                    
+                                    <Ellipse Margin="0 0 10 0" Width="5" Height="5" Fill="#808080" VerticalAlignment="Center"></Ellipse>
+                                    <Viewbox Margin="0 0 10 0" >
+                                        <TextBlock Text="{Binding ReleaseYear}" FontWeight="Light" FontFamily="{StaticResource GothamLight}" Foreground="#808080"></TextBlock>
+                                    </Viewbox>
+                                    
+                                    <Ellipse x:Name="DurationElipse" Margin="0 0 10 0" Width="5" Height="5" Fill="#808080" VerticalAlignment="Center"></Ellipse>
+                                    <Viewbox x:Name="DurationViewBox" Margin="0 0 10 0" >
+                                        <TextBlock Text="{Binding Duration}" FontWeight="Light" FontFamily="{StaticResource GothamLight}" Foreground="#808080"></TextBlock>
+                                    </Viewbox>
+                                    
+                                    <!-- Movie Details Page özellikleri - Rating, Favorites ve Watchlist butonları -->
+                                    <Ellipse x:Name="RatingElipse" Margin="0 0 10 0" Width="5" Height="5" Fill="#808080" 
+                                             IsVisible="True"></Ellipse>
+                                    <Grid Background="#01000000" PointerEntered="BtnSetRating_OnMouseEnter"
+                                          PointerExited="BtnSetRating_OnMouseLeave"
+                                          PointerPressed="BtnSetRating_OnPreviewMouseLeftButtonDown"
+                                          IsVisible="{Binding $parent[controls:MainMovieTvShow].FromMovieDetailsPage}">
+                                        <avalonia:Icon FontSize="24" x:Name="BtnSetRating" Cursor="Hand"
+                                                       Value="fa-light fa-star" Margin="0 0 10 0" Foreground="#808080"
+                                                       ToolTip.Tip="Set rating" />
+                                    </Grid>
+                                    <Ellipse x:Name="FavoritesElipse" Margin="0 0 10 0" Width="5" Height="5" Fill="#808080"
+                                             IsVisible="True"></Ellipse>
+
+                                    <Grid Background="#01000000" PointerEntered="FavoritesIconBlock_OnMouseEnter"
+                                          PointerExited="FavoritesIconBlock_OnMouseLeave"
+                                          PointerPressed="FavoritesIconBlock_OnPreviewMouseLeftButtonDown"
+                                          IsVisible="{Binding $parent[controls:MainMovieTvShow].FromMovieDetailsPage}">
+                                        <avalonia:Icon x:Name="FavoritesIconBlock" Cursor="Hand"
+                                                       Value="fa-regular fa-heart" Margin="0 0 10 0" Foreground="#808080"
+                                                       ToolTip.Tip="Add to favorites"
+                                                       FontSize="24" />
+                                    </Grid>
+
+                                    <Ellipse x:Name="WatchListElipse" Margin="0 0 10 0" Width="5" Height="5" Fill="#808080"
+                                             IsVisible="True"></Ellipse>
+
+                                    <Grid Background="#01000000" PointerEntered="WatchListIconBlock_OnMouseEnter"
+                                          PointerExited="WatchListIconBlock_OnMouseLeave"
+                                          PointerPressed="WatchListIconBlock_OnPreviewMouseLeftButtonDown"
+                                          IsVisible="{Binding $parent[controls:MainMovieTvShow].FromMovieDetailsPage}">
+                                        <avalonia:Icon x:Name="WatchListIconBlock" Cursor="Hand"
+                                                       Value="fa-regular fa-bookmark" Margin="0" Foreground="#808080"
+                                                       ToolTip.Tip="Add to watchlist"
+                                                       FontSize="24" />
+                                    </Grid>
+                                </WrapPanel>
+                            </StackPanel>
+
+                            <!-- Movie Overview -->
+                            <TextBlock x:Name="OverviewTextBlock" Width="{Binding $parent[UserControl].Bounds.Width, Converter={StaticResource MainOverviewWidthConverter}}" 
+                                       Margin="50 30 0 0"
+                                     HorizontalAlignment="Left" 
+                                     FontSize="{Binding $parent[UserControl].Bounds.Width, Converter={StaticResource WidthToFontSizeConverter}, ConverterParameter=overview}" 
+                                     FontWeight="Light" 
+                                     FontFamily="{StaticResource GothamLight}"
+                                     TextWrapping="Wrap" 
+                                     Foreground="#C7C7C7"
+                                     TextTrimming="CharacterEllipsis"
+                                     Text="{Binding Overview, Converter={StaticResource TruncateMainMovieOverViewTextConverter}}">
+                            </TextBlock>
+                            
+                            <!-- Watch Button - Movie Details Page'e özgü -->
+                            <StackPanel Margin="0 30 0 0" Orientation="Horizontal" 
+                                        IsVisible="{Binding $parent[controls:MainMovieTvShow].FromMovieDetailsPage}">
+                                <Button FontSize="16" Foreground="White" Click="WatchTrailerButton_OnClick" 
+                                        x:Name="WatchTrailerButton" Content="{DynamicResource WatchTrailerString}" 
+                                        FontWeight="Light" FontFamily="{StaticResource GothamLight}"></Button>
+                                <Button FontSize="16" Foreground="White" x:Name="ButtonWatch" IsVisible="False" 
+                                        PointerPressed="WatchButton_OnPreviewMouseLeftButtonDown" 
+                                        FontWeight="Light" FontFamily="{StaticResource GothamLight}" 
+                                        Content="{DynamicResource WatchString}"></Button>
+                                <!-- Watch Now Button - Auto-select best torrent and stream -->
+                                <Button FontSize="16" Foreground="White" x:Name="ButtonWatchNow" IsVisible="False"
+                                        Margin="10 0 0 0"
+                                        Click="WatchNowButton_OnPreviewMouseLeftButtonDown" 
+                                        FontWeight="Light" FontFamily="{StaticResource GothamLight}" 
+                                        Content="Watch Now"></Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+    
+    
+</UserControl>

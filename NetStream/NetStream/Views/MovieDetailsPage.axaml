@@ -1,0 +1,301 @@
+<UserControl x:Class="NetStream.Views.MovieDetailsPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream"
+             xmlns:material="using:Material.Icons.Avalonia"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:avalonia="clr-namespace:LibVLCSharp.Avalonia;assembly=LibVLCSharp.Avalonia"
+             xmlns:controls="clr-namespace:NetStream.Controls"
+             xmlns:avalonia1="https://github.com/projektanker/icons.avalonia"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="1584" d:DesignHeight="4000"
+             Background="#111111"
+             x:CompileBindings="False"
+             Loaded="Home_OnLoaded" Unloaded="Control_OnUnloaded">
+    <UserControl.Resources>
+        <local:WidthToFontSizeConverter x:Key="WidthToFontSizeConverter"/>
+        <local:MainOverviewWidthConverter x:Key="MainOverviewWidthConverter"/>
+        <local:TruncateMainMovieNameTextConverter x:Key="TruncateMainMovieNameTextConverter" MaxLength="90" />
+        <local:TruncateMainMovieOverViewTextConverter x:Key="TruncateMainMovieOverViewTextConverter" MaxLength="600" />
+        <local:MainMovieNameWidthToPercentageConverter x:Key="MainMovieNameWidthToPercentageConverter" />
+    </UserControl.Resources>
+    
+<UserControl.Styles>
+        <!-- Responsive styles -->
+        <Style Selector="TextBlock.responsive-header">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        
+        <!-- Style for small screens will be applied programmatically -->
+        <Style Selector="TextBlock.responsive-header-small">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        
+        <!-- Movie card styles for different sizes -->
+        <Style Selector="Border.movie-card">
+            <Setter Property="Height" Value="375" />
+            <Setter Property="Width" Value="250" />
+        </Style>
+        
+        <Style Selector="Border.movie-card-medium">
+            <Setter Property="Height" Value="270" />
+            <Setter Property="Width" Value="180" />
+        </Style>
+        
+        <Style Selector="Border.movie-card-small">
+            <Setter Property="Height" Value="210" />
+            <Setter Property="Width" Value="140" />
+        </Style>
+        
+        <!-- Movie title text responsive -->
+        <Style Selector="TextBlock.movie-title">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="MaxWidth" Value="200" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title-medium">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="MaxWidth" Value="180" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title-small">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="MaxWidth" Value="140" />
+        </Style>
+    </UserControl.Styles>
+    <dialogHostAvalonia:DialogHost x:Name="DialogHost" IsOpen="False">
+        <dialogHostAvalonia:DialogHost.DialogContent>
+            
+            <StackPanel Margin="15">
+                <TextBlock FontSize="18" HorizontalAlignment="Center" x:Name="TextBlockDialogText"  FontFamily="{StaticResource GothamRegular}"   Margin="10" Text="{DynamicResource WhatIsYourRating}" />
+                <controls:RatingBar MaxStars="10" Margin="0 10 0 0" HorizontalAlignment="Center" 
+                                          x:Name="SetRating"
+                                          FontSize="22"
+                                          IsReadOnly="False"
+                />
+                <StackPanel Margin="0 25 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Click="BtnCloseDialog_OnPreviewMouseLeftButtonDown" Margin="0 0 10 0" Name="BtnCloseDialog" Content="{DynamicResource Cancel}" />
+                    <Button Click="BtnConfirm_OnPreviewMouseLeftButtonDown"  Margin="0 0 10 0" Name="BtnConfirm" Content="{DynamicResource Confirm}" />
+                    <Button Click="BtnRemoveRating_OnPreviewMouseLeftButtonDown"  IsVisible="False"  Margin="0" Name="BtnRemoveRating" Content="{DynamicResource RemoveRate}" />
+                </StackPanel>
+   
+            </StackPanel>
+        </dialogHostAvalonia:DialogHost.DialogContent>
+         <Grid>
+        <ScrollViewer ScrollChanged="ScrollViewer_OnScrollChanged" Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="GridSide" VerticalAlignment="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="200"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <controls:MainMovieTvShow x:Name="MainMovieTvShow" Grid.Row="0" Grid.Column="0" FromMovieDetailsPage="True" />
+
+                <Grid x:Name="MainMovieTvShowBackup" Grid.Row="0" Grid.Column="0" IsVisible="False">
+                </Grid>
+
+                <!-- VLC Control will need an Avalonia equivalent -->
+                <avalonia:VideoView Grid.Row="0" Grid.Column="0" IsVisible="False" x:Name="TrailerPlayer">
+                    
+                </avalonia:VideoView>
+                
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid x:Name="MenuGrid" Grid.Row="0" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Loaded="MenuTorrents_OnLoaded"  Grid.Column="8" x:Name="MenuTorrents" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal" 
+                                     PointerPressed="MenuTorrents_OnPreviewMouseLeftButtonDown" Cursor="Hand" Text="{DynamicResource TorrentsString}" Foreground="#414141"></TextBlock>
+                            <TextBlock VerticalAlignment="Top" Grid.Column="0" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal" 
+                                     PointerPressed="MenuOverview_OnPreviewMouseLeftButtonDown" x:Name="MenuOverview" Foreground="White" Cursor="Hand" Text="{DynamicResource OverviewString}"></TextBlock>
+                            <Rectangle x:Name="MenuBottomLine" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Fill="White"></Rectangle>
+                            <TextBlock  Grid.Column="2" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal" 
+                                     PointerPressed="MenuVideo_OnPreviewMouseLeftButtonDown" x:Name="MenuVideo" Foreground="#414141" Cursor="Hand" Text="{DynamicResource VideoString}"></TextBlock>
+                            <TextBlock  Grid.Column="4" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal" 
+                                     PointerPressed="MenuPhotos_OnPreviewMouseLeftButtonDown" x:Name="MenuPhotos" Foreground="#414141" Cursor="Hand" Text="{DynamicResource PhotosString}"></TextBlock>
+                            <TextBlock  Grid.Column="6" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal" 
+                                     PointerPressed="MenuComments_OnPreviewMouseLeftButtonDown" x:Name="MenuComments" Foreground="#414141" Cursor="Hand" Text="{DynamicResource CommentsString}"></TextBlock>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.04*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.04*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <ContentControl HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" Width="NaN" BorderThickness="0" x:Name="MovieDetailsNavigation" Grid.Column="1" Grid.Row="1">
+                            <i:Interaction.Behaviors>
+                                <local:IgnoreMouseWheelBehavior />
+                            </i:Interaction.Behaviors>
+                        </ContentControl>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="2" Height="NaN">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.02*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.03*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"></RowDefinition>
+                        <RowDefinition Height="0.11*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="TextBlockCast" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="20 40 0 0" 
+                             FontSize="24" Text="{DynamicResource CastString}" Foreground="White" FontFamily="{StaticResource GothamRegular}"></TextBlock>
+
+                    <controls:HorizontalCastItemsControl Margin="0 0 0 0" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="CastDisplay"  
+                                                         ItemsSource="{Binding Casts}" />
+                </Grid>
+
+                <Grid Grid.Row="3" Height="NaN">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.02*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.03*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"></RowDefinition>
+                        <RowDefinition Height="0.11*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="TextBlockSimilar" Grid.Row="1" Grid.Column="1" Margin="20 40 0 0" HorizontalAlignment="Left"
+                             FontSize="24" Text="{DynamicResource MoreLikeThisString}" Foreground="White" FontFamily="{StaticResource GothamRegular}"></TextBlock>
+
+                    <controls:HorizontalMovieItemsControl IsSimilarMovies="True" Grid.Column="1" Grid.ColumnSpan="3"
+                                                          Grid.Row="2"
+                                                          x:Name="SimilarMoviesDisplay"
+                                                          ItemsSource="{Binding Similars}"
+                                                          IsMovie="True" />
+                    <!-- <ScrollViewer Margin="7 0 0 0" Grid.Column="1" Grid.ColumnSpan="2" -->
+                    <!--               Grid.Row="2" -->
+                    <!--               Grid.RowSpan="2" -->
+                    <!--               ScrollChanged="SimilarMoviesDisplay_OnScrollChanged" -->
+                    <!--               HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" -->
+                    <!--               Background="Transparent" x:Name="SimilarMoviesDisplayScrollViewer" > -->
+                    <!--     <i:Interaction.Behaviors> -->
+                    <!--         <local:IgnoreMouseWheelBehavior /> -->
+                    <!--     </i:Interaction.Behaviors> -->
+                    <!--     <ItemsControl ItemsSource="{Binding Similars}" Grid.Row="2" x:Name="SimilarMoviesDisplay"> -->
+                    <!--    -->
+                    <!--     <ItemsControl.ItemTemplate> -->
+                    <!--         <DataTemplate x:DataType="local:Movie"> -->
+                    <!--             <StackPanel x:Name="SimilarMovieStackPanel" PointerPressed="SimilarMovieStackPanel_OnPointerPressed" Cursor="Hand" Margin="10 10 7 0" Orientation="Vertical"> -->
+                    <!--                 <Border x:Name="MovieCardBorder" BorderBrush="#1F2021"  -->
+                    <!--                         VerticalAlignment="Top"  -->
+                    <!--                         Height="375"  -->
+                    <!--                         Width="250"  -->
+                    <!--                         HorizontalAlignment="Left" -->
+                    <!--                         BorderThickness="5" -->
+                    <!--                 > -->
+                    <!--                     <Border.Styles> -->
+                    <!--                         <Style Selector="Border:pointerover"> -->
+                    <!--                             <Setter Property="ZIndex" Value="1000"/> -->
+                    <!--                             <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/> -->
+                    <!--                         </Style> -->
+                    <!--                         <Style Selector="Border:not(:pointerover)"> -->
+                    <!--                             <Setter Property="ZIndex" Value="0"/> -->
+                    <!--                             <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/> -->
+                    <!--                         </Style> -->
+                    <!--                     </Border.Styles> -->
+                    <!--                     <Border.Transitions> -->
+                    <!--                         <Transitions> -->
+                    <!--                             <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/> -->
+                    <!--                             <IntegerTransition Property="ZIndex" Duration="0:0:0"/> -->
+                    <!--                         </Transitions> -->
+                    <!--                     </Border.Transitions> -->
+                    <!--                     <local:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/> -->
+                    <!--                 </Border> -->
+                    <!-- -->
+                    <!--                 <TextBlock x:Name="MovieTitle" VerticalAlignment="Top" Margin="0 20 0 0" FontSize="18" MaxWidth="200" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Name}" FontWeight="Light" FontFamily="{StaticResource GothamLight}" Foreground="White"></TextBlock> -->
+                    <!--                 <StackPanel Margin="-5 1 0 0" Orientation="Horizontal"> -->
+                    <!--                     <controls:RatingBar x:Name="MovieRating" IsReadOnly="True"  -->
+                    <!--                                         HorizontalAlignment="Center"  -->
+                    <!--                                         StarSize="25"  -->
+                    <!--                                         Spacing="3" -->
+                    <!--                                         Rating="{Binding Rating}" /> -->
+                    <!--                     <TextBlock x:Name="RatingText" FontWeight="Light" FontFamily="{StaticResource GothamLight}" FontSize="15" Margin="15 3.5 0 0" HorizontalAlignment="Left" Text="{Binding RatingNumber}" Foreground="#767676"></TextBlock> -->
+                    <!--                 </StackPanel> -->
+                    <!--             </StackPanel> -->
+                    <!--         </DataTemplate> -->
+                    <!--     </ItemsControl.ItemTemplate> -->
+                    <!--     <ItemsControl.ItemsPanel> -->
+                    <!--         <ItemsPanelTemplate> -->
+                    <!--             <StackPanel Orientation="Horizontal" /> -->
+                    <!--         </ItemsPanelTemplate> -->
+                    <!--     </ItemsControl.ItemsPanel> -->
+                    <!-- </ItemsControl> -->
+                    <!-- </ScrollViewer> -->
+                    
+
+                    <!-- <Button Click="SimilarMoviesScrollRightButton_OnPreviewMouseLeftButtonDown" -->
+                    <!--       x:Name="SimilarMoviesScrollRightButton" Margin="0 10 5 0" BorderBrush="Transparent" Padding="0" -->
+                    <!--       Background="Transparent" Grid.Row="3" Grid.Column="2" Width="40" Height="375" -->
+                    <!--       VerticalAlignment="Top" HorizontalAlignment="Right"> -->
+                    <!--     <material:MaterialIcon Width="40" Opacity="1" Height="40" Foreground="White" Kind="ChevronRight" /> -->
+                    <!-- </Button> -->
+                    <!-- <Button Margin="-20 10 0 0" Click="SimilarMoviesScrollLeftButton_OnPreviewMouseLeftButtonDown" -->
+                    <!--       x:Name="SimilarMoviesScrollLeftButton" Padding="0" BorderBrush="Transparent" Background="Transparent" -->
+                    <!--       Grid.Row="3" Grid.Column="1" Width="40" Height="375" HorizontalAlignment="Left" VerticalAlignment="Top"> -->
+                    <!--     <material:MaterialIcon Opacity="0.4" Width="40" Height="40" Foreground="White" Kind="ChevronLeft" /> -->
+                    <!-- </Button> -->
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+  </Grid>
+      </dialogHostAvalonia:DialogHost>
+   
+</UserControl> 

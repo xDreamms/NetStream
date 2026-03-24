@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:netStream="clr-namespace:NetStream"
+             x:Class="NetStream.Views.DubbingManagerWindow"
+             Background="Transparent" x:CompileBindings="False">
+
+    <Grid Background="#111111">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="AI Dubbing Manager" Foreground="White" FontSize="24" FontWeight="Bold" Margin="20" HorizontalAlignment="Center"/>
+
+        <!-- Content -->
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="40">
+            
+            <TextBlock x:Name="StatusText" Text="Ready to start..." Foreground="White" FontSize="18" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+            
+            <ProgressBar x:Name="DubbingProgressBar" Minimum="0" Maximum="100" Value="0" Height="20" Width="400" Foreground="#E50914" Background="#333333"/>
+            
+            <TextBlock x:Name="ProgressText" Text="0%" Foreground="#B3B3B3" FontSize="14" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+
+        </StackPanel>
+
+        <!-- Footer / Actions -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,30">
+            <Button x:Name="StartButton" Content="Start Dubbing" Click="StartButton_OnClick" Background="#E50914" Foreground="White" Padding="20,10" Margin="10" Cursor="Hand"/>
+            <Button x:Name="CancelButton" Content="Cancel" Click="CancelButton_OnClick" Background="#333333" Foreground="White" Padding="20,10" Margin="10" Cursor="Hand"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

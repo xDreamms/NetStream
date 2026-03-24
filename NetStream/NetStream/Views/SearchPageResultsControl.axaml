@@ -1,0 +1,245 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream"
+             xmlns:controls="clr-namespace:NetStream.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="1500" d:DesignWidth="1584"
+             x:Class="NetStream.SearchPageResultsControl"
+             Loaded="SearchPageResults_OnLoaded" Unloaded="SearchPageResults_OnUnloaded" x:CompileBindings="False">
+ <UserControl.Styles>
+        <!-- Responsive styles -->
+        <Style Selector="TextBlock.responsive-header">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        
+        <!-- Style for small screens will be applied programmatically -->
+        <Style Selector="TextBlock.responsive-header-small">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        
+        <!-- Movie card styles for different sizes -->
+        <Style Selector="Border.movie-card">
+            <Setter Property="Height" Value="375" />
+            <Setter Property="Width" Value="250" />
+        </Style>
+        
+        <Style Selector="Border.movie-card-medium">
+            <Setter Property="Height" Value="270" />
+            <Setter Property="Width" Value="180" />
+        </Style>
+        
+        <Style Selector="Border.movie-card-small">
+            <Setter Property="Height" Value="210" />
+            <Setter Property="Width" Value="140" />
+        </Style>
+        
+        <!-- Movie title text responsive -->
+        <Style Selector="TextBlock.movie-title">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="MaxWidth" Value="200" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title-medium">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="MaxWidth" Value="180" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title-small">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="MaxWidth" Value="140" />
+        </Style>
+    </UserControl.Styles>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.01*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.07*"/>
+            <RowDefinition Height="0.03*"/>
+            <RowDefinition Height="0.02*"/>
+            <RowDefinition Height="0.04*"/>
+            <RowDefinition Height="0.03*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Name="SearchKeyText" 
+                  Grid.Row="0" Grid.Column="1" 
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Center"
+                  Margin="0,0,0,0"
+                  MaxWidth="600"
+                  FontSize="18"
+                  TextWrapping="Wrap"
+                  Text="{Binding SearchKey}" 
+                  PropertyChanged="FrameworkElement_OnPropertyChanged" 
+                  Foreground="White"/>
+        
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.3*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1" x:Name="TabsPanel">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Viewbox Grid.Column="0" Margin="8,0,8,0">
+                    <TextBlock x:Name="MoviesTab" Cursor="Hand" Text="{DynamicResource MoviesString}" 
+                             Foreground="White" PointerPressed="MoviesTab_OnPreviewMouseLeftButtonDown"
+                             Margin="15,0,15,0"/>
+                </Viewbox>
+                
+                <Rectangle x:Name="MenuLine" Grid.Column="0" Height="3" Fill="White" VerticalAlignment="Bottom"/>
+                
+                <Viewbox Grid.Column="1" Margin="8,0,8,0">
+                    <TextBlock x:Name="TvShowsTab" Cursor="Hand" Text="{DynamicResource TvShowsString}" 
+                             Foreground="#414141" PointerPressed="TvShowsTab_OnPreviewMouseLeftButtonDown"
+                             Margin="15,0,15,0"/>
+                </Viewbox>
+                
+                <Viewbox Grid.Column="2" Margin="8,0,8,0">
+                    <TextBlock x:Name="PersonsTab" Cursor="Hand" Text="{DynamicResource PersonsString}" 
+                             Foreground="#414141" PointerPressed="PersonsTab_OnPreviewMouseLeftButtonDown"
+                             Margin="15,0,15,0"/>
+                </Viewbox>
+            </Grid>
+        </Grid>
+        
+        <Viewbox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
+            <TextBlock x:Name="ItemCountText" Text="" Foreground="#888888"/>
+        </Viewbox>
+
+        <ScrollViewer x:Name="SearchedMoviesTvShowsDisplayScroll" 
+                      Margin="-10 -10 0 0" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent"
+                      Grid.Row="5" Grid.Column="1" 
+                      ScrollViewer.ScrollChanged="MoviesDisplay_OnScrollChanged">
+            <ItemsControl x:Name="SearchedMoviesTvShowsDisplay" >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="local:Movie">
+                    <StackPanel PointerPressed="InputElement_OnPointerPressed" Cursor="Hand" Margin="10 10 0 0" Orientation="Vertical">
+                        <Border x:Name="MovieBorder" BorderBrush="#1F2021" 
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Left"
+                                BorderThickness="5"
+                        >
+                            <Border.Styles>
+                                <Style Selector="Border:pointerover">
+                                    <Setter Property="ZIndex" Value="1000"/>
+                                    <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                </Style>
+                                <Style Selector="Border:not(:pointerover)">
+                                    <Setter Property="ZIndex" Value="0"/>
+                                    <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                </Style>
+                            </Border.Styles>
+                            <Border.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                    <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                </Transitions>
+                            </Border.Transitions>
+                            <local:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                        </Border>
+
+
+                        <TextBlock x:Name="MovieTitle" FontWeight="Light" 
+                                   FontFamily="{StaticResource GothamLight}" 
+                                   VerticalAlignment="Top" 
+                                   Margin="0 20 0 0" 
+                                   HorizontalAlignment="Left" 
+                                   TextWrapping="Wrap" 
+                                   Text="{Binding Name}" 
+                                   Foreground="White" />
+
+
+                        <StackPanel Margin="-5 1 0 0" Orientation="Horizontal">
+                            <controls:RatingBar x:Name="MovieRating" HorizontalAlignment="Left"
+                                                IsReadOnly="True"
+                                                Rating="{Binding Rating}" />
+
+                            <TextBlock x:Name="RatingText" FontWeight="Light" 
+                                       FontFamily="{StaticResource GothamLight}" 
+                                       Margin="15 3.5 0 0" 
+                                       HorizontalAlignment="Left" 
+                                       Text="{Binding RatingNumber}" 
+                                       Foreground="#767676" />
+                        </StackPanel>
+
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"></WrapPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        </ScrollViewer>
+        
+
+        <ScrollViewer x:Name="SearchedCastsDisplayScrollViewer"
+                      Margin="-10 -10 0 0" IsVisible="False" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                      HorizontalScrollBarVisibility="Disabled" Background="Transparent"
+                      Grid.Row="5" Grid.Column="1" 
+                      ScrollChanged="SearchedCastsDisplay_OnScrollChanged">
+              <ItemsRepeater x:Name="SearchedCastsDisplay" >
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate x:DataType="local:Cast">
+                    <StackPanel PointerPressed="CastDisplayItemOnPressed" Orientation="Vertical" Cursor="Hand" Margin="10 10 0 0">
+                        <Border x:Name="CastBorder" BorderBrush="#1F2021" 
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Left"
+                                BorderThickness="5"
+                        >
+                            <Border.Styles>
+                                <Style Selector="Border:pointerover">
+                                    <Setter Property="ZIndex" Value="1000"/>
+                                    <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                </Style>
+                                <Style Selector="Border:not(:pointerover)">
+                                    <Setter Property="ZIndex" Value="0"/>
+                                    <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                </Style>
+                            </Border.Styles>
+                            <Border.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                    <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                </Transitions>
+                            </Border.Transitions>
+                            <local:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                        </Border>
+
+                        <TextBlock x:Name="CastName" FontWeight="Light" Margin="0 17 0 0" 
+                                   HorizontalAlignment="Left" TextWrapping="Wrap" 
+                                   Text="{Binding Name}" Foreground="White"/>
+
+                        <TextBlock x:Name="CastRole" FontWeight="Light" Margin="0 0 0 0" 
+                                   HorizontalAlignment="Left" TextWrapping="Wrap" 
+                                   Text="{Binding Role}" Foreground="#888888"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+            <ItemsRepeater.Layout>
+                    <UniformGridLayout Orientation="Horizontal" />
+            </ItemsRepeater.Layout>
+        </ItemsRepeater>
+        </ScrollViewer>
+      
+    </Grid>
+</UserControl> 

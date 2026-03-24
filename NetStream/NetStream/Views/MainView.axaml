@@ -1,0 +1,351 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:NetStream.ViewModels"
+             xmlns:icons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             xmlns:views="clr-namespace:NetStream.Views"
+             mc:Ignorable="d" d:DesignWidth="1584" d:DesignHeight="1500"
+             x:Class="NetStream.Views.MainView"
+             x:DataType="vm:MainViewModel"
+             Background="#111111"
+             x:CompileBindings="False"
+             Loaded="MainView_OnLoaded"
+             Unloaded="Control_OnUnloaded">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+  <UserControl.Styles>
+    <!-- Mobile navigation button styles - smaller for bottom bar -->
+    <Style Selector="Viewbox.mobile-nav-icon">
+      <Setter Property="MaxHeight" Value="24" />
+      <Setter Property="MaxWidth" Value="24" />
+    </Style>
+    
+    <!-- Mobile navigation text style -->
+    <Style Selector="TextBlock.mobile-nav-text">
+      <Setter Property="FontSize" Value="10" />
+      <Setter Property="HorizontalAlignment" Value="Center" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="Margin" Value="0,2,0,0" />
+    </Style>
+  </UserControl.Styles>
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    
+    <!-- Main content area that's always visible -->
+    <ContentControl x:Name="MainContentControl" Grid.Column="1" Grid.ColumnSpan="1"
+                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    </ContentControl>
+
+    <!-- Image Viewer Overlay (full-screen, above all content) -->
+    <views:ImageViewerOverlay x:Name="ImageViewerOverlay" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+    <!-- Desktop navigation (left side) -->
+    <Grid x:Name="DesktopNavigation" Grid.Column="0" Width="60" Background="#000000" IsVisible="{Binding IsDesktopMode}">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="0.18*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="0.18*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="0.18*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="0.18*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="0.18*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="0.18*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="0.18*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="0.18*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="0.18*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="0.18*"></RowDefinition>
+        <RowDefinition Height="0.12*"></RowDefinition>
+        <RowDefinition Height="*"></RowDefinition>
+      </Grid.RowDefinitions>
+
+      <!-- Back Button -->
+      <Border Grid.Row="1" Background="Transparent" Cursor="Hand" 
+            Name="ButtonBack"
+            PointerEntered="PointerEnteredOnNavigationButton" 
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="fa-light fa-arrow-left"  Foreground="White" />
+        </Viewbox>
+      </Border>
+
+      <!-- Home Button -->
+      <Border Grid.Row="3" Background="Transparent" Cursor="Hand" 
+            Name="ButtonHome"
+            PointerEntered="PointerEnteredOnNavigationButton" 
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="{Binding HomeIconValue}"  Foreground="{Binding HomeIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- Movie Button -->
+      <Border Grid.Row="5" Background="Transparent" Cursor="Hand" 
+            Name="ButtonMovie"
+            PointerEntered="PointerEnteredOnNavigationButton" 
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="{Binding MoviesIconValue}"  Foreground="{Binding MoviesIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- TV Series Button -->
+      <Border Grid.Row="7" Background="Transparent" Cursor="Hand" 
+            Name="ButtonTvShow"
+            PointerEntered="PointerEnteredOnNavigationButton" 
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="{Binding TvShowsIconValue}"  Foreground="{Binding TvShowsIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- Search Button -->
+      <Border Grid.Row="9" Background="Transparent" Cursor="Hand" 
+            Name="ButtonSearch"
+            PointerEntered="PointerEnteredOnNavigationButton" 
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="{Binding SearchIconValue}"  Foreground="{Binding SearchIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- Discover Button -->
+      <Border Grid.Row="11" Background="Transparent" Cursor="Hand" 
+            Name="ButtonDiscover"
+            PointerEntered="PointerEnteredOnNavigationButton" 
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="{Binding DiscoverIconValue}"  Foreground="{Binding DiscoverIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- Recommendations Button -->
+      <Border Grid.Row="13" Background="Transparent" Cursor="Hand"
+            Name="ButtonRecommendations"
+            PointerEntered="PointerEnteredOnNavigationButton"
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="{Binding RecommendationsIconValue}"  Foreground="{Binding RecommendationsIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- Download Button -->
+      <Border Grid.Row="15" Background="Transparent" Cursor="Hand"
+            Name="ButtonDownload"
+            PointerEntered="PointerEnteredOnNavigationButton" 
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="{Binding DownloadIconValue}"  Foreground="{Binding DownloadIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- Watch History Button -->
+      <Border Grid.Row="17" Background="Transparent" Cursor="Hand"
+            Name="ButtonWatchHistory"
+            PointerEntered="PointerEnteredOnNavigationButton" 
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="{Binding WatchHistoryIconValue}"  Foreground="{Binding WatchHistoryIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- Profile Button -->
+      <Border Grid.Row="19" Background="Transparent" Cursor="Hand"
+            Name="ButtonAccount"
+            PointerEntered="PointerEnteredOnNavigationButton" 
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="{Binding AccountIconValue}"  Foreground="{Binding AccountIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- Settings Button -->
+      <Border Grid.Row="21" Background="Transparent" Cursor="Hand"
+            Name="ButtonSettings"
+            PointerEntered="PointerEnteredOnNavigationButton" 
+            PointerExited="PointerExitedOnNavigationButton"
+            Tapped="NavigationButtonTapped"
+            HorizontalAlignment="Center">
+        <Viewbox MaxHeight="32" MaxWidth="32" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="{Binding SettingsIconValue}"  FontWeight="Light"  Foreground="{Binding SettingsIconColor}" />
+        </Viewbox>
+      </Border>
+      
+      <!-- Border Line -->
+      <Border Grid.Row="0" Grid.RowSpan="23" HorizontalAlignment="Right" BorderBrush="#111111" BorderThickness="0,0,1,0" />
+    </Grid>
+
+    <!-- Mobile navigation (bottom bar) -->
+    <Grid x:Name="MobileNavigation" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Height="60" Background="#000000" IsVisible="{Binding IsMobileMode}">
+      <Grid.ColumnDefinitions>
+        <!-- Equal width columns for all navigation items -->
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <!-- Home Button -->
+      <Border Grid.Column="0" Background="Transparent" Cursor="Hand" 
+            Name="MobileButtonHome"
+            Tapped="NavigationButtonTapped"
+            VerticalAlignment="Center">
+        <Viewbox Classes="mobile-nav-icon" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="fa-house" Foreground="{Binding HomeIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- Movie Button -->
+      <Border Grid.Column="1" Background="Transparent" Cursor="Hand" 
+            Name="MobileButtonMovie"
+            Tapped="NavigationButtonTapped"
+            VerticalAlignment="Center">
+        <Viewbox Classes="mobile-nav-icon" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="fa-light fa-film" Foreground="{Binding MoviesIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- TV Show Button -->
+      <Border Grid.Column="2" Background="Transparent" Cursor="Hand" 
+            Name="MobileButtonTvShow"
+            Tapped="NavigationButtonTapped"
+            VerticalAlignment="Center">
+        <Viewbox Classes="mobile-nav-icon" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="fa-light fa-tv" Foreground="{Binding TvShowsIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- Search Button -->
+      <Border Grid.Column="3" Background="Transparent" Cursor="Hand" 
+            Name="MobileButtonSearch"
+            Tapped="NavigationButtonTapped"
+            VerticalAlignment="Center">
+        <Viewbox Classes="mobile-nav-icon" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="fa-light fa-magnifying-glass" Foreground="{Binding SearchIconColor}" />
+        </Viewbox>
+      </Border>
+
+      <!-- More Button - Shows menu with additional options -->
+      <Border Grid.Column="4" Background="Transparent" Cursor="Hand" 
+            Name="MobileButtonMore"
+            Tapped="MobileButtonMore_OnTapped"
+            VerticalAlignment="Center">
+        <Viewbox Classes="mobile-nav-icon" Stretch="Uniform" HorizontalAlignment="Center">
+          <avalonia:Icon Value="fa-light fa-ellipsis" Foreground="White" />
+        </Viewbox>
+      </Border>
+    </Grid>
+    
+    <!-- Popup Menu for More Options (Mobile) -->
+    <Popup Name="MobileMoreMenu" IsOpen="False" Placement="Bottom" PlacementTarget="{Binding #MobileButtonMore}">
+      <Border Background="#111111" CornerRadius="8" Padding="0" BorderBrush="#333333" BorderThickness="1">
+        <StackPanel Width="200">
+          <!-- Discover Button -->
+          <Button Name="PopupButtonDiscover" Background="Transparent" Padding="16,12" HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left" Tapped="NavigationButtonTapped">
+            <StackPanel Orientation="Horizontal">
+              <Viewbox MaxHeight="24" MaxWidth="24" Margin="0,0,12,0">
+                <avalonia:Icon Value="fa-light fa-compass" Foreground="White" />
+              </Viewbox>
+              <TextBlock Text="Discover" VerticalAlignment="Center" Foreground="White" />
+            </StackPanel>
+          </Button>
+          
+          <!-- Recommendations Button -->
+          <Button Name="PopupButtonRecommendations" Background="Transparent" Padding="16,12" HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left" Tapped="NavigationButtonTapped">
+            <StackPanel Orientation="Horizontal">
+              <Viewbox MaxHeight="24" MaxWidth="24" Margin="0,0,12,0">
+                <avalonia:Icon Value="fa-light fa-wand-magic-sparkles" Foreground="White" />
+              </Viewbox>
+              <TextBlock Text="Recommendations" VerticalAlignment="Center" Foreground="White" />
+            </StackPanel>
+          </Button>
+
+          <!-- Download Button -->
+          <Button Name="PopupButtonDownload" Background="Transparent" Padding="16,12" HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left" Tapped="NavigationButtonTapped">
+            <StackPanel Orientation="Horizontal">
+              <Viewbox MaxHeight="24" MaxWidth="24" Margin="0,0,12,0">
+                <avalonia:Icon Value="fa-light fa-download" Foreground="White" />
+              </Viewbox>
+              <TextBlock Text="Downloads" VerticalAlignment="Center" Foreground="White" />
+            </StackPanel>
+          </Button>
+          
+          <!-- Watch History Button -->
+          <Button Name="PopupButtonWatchHistory" Background="Transparent" Padding="16,12" HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left" Tapped="NavigationButtonTapped">
+            <StackPanel Orientation="Horizontal">
+              <Viewbox MaxHeight="24" MaxWidth="24" Margin="0,0,12,0">
+                <avalonia:Icon Value="fa-light fa-eye" Foreground="White" />
+              </Viewbox>
+              <TextBlock Text="Watch History" VerticalAlignment="Center" Foreground="White" />
+            </StackPanel>
+          </Button>
+          
+          <!-- Account Button -->
+          <Button Name="PopupButtonAccount" Background="Transparent" Padding="16,12" HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left" Tapped="NavigationButtonTapped">
+            <StackPanel Orientation="Horizontal">
+              <Viewbox MaxHeight="24" MaxWidth="24" Margin="0,0,12,0">
+                <avalonia:Icon Value="fa-light fa-user" Foreground="White" />
+              </Viewbox>
+              <TextBlock Text="Account" VerticalAlignment="Center" Foreground="White" />
+            </StackPanel>
+          </Button>
+          
+          <!-- Settings Button -->
+          <Button Name="PopupButtonSettings" Background="Transparent" Padding="16,12" HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left" Tapped="NavigationButtonTapped">
+            <StackPanel Orientation="Horizontal">
+              <Viewbox MaxHeight="24" MaxWidth="24" Margin="0,0,12,0">
+                <avalonia:Icon Value="fa-gear" FontWeight="Light" Foreground="White" />
+              </Viewbox>
+              <TextBlock Text="Settings" VerticalAlignment="Center" Foreground="White" />
+            </StackPanel>
+          </Button>
+        </StackPanel>
+      </Border>
+    </Popup>
+  </Grid>
+</UserControl>

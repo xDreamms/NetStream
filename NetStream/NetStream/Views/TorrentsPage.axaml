@@ -1,0 +1,137 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:material="using:Material.Icons.Avalonia"
+             xmlns:netStream="clr-namespace:NetStream"
+             xmlns:suki="https://github.com/kikipoulet/SukiUI"
+             xmlns:global="clr-namespace:"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Background="#111111"
+             x:Class="NetStream.Views.TorrentsPage"
+             x:Name="TorrentsPageControl"
+             Loaded="TorrentsPage_OnLoaded"
+             Unloaded="TorrentsPage_OnUnloaded"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             Width="NaN"
+             Height="NaN"
+             x:CompileBindings="False">
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.07*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10 0 10 0" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="0 20 0 20" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock FontSize="28" Foreground="White" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource Torrents}"/>
+                <TextBlock FontFamily="{StaticResource GothamRegular}" Margin="5 12 0 0" x:Name="TorrentCount" Foreground="#888888" Text=""/>
+            </StackPanel>
+            <ComboBox FontFamily="{StaticResource GothamRegular}" Width="230" HorizontalAlignment="Right" Foreground="White" 
+                      x:Name="SortByComboBox" Grid.Column="2"
+                       PlaceholderText="{DynamicResource SortString}" SelectionChanged="SortByComboBox_OnSelectionChanged">
+            </ComboBox>
+        </Grid>
+
+        <StackPanel x:Name="SearchingPanel" Orientation="Vertical" Grid.Row="1" VerticalAlignment="Center">
+            <ProgressBar Classes="circular" IsIndeterminate="True" Foreground="White" Height="100" Width="100"/>
+            <TextBlock Margin="0 30 0 0" Text="{DynamicResource Searching}" Foreground="White" HorizontalAlignment="Center" FontSize="24"/>
+        </StackPanel>
+        
+        <ListBox Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                 Background="Transparent" 
+                 x:Name="TorrentsDisplay"
+                 SelectionChanged="TorrentsDisplay_OnSelectionChanged"
+                 ScrollViewer.ScrollChanged="TorrentsDisplay_OnScrollChanged">
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                    <Setter Property="Template">
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <ContentPresenter Name="PART_ContentPresenter"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            Content="{TemplateBinding Content}"
+                                            HorizontalContentAlignment="Left"
+                                            VerticalContentAlignment="Top"/>
+                        </ControlTemplate>
+                    </Setter>
+                </Style>
+                
+                <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+                
+                <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+            </ListBox.Styles>
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="netStream:Item">
+                    <StackPanel Orientation="Horizontal" Cursor="Hand" Margin="10 5 20 30">
+                        <Border BorderBrush="#1F2021" 
+                                VerticalAlignment="Top" 
+                                MaxHeight="275"
+                                MaxWidth="300"
+                                HorizontalAlignment="Left"
+                                BorderThickness="5"
+                        >
+                            <Border.Styles>
+                                <Style Selector="Border:pointerover">
+                                    <Setter Property="ZIndex" Value="1000"/>
+                                    <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                </Style>
+                                <Style Selector="Border:not(:pointerover)">
+                                    <Setter Property="ZIndex" Value="0"/>
+                                    <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                </Style>
+                            </Border.Styles>
+                            <Border.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                    <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                </Transitions>
+                            </Border.Transitions>
+                            <netStream:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                        </Border>
+
+                        <StackPanel Margin="0 20 0 0" Orientation="Vertical">
+                            <TextBlock Foreground="White" FontWeight="Normal" FontFamily="{StaticResource GothamRegular}" 
+                                     FontSize="20" Margin="20 0 0 0" Width="700" 
+                                     TextWrapping="Wrap" Text="{Binding Title}"/>
+                            <TextBlock Foreground="White" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" 
+                                     FontSize="15" HorizontalAlignment="Left" Margin="20 10 0 0" 
+                                     Text="{Binding PublishDate}"/>
+                            <TextBlock Foreground= "White" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" 
+                                     FontSize="15" HorizontalAlignment="Left" Margin="20 5 0 0" 
+                                     Text="{Binding SizeProperty}"/>
+                            <TextBlock Foreground= "White" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" 
+                                       FontSize="15" HorizontalAlignment="Left" Margin="20 5 0 0" 
+                                       Text="{Binding SeedersProperty}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl> 

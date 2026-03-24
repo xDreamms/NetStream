@@ -1,0 +1,138 @@
+﻿<UserControl x:Class="NetStream.Views.MovieDetailsVideoPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream"
+             mc:Ignorable="d" Width="NaN" Height="NaN"
+             x:CompileBindings="False"
+             Loaded="MovieDetailsVideoPage_OnLoaded" 
+             Unloaded="Control_OnUnloaded" 
+             >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header section -->
+        <Grid Grid.Row="0" Margin="0 30 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Viewbox HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1">
+            <TextBlock Text="" FontWeight="Medium" 
+                       FontFamily="{StaticResource GothamRegular}" x:Name="VideosCount" Foreground="#888888" 
+                       />
+            </Viewbox>
+        </Grid>
+        
+        <ScrollViewer Grid.Row="2" 
+                      VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Disabled">
+            <ListBox Margin="0"
+                     Background="Transparent" 
+                     x:Name="VideosDisplay"
+                     ItemsSource="{Binding VideoDetails}"
+                     SelectionChanged="VideosDisplay_OnSelectionChanged"
+                     >
+                
+                <ListBox.Styles>
+                    <Style Selector="ListBoxItem">
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                        <Setter Property="Template">
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter Name="PART_ContentPresenter"
+                                         ContentTemplate="{TemplateBinding ContentTemplate}"
+                                         Content="{TemplateBinding Content}"
+                                         HorizontalContentAlignment="Stretch"
+                                         VerticalContentAlignment="Top" />
+                            </ControlTemplate>
+                        </Setter>
+                    </Style>
+                    
+                    <!-- Hover efektini devre dışı bırak -->
+                    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                    
+                    <!-- Seçili durumdaki efekti de kaldır -->
+                    <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                </ListBox.Styles>
+                
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" x:Name="VideoItemsPanel"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                
+                <ListBox.ItemTemplate>
+                    <DataTemplate DataType="local:VideoDetail" >
+                        <StackPanel Cursor="Hand" Margin="10" Orientation="Vertical">
+                            <Border x:Name="VideoBorder"
+                                    BorderBrush="#1F2021" 
+                                    VerticalAlignment="Top"
+                                    MinHeight="180"
+                                    MinWidth="240"
+                                    MaxHeight="270"
+                                    MaxWidth="360"
+                                    HorizontalAlignment="Center"
+                                    BorderThickness="5"
+                                  >
+                                <Border.Styles>
+                                    <Style Selector="Border:pointerover">
+                                        <Setter Property="ZIndex" Value="1000"/>
+                                        <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                    </Style>
+                                    <Style Selector="Border:not(:pointerover)">
+                                        <Setter Property="ZIndex" Value="0"/>
+                                        <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                    </Style>
+                                </Border.Styles>
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                        <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                    </Transitions>
+                                </Border.Transitions>
+                                <local:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                            </Border>
+
+                            <TextBlock x:Name="VideoTitle"
+                                       FontSize="15" 
+                                       Margin="0 10 0 0" 
+                                       FontFamily="{StaticResource GothamRegular}" 
+                                       FontWeight="Normal" 
+                                       MaxWidth="360" 
+                                       HorizontalAlignment="Left" 
+                                       TextWrapping="Wrap" 
+                                       Text="{Binding Name}" 
+                                       Foreground="White"/>
+
+                            <TextBlock x:Name="VideoTypeText"
+                                       FontSize="13" 
+                                       Margin="0 5 0 0" 
+                                       FontFamily="{StaticResource GothamRegular}" 
+                                       FontWeight="Light" 
+                                       MaxWidth="360" 
+                                       HorizontalAlignment="Left" 
+                                       TextWrapping="Wrap" 
+                                       Text="{Binding VideoType}" 
+                                       Foreground="#888888"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+    </Grid>
+</UserControl> 

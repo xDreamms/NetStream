@@ -1,0 +1,211 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+        <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <Configurations>Debug;Release;iPhoneSimulator</Configurations>
+        <Platforms>AnyCPU</Platforms>
+        <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+        <AssemblyVersion>2.0.0.0</AssemblyVersion>
+        <FileVersion>2.0.0.0</FileVersion>
+        <Authors>xDreamms</Authors>
+        <Version>2.0.0</Version>
+    </PropertyGroup>
+
+<PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+  <DefineConstants>ANDROID</DefineConstants>
+</PropertyGroup>
+
+<PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-ios'">
+  <DefineConstants>IOS</DefineConstants>
+</PropertyGroup>
+
+
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\**" />
+        <AvaloniaResource Remove="Assets\fire.fire" />
+        <None Remove="Language\StringResources.af.xaml" />
+        <AvaloniaResource Include="Language\StringResources.af.xaml" />
+        <None Remove="Language\StringResources.ar.xaml" />
+        <AvaloniaResource Include="Language\StringResources.ar.xaml" />
+        <None Remove="Language\StringResources.tr.xaml" />
+        <AvaloniaResource Include="Language\StringResources.tr.xaml" />
+        <None Remove="Language\StringResources.az.xaml" />
+        <AvaloniaResource Include="Language\StringResources.az.xaml" />
+        <None Remove="Language\StringResources.be.xaml" />
+        <AvaloniaResource Include="Language\StringResources.be.xaml" />
+        <None Remove="Language\StringResources.bg.xaml" />
+        <AvaloniaResource Include="Language\StringResources.bg.xaml" />
+        <None Remove="Language\StringResources.cn.xaml" />
+        <AvaloniaResource Include="Language\StringResources.cn.xaml" />
+        <None Remove="Language\StringResources.cs.xaml" />
+        <AvaloniaResource Include="Language\StringResources.cs.xaml" />
+        <None Remove="Language\StringResources.da.xaml" />
+        <AvaloniaResource Include="Language\StringResources.da.xaml" />
+        <None Remove="Language\StringResources.de.xaml" />
+        <AvaloniaResource Include="Language\StringResources.de.xaml" />
+        <None Remove="Language\StringResources.el.xaml" />
+        <AvaloniaResource Include="Language\StringResources.el.xaml" />
+        <None Remove="Language\StringResources.en.xaml" />
+        <AvaloniaResource Include="Language\StringResources.en.xaml" />
+        <None Remove="Language\StringResources.es.xaml" />
+        <AvaloniaResource Include="Language\StringResources.es.xaml" />
+        <None Remove="Language\StringResources.et.xaml" />
+        <AvaloniaResource Include="Language\StringResources.et.xaml" />
+        <None Remove="Language\StringResources.fa.xaml" />
+        <AvaloniaResource Include="Language\StringResources.fa.xaml" />
+        <None Remove="Language\StringResources.fi.xaml" />
+        <AvaloniaResource Include="Language\StringResources.fi.xaml" />
+        <None Remove="Language\StringResources.fr.xaml" />
+        <AvaloniaResource Include="Language\StringResources.fr.xaml" />
+        <None Remove="Language\StringResources.ga.xaml" />
+        <AvaloniaResource Include="Language\StringResources.ga.xaml" />
+        <None Remove="Language\StringResources.hi.xaml" />
+        <AvaloniaResource Include="Language\StringResources.hi.xaml" />
+        <None Remove="Language\StringResources.hr.xaml" />
+        <AvaloniaResource Include="Language\StringResources.hr.xaml" />
+        <None Remove="Language\StringResources.hu.xaml" />
+        <AvaloniaResource Include="Language\StringResources.hu.xaml" />
+        <None Remove="Language\StringResources.hy.xaml" />
+        <AvaloniaResource Include="Language\StringResources.hy.xaml" />
+        <None Remove="Language\StringResources.id.xaml" />
+        <AvaloniaResource Include="Language\StringResources.id.xaml" />
+        <None Remove="Language\StringResources.it.xaml" />
+        <AvaloniaResource Include="Language\StringResources.it.xaml" />
+        <None Remove="Language\StringResources.ja.xaml" />
+        <AvaloniaResource Include="Language\StringResources.ja.xaml" />
+        <None Remove="Language\StringResources.ka.xaml" />
+        <AvaloniaResource Include="Language\StringResources.ka.xaml" />
+        <None Remove="Language\StringResources.kk.xaml" />
+        <AvaloniaResource Include="Language\StringResources.kk.xaml" />
+        <None Remove="Language\StringResources.ko.xaml" />
+        <AvaloniaResource Include="Language\StringResources.ko.xaml" />
+        <None Remove="Language\StringResources.ky.xaml" />
+        <AvaloniaResource Include="Language\StringResources.ky.xaml" />
+        <None Remove="Language\StringResources.la.xaml" />
+        <AvaloniaResource Include="Language\StringResources.la.xaml" />
+        <None Remove="Language\StringResources.mg.xaml" />
+        <AvaloniaResource Include="Language\StringResources.mg.xaml" />
+        <None Remove="Language\StringResources.mk.xaml" />
+        <AvaloniaResource Include="Language\StringResources.mk.xaml" />
+        <None Remove="Language\StringResources.nl.xaml" />
+        <AvaloniaResource Include="Language\StringResources.nl.xaml" />
+        <None Remove="Language\StringResources.no.xaml" />
+        <AvaloniaResource Include="Language\StringResources.no.xaml" />
+        <None Remove="Language\StringResources.pl.xaml" />
+        <AvaloniaResource Include="Language\StringResources.pl.xaml" />
+        <None Remove="Language\StringResources.pt.xaml" />
+        <AvaloniaResource Include="Language\StringResources.pt.xaml" />
+        <None Remove="Language\StringResources.ro.xaml" />
+        <AvaloniaResource Include="Language\StringResources.ro.xaml" />
+        <None Remove="Language\StringResources.ru.xaml" />
+        <AvaloniaResource Include="Language\StringResources.ru.xaml" />
+        <None Remove="Language\StringResources.sk.xaml" />
+        <AvaloniaResource Include="Language\StringResources.sk.xaml" />
+        <None Remove="Language\StringResources.sl.xaml" />
+        <AvaloniaResource Include="Language\StringResources.sl.xaml" />
+        <None Remove="Language\StringResources.sq.xaml" />
+        <AvaloniaResource Include="Language\StringResources.sq.xaml" />
+        <None Remove="Language\StringResources.sr.xaml" />
+        <AvaloniaResource Include="Language\StringResources.sr.xaml" />
+        <None Remove="Language\StringResources.sv.xaml" />
+        <AvaloniaResource Include="Language\StringResources.sv.xaml" />
+        <None Remove="Language\StringResources.tk.xaml" />
+        <AvaloniaResource Include="Language\StringResources.tk.xaml" />
+        <None Remove="Language\StringResources.ug.xaml" />
+        <AvaloniaResource Include="Language\StringResources.ug.xaml" />
+        <None Remove="Language\StringResources.uk.xaml" />
+        <AvaloniaResource Include="Language\StringResources.uk.xaml" />
+        <None Remove="Language\StringResources.uz.xaml" />
+        <AvaloniaResource Include="Language\StringResources.uz.xaml" />
+        <None Remove="Language\StringResources.vi.xaml" />
+        <AvaloniaResource Include="Language\StringResources.vi.xaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AngleSharp" />
+        <PackageReference Include="AngleSharp.Xml" />
+        <PackageReference Include="Autofac" />
+        <PackageReference Include="Avalonia" />
+        <PackageReference Include="Avalonia.Browser" />
+        <PackageReference Include="Avalonia.Controls.ItemsRepeater" />
+        <PackageReference Include="Avalonia.Themes.Fluent" />
+        <PackageReference Include="Avalonia.Fonts.Inter" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Include="Avalonia.Diagnostics">
+            <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+            <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Avalonia.Xaml.Behaviors" />
+        <PackageReference Include="BencodeNET" />
+        <PackageReference Include="BTCPayServer.Client" />
+        <PackageReference Include="CommandLineParser" />
+        <PackageReference Include="CommunityToolkit.Mvvm" />
+        <PackageReference Include="DialogHost.Avalonia" />
+        <PackageReference Include="Enums.NET" />
+        <PackageReference Include="FirebaseAuthentication.net" />
+        <PackageReference Include="FlareSolverrSharp" />
+        <PackageReference Include="Google.Cloud.Firestore" />
+        <PackageReference Include="Google.Cloud.Storage.V1" />
+        <PackageReference Include="LibVLCSharp" />
+        <PackageReference Include="LibVLCSharp.Avalonia" />
+        <PackageReference Include="Markdown.Avalonia" />
+        <PackageReference Include="Material.Avalonia" />
+        <PackageReference Include="Material.Avalonia.Dialogs" />
+        <PackageReference Include="Material.Icons.Avalonia" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
+        <PackageReference Include="Microsoft.AspNetCore.Hosting" />
+        <PackageReference Include="Microsoft.AspNetCore.Http" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" />
+        <PackageReference Include="Microsoft.AspNetCore.Routing" />
+        <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" />
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Microsoft.JSInterop" />
+        <PackageReference Include="MimeMapping" />
+        <PackageReference Include="NLog" />
+        <PackageReference Include="Polly" />
+        <PackageReference Include="QRCoder" />
+        <PackageReference Include="RestSharp" />
+        <PackageReference Include="Semi.Avalonia" />
+        <PackageReference Include="Serilog" />
+        <PackageReference Include="Serilog.Sinks.Async" />
+        <PackageReference Include="Serilog.Sinks.File" />
+        <PackageReference Include="SubtitlesParser" />
+        <PackageReference Include="SukiUI" />
+        <PackageReference Include="System.ServiceProcess.ServiceController" />
+        <PackageReference Include="Tinify" />
+        <PackageReference Include="TMDbLib" />
+        <PackageReference Include="VideoLAN.LibVLC.Android" />
+        <PackageReference Include="VideoLAN.LibVLC.Windows" />
+        <PackageReference Include="Vlc.DotNet.Core" />
+        <PackageReference Include="WebView.Avalonia" />
+        <PackageReference Include="WebView.Avalonia.Android" />
+        <PackageReference Include="WebView.Avalonia.iOS" />
+        <PackageReference Include="YamlDotNet" />
+        <PackageReference Include="YoutubeDLSharp" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <!-- LibTorrentSharp replaced by LibTorrentSharp2 (native C DLL + P/Invoke) -->
+      <!-- LibTorrentSharp2.dll is copied to output by NetStream.Desktop.csproj -->
+      <Reference Include="MovieCollection.OpenSubtitles">
+        <HintPath>..\..\..\MovieCollection.OpenSubtitles.dll</HintPath>
+      </Reference>
+      <Reference Include="Projektanker.Icons.Avalonia">
+        <HintPath>..\..\..\Projektanker.Icons.Avalonia.dll</HintPath>
+      </Reference>
+      <Reference Include="Projektanker.Icons.Avalonia.FontAwesome">
+        <HintPath>..\..\..\Projektanker.Icons.Avalonia.FontAwesome.dll</HintPath>
+      </Reference>
+      <Reference Include="TorznabClient">
+        <HintPath>..\..\..\TorznabClient.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Assets\img\" />
+    </ItemGroup>
+</Project>

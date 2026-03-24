@@ -1,0 +1,82 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream"
+             xmlns:controls="clr-namespace:NetStream.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NetStream.Controls.VerticalMovieItemsControl"
+             x:Name="Root">
+
+    <ScrollViewer x:Name="MoviesDisplayScroll"
+                  Margin="0 0 0 0" 
+                  VerticalAlignment="Top"
+                  Background="Transparent"
+                  ScrollChanged="MoviesDisplay_OnScrollChanged"
+                  HorizontalScrollBarVisibility="Disabled" 
+                  VerticalScrollBarVisibility="Visible">
+        
+        <!-- ItemsRepeater ile tek düz liste içinde filmler -->
+        <ItemsRepeater x:Name="MoviesDisplay">
+            <ItemsRepeater.Layout>
+                <UniformGridLayout  Orientation="Horizontal" />
+            </ItemsRepeater.Layout>
+            
+            <ItemsRepeater.ItemTemplate>
+                <DataTemplate x:DataType="local:Movie">
+                    <StackPanel x:Name="MovieItemPanel" PointerPressed="InputElement_OnPointerPressed" Cursor="Hand" Margin="10 10 7 60" Orientation="Vertical">
+                        <Border x:Name="MovieCardBorder" BorderBrush="#1F2021" 
+                                VerticalAlignment="Top" 
+                                Height="375" 
+                                Width="250" 
+                                HorizontalAlignment="Left"
+                                BorderThickness="5">
+                            <Border.Styles>
+                                <Style Selector="Border:pointerover">
+                                    <Setter Property="ZIndex" Value="1000"/>
+                                    <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                </Style>
+                                <Style Selector="Border:not(:pointerover)">
+                                    <Setter Property="ZIndex" Value="0"/>
+                                    <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                </Style>
+                            </Border.Styles>
+                            <Border.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                    <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                </Transitions>
+                            </Border.Transitions>
+                            <local:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                        </Border>
+                        
+                        <TextBlock x:Name="MovieTitle" FontWeight="Light" 
+                                  FontFamily="{StaticResource GothamLight}" 
+                                  VerticalAlignment="Top" 
+                                  Margin="0 20 0 0" 
+                                  FontSize="18" 
+                                  MaxWidth="200" 
+                                  HorizontalAlignment="Left" 
+                                  TextWrapping="Wrap" 
+                                  Text="{Binding Name}" 
+                                  Foreground="White" />
+
+                        <StackPanel x:Name="RatingPanel" Margin="0 5 0 10" Orientation="Horizontal">
+                            <controls:RatingBar x:Name="MovieRating" HorizontalAlignment="Left"
+                                                IsReadOnly="True"
+                                                Rating="{Binding Rating}" />
+
+                            <TextBlock x:Name="RatingText" FontWeight="Light" 
+                                     FontFamily="{StaticResource GothamLight}" 
+                                     FontSize="15" 
+                                     Margin="15 3.5 0 0" 
+                                     HorizontalAlignment="Left" 
+                                     Text="{Binding RatingNumber}" 
+                                     Foreground="#767676" />
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsRepeater.ItemTemplate>
+        </ItemsRepeater>
+    </ScrollViewer>
+</UserControl>

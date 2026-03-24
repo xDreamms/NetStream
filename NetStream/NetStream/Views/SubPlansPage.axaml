@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:local="clr-namespace:NetStream.Views"
+        xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+        mc:Ignorable="d" 
+        Background="#111111"
+        Unloaded="SubPlansPage_OnUnloaded" 
+        x:Class="NetStream.Views.SubPlansPage"
+        x:CompileBindings="False"
+       >
+
+    <dialogHostAvalonia:DialogHost x:Name="DialogHost">
+        <dialogHostAvalonia:DialogHost.DialogContent>
+            <StackPanel Margin="15">
+                <ProgressBar 
+                    IsIndeterminate="True"
+                    Classes="Circular"
+                    Value="0"
+                />
+                <TextBlock x:Name="TextBlockInfo" FontSize="15" Margin="0 20 0 0" Text="{DynamicResource AwaitingPayment}"/>
+                <Button Click="BtnCancelDialog_OnPreviewMouseLeftButtonDown" Margin="0 20 0 0" Name="BtnCloseDialog" Content="{DynamicResource Cancel}" />
+            </StackPanel>
+        </dialogHostAvalonia:DialogHost.DialogContent>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.03*"/>
+                <RowDefinition Height="0.06*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.06*"/>
+                <RowDefinition Height="0.03*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.03*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+           
+            <Viewbox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
+                <TextBlock Text="{DynamicResource Plans}" FontFamily="{StaticResource GothamRegular}" Foreground="White"/>
+            </Viewbox>
+
+            <ScrollViewer  Margin="0 0 0 0" VerticalAlignment="Center" 
+                           Grid.Row="3" Grid.Column="1" 
+                           Background="Transparent" x:Name="SubPlansDisplayScrollViewer" >
+                
+                <ItemsControl x:Name="SubPlansDisplay">
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="20" Background="#222222" BorderBrush="#333333" BorderThickness="1" CornerRadius="4"
+                                    BoxShadow="0 4 20 0 #66000000" Padding="20">
+                                <StackPanel Orientation="Vertical">
+                                    <Image Margin="0 10 0 0" Width="NaN" Height="150" Source="{Binding PlanImage}"/>
+                                    <TextBlock HorizontalAlignment="Center" Margin="0 20 0 0" FontSize="18" FontFamily="{StaticResource GothamRegular}" Text="{Binding LocalizedName}"/>
+                                    <TextBlock Margin="4 10 0 0" FontSize="16" FontFamily="{StaticResource GothamRegular}" Text="{Binding PlanPriceString}"/>
+                                    <Button Loaded="FrameworkElement_OnLoaded" Click="BuyButtonPreviewMouseLeftDown" 
+                                            HorizontalAlignment="Stretch" Margin="0 15 0 10"
+                                            Content="{DynamicResource Buy}"
+                                            Classes="Accent"
+                                    />
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+           
+            
+            <Button FontWeight="Normal" FontSize="20" Grid.Row="5" Grid.Column="1" Margin="0 0 0 0" x:Name="BtnCancel" FontFamily="{StaticResource GothamRegular}" Theme="{StaticResource MaterialFlatButton}"
+                    Click="BtnCancel_OnPreviewMouseLeftButtonDown"
+                    Content="{DynamicResource Cancel}" CornerRadius="10">
+            </Button>
+        </Grid>
+    </dialogHostAvalonia:DialogHost>
+</UserControl> 

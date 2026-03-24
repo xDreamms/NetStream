@@ -1,0 +1,249 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d" d:DesignWidth="1920" d:DesignHeight="1080"
+             x:Class="NetStream.Views.HorizonConceptView"
+             FontFamily="{StaticResource GothamRegular}">
+
+    <UserControl.Styles>
+        <!-- Neon Glow Text Effect -->
+        <Style Selector="TextBlock.neon-text">
+            <Setter Property="Foreground" Value="white"/>
+            <Setter Property="Effect">
+                <DropShadowEffect Color="#00BFFF" BlurRadius="20" Opacity="0.8" OffsetX="0" OffsetY="0" />
+            </Setter>
+        </Style>
+
+        <!-- Glass Panel Style -->
+        <Style Selector="Border.glass-panel">
+            <Setter Property="Background" Value="#1AFFFFFF"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="BorderBrush" Value="#33FFFFFF"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BoxShadow" Value="0 4 30 0 #10000000"/>
+        </Style>
+
+        <!-- Navigation Button Style -->
+        <Style Selector="Button.nav-btn">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#80FFFFFF"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="0:0:0.2"/>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.nav-btn:pointerover">
+            <Setter Property="Foreground" Value="#00BFFF"/>
+            <Setter Property="RenderTransform" Value="scale(1.1) translateX(10px)"/>
+        </Style>
+        <Style Selector="Button.nav-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
+        
+         <!-- Movie Card Animation -->
+        <Style Selector="Border.movie-card">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3" Easing="CubicEaseOut"/>
+                    <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.3"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Border.movie-card:pointerover">
+            <Setter Property="RenderTransform" Value="scale(1.05) translateY(-10px)"/>
+            <Setter Property="BoxShadow" Value="0 10 40 0 #4000BFFF"/>
+            <Setter Property="ZIndex" Value="10"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid>
+        <!-- Dynamic Background (Aurora Effect Placeholder) -->
+        <Grid Background="#050505">
+            <!-- Simulated deeply blurred background image/gradient -->
+            <Image Stretch="UniformToFill" Opacity="0.4">
+                <Image.Source>
+                    <!-- Ideally this would be a blurred version of the current movie backdrop -->
+                    <DrawingImage>
+                        <GeometryDrawing>
+                            <GeometryDrawing.Brush>
+                                <RadialGradientBrush Center="0.8,0.2" GradientOrigin="0.8,0.2" Radius="0.7">
+                                    <GradientStop Color="#203050" Offset="0"/>
+                                    <GradientStop Color="#050505" Offset="1"/>
+                                </RadialGradientBrush>
+                            </GeometryDrawing.Brush>
+                            <GeometryDrawing.Geometry>
+                                <RectangleGeometry Rect="0,0,1920,1080"/>
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingImage>
+                </Image.Source>
+            </Image>
+            
+             <!-- Ambient Neon Light (Top Left) -->
+             <Border Width="800" Height="800" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-200,-200,0,0" CornerRadius="1000" Opacity="0.2" IsHitTestVisible="False">
+                 <Border.Background>
+                     <RadialGradientBrush>
+                         <GradientStop Color="#00BFFF" Offset="0"/>
+                         <GradientStop Color="Transparent" Offset="1"/>
+                     </RadialGradientBrush>
+                 </Border.Background>
+                 <Border.Effect>
+                     <BlurEffect Radius="150"/>
+                 </Border.Effect>
+             </Border>
+        </Grid>
+
+        <!-- Hero Section (Arrival) -->
+        <Grid RowDefinitions="*,Auto">
+            
+            <!-- Hero Content -->
+            <Grid Grid.Row="0" Margin="120,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <StackPanel Spacing="15">
+                     <!-- Floating Title -->
+                    <TextBlock Text="ARRIVAL" FontSize="120" FontWeight="Bold" Foreground="White" LetterSpacing="10" Opacity="0.9">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="20" Opacity="0.8" OffsetY="10"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    
+                    <!-- Metadata Tags -->
+                    <StackPanel Orientation="Horizontal" Spacing="20">
+                        <Border Classes="glass-panel" Padding="10,5">
+                            <TextBlock Text="4K HDR" Foreground="#BBBBBB" FontSize="14"/>
+                        </Border>
+                        <Border Classes="glass-panel" Padding="10,5">
+                            <TextBlock Text="Bilim Kurgu" Foreground="#BBBBBB" FontSize="14"/>
+                        </Border>
+                        <Border Classes="glass-panel" Padding="10,5">
+                            <TextBlock Text="98% Eşleşme" Foreground="#00FF7F" FontWeight="Bold" FontSize="14"/>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Description -->
+                    <TextBlock Text="Dilbilimci Louise Banks, uzaylıların dünyaya iniş yapmasının ardından orduyla birlikte çalışmaya başlar. Amaçları: Onların barışçıl mı yoksa tehdit mi olduğunu anlamak."
+                               Foreground="#DDDDDD" FontSize="18" Width="600" TextWrapping="Wrap" Margin="0,20,0,0" LineHeight="28"/>
+
+                    <!-- Action Buttons -->
+                    <StackPanel Orientation="Horizontal" Spacing="20" Margin="0,30,0,0">
+                        <!-- Play Button (Neon Gradient) -->
+                        <Button CornerRadius="50" Height="60" Width="200" Cursor="Hand">
+                            <Button.Background>
+                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                    <GradientStop Color="#0077FF" Offset="0"/>
+                                    <GradientStop Color="#00BFFF" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                                <avalonia:Icon Value="fa-play" Foreground="White"/>
+                                <TextBlock Text="İzle" Foreground="White" FontWeight="Bold" FontSize="18"/>
+                            </StackPanel>
+                        </Button>
+
+                        <!-- More Info Button (Glass) -->
+                         <Button CornerRadius="50" Height="60" Width="160" Background="#20FFFFFF" BorderBrush="White" BorderThickness="1" Cursor="Hand">
+                            <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                                <avalonia:Icon Value="fa-info-circle" Foreground="White"/>
+                                <TextBlock Text="Detaylar" Foreground="White" FontWeight="Bold" FontSize="18"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <!-- Bottom Carousel Section -->
+            <StackPanel Grid.Row="1" Margin="0,0,0,50">
+                <TextBlock Text="Popüler Filmler" Foreground="White" FontSize="24" FontWeight="Bold" Margin="120,0,0,20"/>
+                
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" Offset="50,0">
+                    <StackPanel Orientation="Horizontal" Spacing="30" Margin="120,0,0,30">
+                        <!-- Card 1 -->
+                        <Border Classes="movie-card" Width="200" Height="300" Background="#222" CornerRadius="15" ClipToBounds="True">
+                            <Grid>
+                                <!-- Placeholder for poster image -->
+                                <Panel Background="#333"/> 
+                                <TextBlock Text="DUNE" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" FontWeight="Bold"/>
+                                
+                                <!-- Hover Overlay (Gradient at bottom) -->
+                                <Border VerticalAlignment="Bottom" Height="100">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                                            <GradientStop Color="Transparent" Offset="0"/>
+                                            <GradientStop Color="Black" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        
+                         <!-- Card 2 -->
+                        <Border Classes="movie-card" Width="200" Height="300" Background="#222" CornerRadius="15" ClipToBounds="True">
+                            <Grid>
+                                <Panel Background="#333"/>
+                                <TextBlock Text="JOKER" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" FontWeight="Bold"/>
+                            </Grid>
+                        </Border>
+                        
+                         <!-- Card 3 -->
+                        <Border Classes="movie-card" Width="200" Height="300" Background="#222" CornerRadius="15" ClipToBounds="True">
+                             <Grid>
+                                <Panel Background="#333"/>
+                                <TextBlock Text="INTERSTELLAR" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" FontWeight="Bold"/>
+                            </Grid>
+                        </Border>
+                        
+                         <!-- Card 4 -->
+                        <Border Classes="movie-card" Width="200" Height="300" Background="#222" CornerRadius="15" ClipToBounds="True">
+                             <Grid>
+                                <Panel Background="#333"/>
+                                <TextBlock Text="INCEPTION" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" FontWeight="Bold"/>
+                            </Grid>
+                        </Border>
+                        
+                         <!-- Card 5 -->
+                        <Border Classes="movie-card" Width="200" Height="300" Background="#222" CornerRadius="15" ClipToBounds="True">
+                             <Grid>
+                                <Panel Background="#333"/>
+                                <TextBlock Text="THE BATMAN" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Gray" FontWeight="Bold"/>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+
+        </Grid>
+
+        <!-- Sidebar Navigation (Glassmorphism) -->
+        <Border Width="100" HorizontalAlignment="Left" Background="#10000000" BorderBrush="#20FFFFFF" BorderThickness="0,0,1,0">
+             <Border.Effect>
+                 <BlurEffect Radius="20"/>
+             </Border.Effect>
+        </Border>
+        
+        <!-- Sidebar Icons -->
+        <StackPanel Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Spacing="40">
+            <Button Classes="nav-btn" HorizontalAlignment="Center">
+                <avalonia:Icon Value="fa-house" Width="28" Height="28"/>
+            </Button>
+             <Button Classes="nav-btn" HorizontalAlignment="Center">
+                <avalonia:Icon Value="fa-magnifying-glass" Width="28" Height="28"/>
+            </Button>
+             <Button Classes="nav-btn" HorizontalAlignment="Center">
+                <avalonia:Icon Value="fa-layer-group" Width="28" Height="28"/>
+            </Button>
+             <Button Classes="nav-btn" HorizontalAlignment="Center">
+                <avalonia:Icon Value="fa-heart" Width="28" Height="28"/>
+            </Button>
+             <Button Classes="nav-btn" HorizontalAlignment="Center">
+                <avalonia:Icon Value="fa-gear" Width="28" Height="28"/>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

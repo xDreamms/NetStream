@@ -1,0 +1,480 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:controls="using:Avalonia.Controls"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             xmlns:netStream="clr-namespace:NetStream"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             xmlns:mdxaml="https://github.com/whistyun/Markdown.Avalonia.Tight"
+             xmlns:ctxt="clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia"
+             mc:Ignorable="d" d:DesignHeight="2000" d:DesignWidth="800"
+             x:Class="NetStream.Views.SettingsPage"
+             Loaded="SettingsPage_OnLoaded" Unloaded="SettingsPage_OnUnloaded"
+             >
+    
+    <dialogHostAvalonia:DialogHost x:Name="MainDialogHost" IsOpen="False">
+        <dialogHostAvalonia:DialogHost.DialogContent>
+
+            <Grid>
+                <StackPanel IsVisible="True" x:Name="StackPanelError" Margin="15">
+                    <TextBlock IsVisible="True" Foreground="White" x:Name="TextBlockDialogText"
+                               FontFamily="{StaticResource GothamRegular}" Margin="10" Text="" />
+                    <mdxaml:MarkdownScrollViewer   IsVisible="False" x:Name="MarkdownScrollViewer" xml:space="preserve">
+ <mdxaml:MarkdownScrollViewer.Styles>
+    <!-- Heading 1 (#) -->
+    <Style Selector="ctxt|CTextBlock.Heading1">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+<Style Selector="ctxt|CImage.Tall">
+    <Setter Property="LayoutWidth" Value="50"/>
+    <Setter Property="LayoutHeight" Value="100"/>
+</Style>
+<Style Selector="ctxt|CImage.Wide">
+    <Setter Property="LayoutWidth" Value="100"/>
+    <Setter Property="LayoutHeight" Value="50"/>
+</Style>
+<Style Selector="ctxt|CImage.Small">
+    <Setter Property="LayoutWidth" Value="50"/>
+    <Setter Property="LayoutHeight" Value="50"/>
+</Style>
+  <Style Selector="ctxt|CImage.AppStoreIcon">
+        <Setter Property="LayoutHeight" Value="84"/>
+        <Setter Property="LayoutWidth" Value="250"/>
+    </Style>
+
+ <Style Selector="ctxt|CImage.GooglePlayIcon">
+        <Setter Property="LayoutHeight" Value="124"/>
+        <Setter Property="LayoutWidth" Value="325"/>
+    </Style>
+
+    <!-- Heading 2 (##) -->
+    <Style Selector="ctxt|CTextBlock.Heading2">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <!-- Heading 3 (###) -->
+    <Style Selector="ctxt|CTextBlock.Heading3">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <!-- Blockquote içindeki Heading1 örneği -->
+    <Style Selector=".Blockquote ctxt|CTextBlock.Heading1">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+</mdxaml:MarkdownScrollViewer.Styles>
+
+#head
+  </mdxaml:MarkdownScrollViewer>
+
+                    <Button Click="BtnCloseDialog_OnPreviewMouseLeftButtonDown" Margin="10" Name="BtnCloseDialog"
+                            Content="{DynamicResource OkayString}" />
+                </StackPanel>
+                <StackPanel x:Name="ProgressReport" Orientation="Vertical" IsVisible="False">
+                    <ProgressBar Margin="10"
+                                 IsIndeterminate="True"
+                                 Classes="circular"
+                                 Value="0" />
+                    <TextBlock Foreground="White" FontSize="16" Margin="10" Text="" x:Name="ProgressInfo"></TextBlock>
+                </StackPanel>
+
+                <StackPanel x:Name="StackPanelChangePassword" IsVisible="False" Orientation="Vertical">
+                    <TextBlock Foreground="White" FontFamily="{StaticResource GothamRegular}"
+                               FontWeight="Normal" FontSize="24" HorizontalAlignment="Center"
+                               Margin="0 20 0 0" Text="{DynamicResource ChangePassword2}">
+                    </TextBlock>
+                    <TextBox FontFamily="{StaticResource GothamRegular}"
+                             PasswordChar="*"
+                             Width="320"
+                             Watermark="{DynamicResource CurrentPassword}"
+                             Foreground="White"
+                             Margin="10 30 10 0"
+                             VerticalAlignment="Top"
+                             x:Name="TextBoxCurrentPassword" />
+                    <TextBox FontFamily="{StaticResource GothamRegular}"
+                             PasswordChar="*"
+                             Width="320"
+                             Watermark="{DynamicResource NewPassword}"
+                             Foreground="White"
+                             Margin="10 15 10 0"
+                             VerticalAlignment="Top"
+                             x:Name="TextBoxNewPassword" />
+                    <TextBox FontFamily="{StaticResource GothamRegular}"
+                             PasswordChar="*"
+                             Width="320"
+                             Watermark="{DynamicResource RetypeNewPassword}"
+                             Foreground="White"
+                             Margin="10 15 10 0"
+                             VerticalAlignment="Top"
+                             x:Name="TextBoxNewPasswordAgain" />
+
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button x:Name="CancelButton" Click="CancelButton_OnPreviewMouseLeftButtonDown"
+                                FontFamily="{StaticResource GothamRegular}" HorizontalAlignment="Right"
+                                Margin="0 30 10 25"
+                                Content="{DynamicResource Cancel}" />
+                        <RepeatButton x:Name="ChangePasswordButton"
+                                      Click="ChangePasswordButton_OnPreviewMouseLeftButtonDown"
+                                      FontFamily="{StaticResource GothamRegular}" HorizontalAlignment="Right"
+                                      Margin="0 30 10 25"
+                                      Content="{DynamicResource Change}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel IsVisible="False" x:Name="StackPanelChangeUsername" Orientation="Vertical">
+                    <TextBlock Foreground="White" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal"
+                               FontSize="24" HorizontalAlignment="Center" Margin="0 25 0 0"
+                               Text="{DynamicResource ChangeUsername2}">
+                    </TextBlock>
+                    <TextBox Width="320" x:Name="TextBoxNewUsername" Foreground="White" Margin="15 30 15 0"
+                             VerticalAlignment="Top"
+                             Watermark="{DynamicResource NewUsername}">
+                    </TextBox>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Button x:Name="CancelButtonChangeUsername"
+                                Click="CancelButtonChangeUsername_OnPreviewMouseLeftButtonDown"
+                                FontFamily="{StaticResource GothamRegular}" HorizontalAlignment="Right"
+                                Margin="0 30 10 20"
+                                Content="{DynamicResource Cancel}" />
+                        <RepeatButton x:Name="ChangeUsernameButton"
+                                      Click="ChangeUsernameButton_OnPreviewMouseLeftButtonDown"
+                                      FontFamily="{StaticResource GothamRegular}" HorizontalAlignment="Right"
+                                      Margin="0 30 10 20"
+                                      Content="{DynamicResource Change}" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </dialogHostAvalonia:DialogHost.DialogContent>
+    
+         <ScrollViewer>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.03*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <ContentControl Grid.Column="1" x:Name="AccountNav" Grid.Row="1" />
+
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" Margin="0 0 0 40">
+                    <TextBlock x:Name="TextBlockLanguageHeader" FontSize="35" FontWeight="Medium" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource LanguageString}" Foreground="White"></TextBlock>
+                    <WrapPanel x:Name="LanguageWrapPanel" Margin="0 40 0 0" Orientation="Horizontal">
+                        <StackPanel x:Name="TmdbLanguagePanel" Orientation="Vertical">
+                            <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource TmdbResultsString}" Foreground="White"></TextBlock>
+                            <ComboBox Width="320" SelectionChanged="ComboBoxTmdbResultLanguage_OnSelectionChanged" x:Name="ComboBoxTmdbResultLanguage" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="0"
+                                  PlaceholderText="{DynamicResource SelectLanguageString}"
+                                  Classes="outline">
+
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel x:Name="ProgramLanguagePanel" Orientation="Vertical" Margin="38 0 0 0">
+                            <TextBlock  FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource ProgramLanguageString}" Foreground="White"></TextBlock>
+                            <ComboBox Width="320" SelectionChanged="ComboBoxProgramLanguage_OnSelectionChanged" x:Name="ComboBoxProgramLanguage" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="2"
+                                      PlaceholderText="{DynamicResource SelectLanguageString}"
+                                      Classes="outline">
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel x:Name="SubtitleLanguagePanel" Orientation="Vertical" Margin="38 0 0 0">
+                            <TextBlock FontWeight="Light" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource SubtitleLanguageString}" Foreground="White"></TextBlock>
+                            <ComboBox Width="320" SelectionChanged="ComboBoxSubtitleLanguage_OnSelectionChanged" x:Name="ComboBoxSubtitleLanguage" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="4"
+                                  PlaceholderText="{DynamicResource SelectLanguageString}"
+                                  Classes="outline">
+                            </ComboBox>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical" Margin="0 0 0 40">
+                    <TextBlock x:Name="JackettHeader" FontSize="35" FontWeight="Medium" FontFamily="{StaticResource GothamRegular}" Text="Jackett" Foreground="White"></TextBlock>
+
+                    <WrapPanel x:Name="JackettWrapPanel" Orientation="Horizontal" Margin="0 40 0 0">
+                        <StackPanel x:Name="JackettApiUrlPanel" Margin="0 0 0 0" Orientation="Vertical">
+                            <TextBlock FontWeight="Light" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource APIUrlString}" Foreground="White"></TextBlock>
+                            <TextBox Width="320" TextChanged="TextBoxJackettApiUrl_OnTextChanged" x:Name="TextBoxJackettApiUrl" Grid.Row="2" Grid.Column="0" Foreground="White" Margin="0 10 0 0"
+                                 VerticalAlignment="Top"
+                                 Classes="outline"
+                        >
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel x:Name="JackettApiKeyPanel" Orientation="Vertical" Margin="38 0 0 0">
+                            <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource APIKeyString}" Foreground="White"></TextBlock>
+                            <TextBox Width="320" TextChanged="TextBoxJackettApiKey_OnTextChanged" x:Name="TextBoxJackettApiKey" Grid.Row="2" Grid.Column="2" Foreground="White" Margin="0 10 0 0"
+                                 VerticalAlignment="Top"
+                                 Classes="outline"
+                        >
+                            </TextBox>
+                        </StackPanel>
+                        <StackPanel x:Name="JackettIndexersPanel" Margin="38 0 0 0" Orientation="Vertical">
+                            <TextBlock FontFamily="{StaticResource GothamRegular}" FontWeight="Light" Foreground="White" FontSize="15" Text="{DynamicResource SelectIndexersString}"></TextBlock>
+                            <ScrollViewer x:Name="MoviesDisplayScroll" 
+                                          Margin="0 10 0 0"
+                                          VerticalAlignment="Top"
+                                          Background="Transparent"
+                                          HorizontalScrollBarVisibility="Disabled"
+                                          VerticalScrollBarVisibility="Visible"
+                                          MaxHeight="300">
+
+                                <ItemsControl x:Name="JacketIndexersCheckBoxDisplay">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Vertical"></WrapPanel>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate >
+                                            <CheckBox Loaded="Control_OnLoaded" IsCheckedChanged="ToggleButton_OnIsCheckedChanged"
+                                                      Margin="10 10 7 0" Content="{Binding }"
+                                                      FontFamily="{StaticResource GothamRegular}"
+                                                      Foreground="White" FontSize="18" FontWeight="Light"
+                                                      Height="NaN" >
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                         
+                        </StackPanel>
+                       
+                    </WrapPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Vertical" Margin="0 0 0 40">
+                    <TextBlock x:Name="LibtorrentHeader" FontFamily="{StaticResource GothamRegular}" FontWeight="Medium" FontSize="35" Text="{DynamicResource LibtorrentSettingsString}" Foreground="White"></TextBlock>
+
+                    <WrapPanel x:Name="LibtorrentWrapPanel" Orientation="Horizontal">
+                        <StackPanel x:Name="LibtorrentLeftPanel" Orientation="Vertical" Margin="0 40 0 0">
+                            <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
+                                <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="Send Socket Buffer Size" Foreground="White"></TextBlock>
+                                <TextBox Width="320" x:Name="TextBoxSendSocketBufferSize" Foreground="White" Margin="0 10 0 0"
+                                         VerticalAlignment="Top"
+                                         Classes="outline"
+                                >
+                                </TextBox>
+                            </StackPanel>
+                            <StackPanel Margin="0 20 0 0" HorizontalAlignment="Left" Orientation="Vertical">
+                                <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="Recv Socket Buffer Size" Foreground="White"></TextBlock>
+                                <TextBox Width="320" x:Name="TextBoxRecvSocketBufferSize" Foreground="White" Margin="0 10 0 0"
+                                         VerticalAlignment="Top"
+                                         Classes="outline"
+                                >
+                                </TextBox>
+                            </StackPanel>
+
+                            <StackPanel Margin="0 20 0 0" HorizontalAlignment="Left" Orientation="Vertical">
+                                <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="Connections Limit" Foreground="White"></TextBlock>
+                                <TextBox Width="320" x:Name="TextBoxConnectionsLimit" Foreground="White" Margin="0 10 0 0"
+                                         VerticalAlignment="Top"
+                                         Classes="outline"
+                                >
+                                </TextBox>
+                            </StackPanel>
+
+                            <StackPanel Margin="0 20 0 0" HorizontalAlignment="Left" Orientation="Vertical">
+                                <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="Unchoke Slots Limit" Foreground="White"></TextBlock>
+                                <TextBox Width="320" x:Name="TextBoxUnchokeSlotsLimit" Foreground="White" Margin="0 10 0 0"
+                                         VerticalAlignment="Top"
+                                         Classes="outline"
+                                >
+                                </TextBox>
+                            </StackPanel>
+
+                            <StackPanel Margin="0 20 0 0" HorizontalAlignment="Left" Orientation="Vertical">
+                                <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="Max Peerlist Size" Foreground="White"></TextBlock>
+                                <TextBox Width="320" x:Name="TextBoxMaxPeerlistSize" Foreground="White" Margin="0 10 0 0"
+                                         VerticalAlignment="Top"
+                                         Classes="outline"
+                                >
+                                </TextBox>
+                            </StackPanel>
+
+                            <StackPanel Margin="0 20 0 0" HorizontalAlignment="Left" Orientation="Vertical">
+                                <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="Half Open Limit" Foreground="White"></TextBlock>
+                                <TextBox Width="320" x:Name="TextBoxHalfOpenLimit" Foreground="White" Margin="0 10 0 0"
+                                         VerticalAlignment="Top"
+                                         Classes="outline"
+                                >
+                                </TextBox>
+                            </StackPanel>
+
+                            <StackPanel Margin="0 20 0 0" HorizontalAlignment="Left" Orientation="Vertical">
+                                <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="Active Downloads" Foreground="White"></TextBlock>
+                                <TextBox Width="320" x:Name="TextBoxActiveDownloads" Foreground="White" Margin="0 10 0 0"
+                                         VerticalAlignment="Top"
+                                         Classes="outline"
+                                >
+                                </TextBox>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel x:Name="LibtorrentMiddlePanel" Orientation="Vertical" Margin="40 40 0 0">
+                            <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
+                                <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="Cache Size" Foreground="White"></TextBlock>
+                                <TextBox Width="320" x:Name="TextBoxCacheSize" Foreground="White" Margin="0 10 0 0"
+                                         VerticalAlignment="Top"
+                                         Classes="outline"
+                                >
+                                </TextBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Margin="0 20 0 0">
+                                <TextBlock FontWeight="Light" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="Disk IO Write Mode" Foreground="White"></TextBlock>
+                                <ComboBox Width="320" x:Name="ComboBoxDiskIOWriteMode" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="4"
+                                          PlaceholderText="Select"
+                                          Classes="outline">
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Margin="0 20 0 0">
+                                <TextBlock FontWeight="Light" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="Disk IO Read Mode" Foreground="White"></TextBlock>
+                                <ComboBox Width="320" x:Name="ComboBoxDiskIOReadMode" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="4"
+                                          PlaceholderText="Select"
+                                          Classes="outline">
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Margin="0 20 0 0">
+                                <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="Read Cache Line Size" Foreground="White"></TextBlock>
+                                <TextBox Width="320" x:Name="TextBoxReadCacheLineSize" Foreground="White" Margin="0 10 0 0"
+                                         VerticalAlignment="Top"
+                                         Classes="outline"
+                                >
+                                </TextBox>
+                            </StackPanel>
+                           
+                        </StackPanel>
+
+                        <StackPanel x:Name="LibtorrentRightPanel" Orientation="Vertical" Margin="40 40 0 0">
+                            <StackPanel Orientation="Vertical" Margin="0 0 0 0">
+                                <TextBlock FontWeight="Light" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="Encryption Level" Foreground="White"></TextBlock>
+                                <ComboBox Width="320" x:Name="ComboBoxEncryptionLevel" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="4"
+                                          PlaceholderText="Select"
+                                          Classes="outline">
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Margin="0 20 0 0">
+                                <TextBlock FontWeight="Light" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="Outgoing Traffic Encryption" Foreground="White"></TextBlock>
+                                <ComboBox Width="320" x:Name="ComboBoxOutgoingTrafficEncryption" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="4"
+                                          PlaceholderText="Select"
+                                          Classes="outline">
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical" Margin="0 20 0 0">
+                                <TextBlock FontWeight="Light" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="Incoming Traffic Encryption" Foreground="White"></TextBlock>
+                                <ComboBox Width="320" x:Name="ComboBoxIncomingTrafficEncryption" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="4"
+                                          PlaceholderText="Select"
+                                          Classes="outline">
+                                </ComboBox>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel x:Name="LibtorrentCheckBoxPanel" Orientation="Vertical" Margin="40 40 0 0">
+                            <CheckBox x:Name="CheckBoxPreferRc4" Content="Prioritize RC4 Encryption" FontFamily="{StaticResource GothamRegular}" Foreground="White" FontSize="18" FontWeight="Light" Height="NaN" IsChecked="True" Margin="0 0 0 0"></CheckBox>
+                            <CheckBox x:Name="CheckBoxEnableDht" Content="Enable Dht" FontFamily="{StaticResource GothamRegular}" Foreground="White" FontSize="18" FontWeight="Light" Height="NaN" IsChecked="True" Margin="0 20 0 0"></CheckBox>
+                            <CheckBox x:Name="CheckBoxEnableLsd" Content="Enable Lsd" FontFamily="{StaticResource GothamRegular}" Foreground="White" FontSize="18" FontWeight="Light" Height="NaN" IsChecked="True" Margin="0 20 0 0"></CheckBox>
+                            <CheckBox x:Name="CheckBoxEnableNatpmp" Content="Enable Natpmp" FontFamily="{StaticResource GothamRegular}" Foreground="White" FontSize="18" FontWeight="Light" Height="NaN" IsChecked="True" Margin="0 20 0 0"></CheckBox>
+                            <CheckBox x:Name="CheckBoxEnableUpnp" Content="Enable Upnp" FontFamily="{StaticResource GothamRegular}" Foreground="White" FontSize="18" FontWeight="Light" Height="NaN" IsChecked="True" Margin="0 20 0 0"></CheckBox>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    
+
+                    </StackPanel>
+
+                <StackPanel Grid.Row="5" Grid.Column="1" Margin="0 0 0 40">
+                    <TextBlock x:Name="OpenSubtitlesHeader" FontFamily="{StaticResource GothamRegular}" FontSize="35" FontWeight="Medium" Text="OpenSubtitles" Foreground="White"></TextBlock>
+                    <TextBlock Margin="0 40 0 0" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource APIKeyString}" FontSize="15" FontWeight="Light" Foreground="White"></TextBlock>
+                    <TextBox Width="320" HorizontalAlignment="Left" TextChanged="TextBoxopenSubtitlesApiKey_OnTextChanged" x:Name="TextBoxopenSubtitlesApiKey" Foreground="White" Margin="0 10 0 0"
+                         VerticalAlignment="Top"
+                         Classes="outline"
+                >
+                    </TextBox>
+                    <TextBlock Cursor="Hand" PointerPressed="OpenSubtitlesGetApiKey_OnPointerPressed" PointerExited="OpenSubtitlesGetApiKey_OnPointerExited" x:Name="OpenSubtitlesGetApiKey" PointerEntered="OpenSubtitlesGetApiKey_OnPointerEntered" Text="{DynamicResource HowCanIGetOne}" Margin="0 10 0 0" Foreground="White" FontWeight="Light" FontSize="14" FontFamily="{StaticResource GothamRegular}"></TextBlock>
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Vertical" Margin="0 0 0 40">
+                    <TextBlock x:Name="SavePathHeader" FontFamily="{StaticResource GothamRegular}" FontSize="35" FontWeight="Medium" Text="{DynamicResource FolderString}" Foreground="White"></TextBlock>
+
+                    <StackPanel Orientation="Horizontal" Margin="0 40 0 0">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock FontFamily="{StaticResource GothamRegular}" FontSize="15" FontWeight="Light" Text="{DynamicResource SavePathString}" Foreground="White"></TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Width="320" TextChanged="SavePathFolderTextBox_OnTextChanged" x:Name="SavePathFolderTextBox" Grid.Row="2" Grid.Column="0" Foreground="White" Margin="0 10 0 0"
+                                      VerticalAlignment="Top"
+                                      AcceptsReturn="True"
+                                      IsEnabled="True"
+                                      Classes="outline"
+                                      TextWrapping="Wrap"
+                             />
+                                <Button x:Name="ButtonOpenFolder" Click="ButtonOpenFolder_OnPointerPressed" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 10 0 0" Grid.Column="1" Grid.Row="2" Foreground="White"
+                                     Classes="icon"
+                             >
+                                    <avalonia:Icon Foreground="White" Value="fa-ellipsis-vertical"/>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Vertical" Margin="0 0 0 40">
+                    <TextBlock x:Name="PlayerSettingsHeader" FontFamily="{StaticResource GothamRegular}" FontSize="35" FontWeight="Medium" Text="{DynamicResource PlayerSettings}" Foreground="White"></TextBlock>
+                    <CheckBox Loaded="PlayerSettingAutoSync_OnLoaded" x:Name="PlayerSettingAutoSync" Content="{DynamicResource AutoSynchronizeSubtitles}" FontFamily="{StaticResource GothamRegular}" Foreground="White" FontSize="18" FontWeight="Light" Height="NaN" IsChecked="True" Margin="0 20 0 0"></CheckBox>
+                    <CheckBox Loaded="PlayerSettingShowThumbnails_OnLoaded" x:Name="PlayerSettingShowThumbnails" Content="{DynamicResource ShowThumbnails}" FontFamily="{StaticResource GothamRegular}" Foreground="White" FontSize="18" FontWeight="Light" Height="NaN" IsChecked="True" Margin="0 20 0 0"></CheckBox>
+                </StackPanel>
+                
+
+                <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Vertical" Margin="0 0 0 40">
+                    <TextBlock x:Name="WatchNowSettingsHeader" FontFamily="{StaticResource GothamRegular}" FontSize="35" FontWeight="Medium" Text="{DynamicResource WatchNowSettingsString}" Foreground="White"></TextBlock>
+                    
+                    <StackPanel Orientation="Vertical" Margin="0 40 0 0">
+                        <TextBlock FontSize="15" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource DefaultVideoQualityString}" Foreground="White"></TextBlock>
+                        <ComboBox Width="320" HorizontalAlignment="Left" SelectionChanged="ComboBoxWatchNowQuality_OnSelectionChanged" x:Name="ComboBoxWatchNowQuality" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White"
+                                  PlaceholderText="{DynamicResource SelectQualityString}"
+                                  Classes="outline">
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="9" Grid.Column="1" Orientation="Vertical" Margin="0 0 0 40">
+                    <TextBlock x:Name="ContactUsHeader" FontFamily="{StaticResource GothamRegular}" FontSize="35" FontWeight="Medium" Text="{DynamicResource ContactUs}" Foreground="White"></TextBlock>
+                    <avalonia:Icon Value="fa-brands fa-discord"  PointerPressed="BtnDiscord_OnPointerPressed" PointerExited="BtnDiscord_OnPointerExited" x:Name="BtnDiscord" PointerEntered="BtnDiscord_OnPointerEntered" Margin="0 20 0 0" Cursor="Hand" HorizontalAlignment="Left"  Foreground="White" FontSize="50" />
+                </StackPanel>
+                
+                
+
+                <StackPanel Grid.Row="10" Grid.Column="1" Orientation="Vertical" Margin="0 0 0 150">
+                    <TextBlock x:Name="SpecialThanksHeader" FontFamily="{StaticResource GothamRegular}" FontSize="35" FontWeight="Medium" Text="{DynamicResource SpecialThanks}" Foreground="White"></TextBlock>
+                  <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
+                      <Image HorizontalAlignment="Left" Width="100" Height="100" Source="/Assets/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.png"></Image>
+                      <Image Margin="50 0 0 0" Width="100" Height="100" Source="/Assets/jackett.png"></Image>
+                  </StackPanel>
+                </StackPanel>
+                
+               
+            </Grid>
+        </ScrollViewer>
+    </dialogHostAvalonia:DialogHost>
+</UserControl> 

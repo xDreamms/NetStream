@@ -1,0 +1,184 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:NetStream"
+             xmlns:materialIcons="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:themes="clr-namespace:Material.Styles.Themes;assembly=Material.Styles"
+             xmlns:assists="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+             xmlns:material="using:Material.Styles"
+             x:Class="NetStream.App"
+             RequestedThemeVariant="Dark"
+             xmlns:sukiUi="clr-namespace:SukiUI;assembly=SukiUI"
+             xmlns:colors="using:Material.Colors"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Resources>
+        <!-- Fonts -->
+        <FontFamily x:Key="GothamLight">avares://NetStream/Assets/Fonts/Gotham-Light.otf#Gotham</FontFamily>
+        <FontFamily x:Key="GothamExtraLight">avares://NetStream/Assets/Fonts/Gotham-ExtraLight.otf#Gotham</FontFamily>
+        <FontFamily x:Key="GothamMedium">avares://NetStream/Assets/Fonts/Gotham-Medium.otf#Gotham</FontFamily>
+        <FontFamily x:Key="GothamThin">avares://NetStream/Assets/Fonts/Gotham-Thin.otf#Gotham</FontFamily>
+        <FontFamily x:Key="GothamRegular">avares://NetStream/Assets/Fonts/Gotham.otf#Gotham</FontFamily>
+        
+        <!-- Material.Styles için gerekli temel renk tanımlamaları -->
+        <Color x:Key="MaterialPrimaryLightColor">#FFB4D8F5</Color>
+        <Color x:Key="MaterialPrimaryMidColor">#FF2196F3</Color>
+        <Color x:Key="MaterialPrimaryDarkColor">#FF0D47A1</Color>
+        <Color x:Key="MaterialSecondaryLightColor">#FFF5B4EC</Color>
+        <Color x:Key="MaterialSecondaryMidColor">#3D7E05</Color>
+        <Color x:Key="MaterialSecondaryDarkColor">#FF7B1FA2</Color>
+        
+        <!-- Basic Primary/Secondary Colors (no suffix) -->
+        <Color x:Key="MaterialPrimaryColor">#FF2196F3</Color>
+        <Color x:Key="MaterialSecondaryColor">#FFE040FB</Color>
+        
+        <!-- Önsatır renkleri (Foreground) -->
+        <Color x:Key="MaterialPrimaryLightForegroundColor">#FF000000</Color>
+        <Color x:Key="MaterialPrimaryMidForegroundColor">#FFFFFFFF</Color>
+        <Color x:Key="MaterialPrimaryDarkForegroundColor">#FFFFFFFF</Color>
+        <Color x:Key="MaterialSecondaryLightForegroundColor">#FF000000</Color>
+        <Color x:Key="MaterialSecondaryMidForegroundColor">#FFFFFFFF</Color>
+        <Color x:Key="MaterialSecondaryDarkForegroundColor">#FFFFFFFF</Color>
+        
+        <!-- Basic Primary/Secondary Foreground Colors (no suffix) -->
+        <Color x:Key="MaterialPrimaryForegroundColor">#FFFFFFFF</Color>
+        <Color x:Key="MaterialSecondaryForegroundColor">#FFFFFFFF</Color>
+        
+        <!-- SolidColorBrush tanımlamaları - Ana renkler -->
+        <SolidColorBrush x:Key="MaterialPrimaryLightBrush" Color="{DynamicResource MaterialPrimaryLightColor}"/>
+        <SolidColorBrush x:Key="MaterialPrimaryMidBrush" Color="{DynamicResource MaterialPrimaryMidColor}"/>
+        <SolidColorBrush x:Key="MaterialPrimaryDarkBrush" Color="{DynamicResource MaterialPrimaryDarkColor}"/>
+        <SolidColorBrush x:Key="MaterialSecondaryLightBrush" Color="{DynamicResource MaterialSecondaryLightColor}"/>
+        <SolidColorBrush x:Key="MaterialSecondaryMidBrush" Color="{DynamicResource MaterialSecondaryMidColor}"/>
+        <SolidColorBrush x:Key="MaterialSecondaryDarkBrush" Color="{DynamicResource MaterialSecondaryDarkColor}"/>
+        
+        <!-- Basic Primary/Secondary Brushes (no suffix) -->
+        <SolidColorBrush x:Key="MaterialPrimaryBrush" Color="{DynamicResource MaterialPrimaryColor}"/>
+        <SolidColorBrush x:Key="MaterialSecondaryBrush" Color="{DynamicResource MaterialSecondaryColor}"/>
+        
+        <!-- SolidColorBrush tanımlamaları - Önsatır (Foreground) -->
+        <SolidColorBrush x:Key="MaterialPrimaryLightForegroundBrush" Color="{DynamicResource MaterialPrimaryLightForegroundColor}"/>
+        <SolidColorBrush x:Key="MaterialPrimaryMidForegroundBrush" Color="{DynamicResource MaterialPrimaryMidForegroundColor}"/>
+        <SolidColorBrush x:Key="MaterialPrimaryDarkForegroundBrush" Color="{DynamicResource MaterialPrimaryDarkForegroundColor}"/>
+        <SolidColorBrush x:Key="MaterialSecondaryLightForegroundBrush" Color="{DynamicResource MaterialSecondaryLightForegroundColor}"/>
+        <SolidColorBrush x:Key="MaterialSecondaryMidForegroundBrush" Color="{DynamicResource MaterialSecondaryMidForegroundColor}"/>
+        <SolidColorBrush x:Key="MaterialSecondaryDarkForegroundBrush" Color="{DynamicResource MaterialSecondaryDarkForegroundColor}"/>
+        
+        <!-- Basic Primary/Secondary Foreground Brushes (no suffix) -->
+        <SolidColorBrush x:Key="MaterialPrimaryForegroundBrush" Color="{DynamicResource MaterialPrimaryForegroundColor}"/>
+        <SolidColorBrush x:Key="MaterialSecondaryForegroundBrush" Color="{DynamicResource MaterialSecondaryForegroundColor}"/>
+        
+        <!-- Background, Paper ve Card renk tanımlamaları -->
+        <Color x:Key="MaterialBackgroundColor">#FF121212</Color> <!-- Dark theme default background -->
+        <Color x:Key="MaterialPaperColor">#FF1E1E1E</Color> <!-- Dark theme paper color -->
+        <Color x:Key="MaterialCardColor">#FF2D2D2D</Color> <!-- Dark theme card color -->
+        <Color x:Key="MaterialToolBarColor">#FF212121</Color> <!-- Dark theme toolbar color -->
+        <Color x:Key="MaterialDialogColor">#FF303030</Color> <!-- Dark theme dialog color -->
+        
+        <!-- Background, Paper ve Card fırça tanımlamaları -->
+        <SolidColorBrush x:Key="MaterialBackgroundBrush" Color="{DynamicResource MaterialBackgroundColor}"/>
+        <SolidColorBrush x:Key="MaterialPaperBrush" Color="{DynamicResource MaterialPaperColor}"/>
+        <SolidColorBrush x:Key="MaterialCardBrush" Color="{DynamicResource MaterialCardColor}"/>
+        <SolidColorBrush x:Key="MaterialToolBarBrush" Color="{DynamicResource MaterialToolBarColor}"/>
+        <SolidColorBrush x:Key="MaterialDialogBrush" Color="{DynamicResource MaterialDialogColor}"/>
+        
+        <!-- Validation Colors -->
+        <Color x:Key="MaterialValidationColorError">#F44336</Color>
+        <SolidColorBrush x:Key="MaterialValidationErrorBrush" Color="{DynamicResource MaterialValidationColorError}"/>
+        
+        <!-- Typography ve Text Colors -->
+        <Color x:Key="MaterialBodyColor">#DDFFFFFF</Color> <!-- 87% white -->
+        <Color x:Key="MaterialBodyLightColor">#99FFFFFF</Color> <!-- 60% white -->
+        <Color x:Key="MaterialColumnHeaderColor">#DDFFFFFF</Color> <!-- 87% white -->
+        <Color x:Key="MaterialCheckBoxOffColor">#89FFFFFF</Color> <!-- 54% white -->
+        <Color x:Key="MaterialCheckBoxDisabledColor">#FFFFFFFF</Color>
+        <Color x:Key="MaterialTextBoxBorderColor">#89FFFFFF</Color> <!-- 54% white -->
+        <Color x:Key="MaterialDividerColor">#1FFFFFFF</Color> <!-- 12% white -->
+        <Color x:Key="MaterialSelectionColor">#757575</Color>
+        
+        <!-- Typography ve Text Brushes -->
+        <SolidColorBrush x:Key="MaterialBodyBrush" Color="{DynamicResource MaterialBodyColor}"/>
+        <SolidColorBrush x:Key="MaterialBodyLightBrush" Color="{DynamicResource MaterialBodyLightColor}"/>
+        <SolidColorBrush x:Key="MaterialColumnHeaderBrush" Color="{DynamicResource MaterialColumnHeaderColor}"/>
+        <SolidColorBrush x:Key="MaterialCheckBoxOffBrush" Color="{DynamicResource MaterialCheckBoxOffColor}"/>
+        <SolidColorBrush x:Key="MaterialCheckBoxDisabledBrush" Color="{DynamicResource MaterialCheckBoxDisabledColor}"/>
+        <SolidColorBrush x:Key="MaterialTextBoxBorderBrush" Color="{DynamicResource MaterialTextBoxBorderColor}"/>
+        <SolidColorBrush x:Key="MaterialDividerBrush" Color="{DynamicResource MaterialDividerColor}"/>
+        <SolidColorBrush x:Key="MaterialSelectionBrush" Color="{DynamicResource MaterialSelectionColor}"/>
+        
+        <!-- GetTheme tarafından kullanılan ek fırçalar -->
+        <SolidColorBrush x:Key="MaterialCardBackgroundBrush" Color="{DynamicResource MaterialCardColor}"/>
+        <Color x:Key="MaterialChipBackgroundColor">#FF2D2D2D</Color>
+        <SolidColorBrush x:Key="MaterialChipBackgroundBrush" Color="{DynamicResource MaterialChipBackgroundColor}"/>
+        <Color x:Key="MaterialDataGridRowHoverBackgroundColor">#14FFFFFF</Color> <!-- 8% white -->
+        <SolidColorBrush x:Key="MaterialDataGridRowHoverBackgroundBrush" Color="{DynamicResource MaterialDataGridRowHoverBackgroundColor}"/>
+        <Color x:Key="MaterialFlatButtonClickColor">#1F000000</Color> <!-- 12% black -->
+        <SolidColorBrush x:Key="MaterialFlatButtonClickBrush" Color="{DynamicResource MaterialFlatButtonClickColor}"/>
+        <Color x:Key="MaterialFlatButtonRippleColor">#1F000000</Color> <!-- 12% black -->
+        <SolidColorBrush x:Key="MaterialFlatButtonRippleBrush" Color="{DynamicResource MaterialFlatButtonRippleColor}"/>
+        <Color x:Key="MaterialSnackbarBackgroundColor">#FF323232</Color>
+        <SolidColorBrush x:Key="MaterialSnackbarBackgroundBrush" Color="{DynamicResource MaterialSnackbarBackgroundColor}"/>
+        <Color x:Key="MaterialSnackbarMouseOverColor">#FF404040</Color>
+        <SolidColorBrush x:Key="MaterialSnackbarMouseOverBrush" Color="{DynamicResource MaterialSnackbarMouseOverColor}"/>
+        <Color x:Key="MaterialSnackbarRippleColor">#FFB6B6B6</Color>
+        <SolidColorBrush x:Key="MaterialSnackbarRippleBrush" Color="{DynamicResource MaterialSnackbarRippleColor}"/>
+        <Color x:Key="MaterialTextAreaBorderColor">#1AFFFFFF</Color> <!-- 10% white -->
+        <SolidColorBrush x:Key="MaterialTextAreaBorderBrush" Color="{DynamicResource MaterialTextAreaBorderColor}"/>
+        <Color x:Key="MaterialTextAreaInactiveBorderColor">#0AFFFFFF</Color> <!-- 4% white -->
+        <SolidColorBrush x:Key="MaterialTextAreaInactiveBorderBrush" Color="{DynamicResource MaterialTextAreaInactiveBorderColor}"/>
+        <Color x:Key="MaterialTextFieldBoxBackgroundColor">#1AFFFFFF</Color> <!-- 10% white -->
+        <SolidColorBrush x:Key="MaterialTextFieldBoxBackgroundBrush" Color="{DynamicResource MaterialTextFieldBoxBackgroundColor}"/>
+        <Color x:Key="MaterialTextFieldBoxDisabledBackgroundColor">#0DFFFFFF</Color> <!-- 5% white -->
+        <SolidColorBrush x:Key="MaterialTextFieldBoxDisabledBackgroundBrush" Color="{DynamicResource MaterialTextFieldBoxDisabledBackgroundColor}"/>
+        <Color x:Key="MaterialTextFieldBoxHoverBackgroundColor">#1FFFFFFF</Color> <!-- 12% white -->
+        <SolidColorBrush x:Key="MaterialTextFieldBoxHoverBackgroundBrush" Color="{DynamicResource MaterialTextFieldBoxHoverBackgroundColor}"/>
+        <Color x:Key="MaterialToolBackgroundColor">#E0E0E0</Color>
+        <SolidColorBrush x:Key="MaterialToolBackgroundBrush" Color="{DynamicResource MaterialToolBackgroundColor}"/>
+        <SolidColorBrush x:Key="MaterialToolBarBackgroundBrush" Color="{DynamicResource MaterialToolBarColor}"/>
+        <Color x:Key="MaterialToolForegroundColor">#616161</Color>
+        <SolidColorBrush x:Key="MaterialToolForegroundBrush" Color="{DynamicResource MaterialToolForegroundColor}"/>
+        <Color x:Key="MaterialToolTipBackgroundColor">#FF616161</Color>
+        <SolidColorBrush x:Key="MaterialToolTipBackgroundBrush" Color="{DynamicResource MaterialToolTipBackgroundColor}"/>
+        
+        <!-- Temel uygulama renklerinizi ekleyin -->
+        <Color x:Key="ColorDefault">#FFE50914</Color>
+        <SolidColorBrush x:Key="BrushDefault" Color="{DynamicResource ColorDefault}"/>
+    </Application.Resources>
+
+    <Application.Styles>
+        <!-- Sadece bir tane MaterialTheme kullanalım, çift tanım hataya neden olabilir -->
+        <themes:MaterialTheme BaseTheme="Dark" PrimaryColor="Purple" SecondaryColor="Lime" />
+        
+
+        <!-- Material Icons Stillerini Ekleyin -->
+        <materialIcons:MaterialIconStyles />
+        
+        <!-- DialogHost.Avalonia stilini ekle -->
+        <dialogHostAvalonia:DialogHostStyles />
+
+        
+        <!-- Tüm TextBlock elemanlarına varsayılan font ayarı -->
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+        </Style>
+        
+        <!-- Tüm Button elemanlarına varsayılan font ayarı -->
+        <Style Selector="Button">
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+        </Style>
+
+        <!-- Material.Icons.Avalonia/App.xaml referansını kaldırıyorum -->
+        <!-- <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml"></StyleInclude> -->
+
+        <!-- AsyncImageControl için stil -->
+        <Style Selector="local|AsyncImageControl">
+            <!-- Template yerine doğrudan stil ayarları kullanıyorum -->
+            <Setter Property="ClipToBounds" Value="True" />
+            <Setter Property="UseLayoutRounding" Value="True" />
+        </Style>
+    </Application.Styles>
+</Application>

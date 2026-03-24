@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NetStream.Views.WebVideoPlayer"
+             x:CompileBindings="False">
+  <Grid>
+    <!-- This is a placeholder for the web video element that will be created via JavaScript interop -->
+    <Border x:Name="VideoContainer" Background="Black">
+        <Grid x:Name="ControlsContainer">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Video controls overlay -->
+            <Border Grid.Row="1" Background="#80000000" Padding="10" IsVisible="{Binding AreControlsVisible}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Progress slider -->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Text="{Binding CurrentPosition}" Foreground="White" Margin="0,0,10,0"/>
+                        <Slider Grid.Column="1" Minimum="0" Maximum="{Binding Duration}" Value="{Binding Position}" 
+                                PointerReleased="Slider_PointerReleased"/>
+                        <TextBlock Grid.Column="2" Text="{Binding TotalDuration}" Foreground="White" Margin="10,0,0,0"/>
+                    </Grid>
+                    
+                    <!-- Control buttons -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button Content="⏮" Click="PreviousButton_Click" Margin="5,0" />
+                        <Button Content="{Binding PlayPauseIcon}" Click="PlayPauseButton_Click" Margin="5,0" />
+                        <Button Content="⏭" Click="NextButton_Click" Margin="5,0" />
+                        <Button Content="🔇" Click="MuteButton_Click" Margin="5,0" />
+                        <Slider Width="100" Minimum="0" Maximum="100" Value="{Binding Volume}" 
+                                PropertyChanged="VolumeSlider_PropertyChanged" Margin="5,0" />
+                        <Button Content="⛶" Click="FullScreenButton_Click" Margin="5,0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+  </Grid>
+</UserControl> 

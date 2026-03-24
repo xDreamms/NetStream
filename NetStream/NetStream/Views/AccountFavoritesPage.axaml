@@ -1,0 +1,194 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:controls="clr-namespace:NetStream.Controls"
+             xmlns:netStream="clr-namespace:NetStream"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NetStream.Views.AccountFavoritesPage"
+             Loaded="AccountFavoritesPage_OnLoaded"
+             Unloaded="Control_OnUnloaded"
+             x:CompileBindings="False">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="0.04*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid HorizontalAlignment="Left" x:Name="SubMenu" Grid.Column="0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontSize="20" Grid.Column="0" Cursor="Hand" PointerPressed="MenuButtonMovie_OnPointerPressed" x:Name="MenuButtonMovie" Text="{DynamicResource MoviesString}" FontFamily="{StaticResource GothamLight}" FontWeight="Light" Foreground="White"/>
+            <TextBlock FontSize="20" Grid.Column="2" Cursor="Hand" PointerPressed="MenuButtonTvShow_OnPointerPressed" x:Name="MenuButtonTvShow" Text="{DynamicResource TvShowsString}" Foreground="#414141" FontFamily="{StaticResource GothamLight}" FontWeight="Light"/>
+            <Rectangle x:Name="MenuLine2" Fill="White" VerticalAlignment="Bottom" Grid.Column="0" Height="2"/>
+        </Grid>
+
+        <Grid Grid.Row="2" IsVisible="False" x:Name="ViewboxNoMoviesFound">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.7*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Column="1">
+                <TextBlock Opacity="0.3" x:Name="NoMOviesFound" FontFamily="{StaticResource GothamMedium}" FontWeight="Normal" Text="No Movies Found" Foreground="#414141"/>
+            </Viewbox>
+        </Grid>
+        
+        <ScrollViewer Margin="-10 20 0 0"  IsVisible="False" VerticalAlignment="Top"
+                     Grid.Row="2" Grid.Column="0" Background="Transparent"
+                     x:Name="MoviesDisplayScrollViewer"
+                     ScrollChanged="MoviesDisplay_OnScrollChanged">
+            <ItemsControl 
+                         x:Name="MoviesDisplay" Background="Transparent">
+
+                <ItemsControl.ItemTemplate>
+                     <DataTemplate x:DataType="netStream:Movie">
+                    <StackPanel PointerPressed="MoviesDisplay_OnPointerPressed" Cursor="Hand" Margin="10 10 7 0" Orientation="Vertical">
+                        <StackPanel.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuItem Header="{DynamicResource DeleteFromFavoritesString}" Click="MenuItem_OnClick"/>
+                            </MenuFlyout>
+                        </StackPanel.ContextFlyout>
+                        <Border BorderBrush="#1F2021" 
+                                VerticalAlignment="Top" 
+                                Height="375" 
+                                Width="250" 
+                                HorizontalAlignment="Left"
+                                BorderThickness="5"
+                        >
+                            <Border.Styles>
+                                <Style Selector="Border:pointerover">
+                                    <Setter Property="ZIndex" Value="1000"/>
+                                    <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                </Style>
+                                <Style Selector="Border:not(:pointerover)">
+                                    <Setter Property="ZIndex" Value="0"/>
+                                    <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                </Style>
+                            </Border.Styles>
+                            <Border.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                    <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                </Transitions>
+                            </Border.Transitions>
+                            <netStream:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                        </Border>
+                        
+                        <TextBlock x:Name="TextBlockName" FontWeight="Light" 
+                                   FontFamily="{StaticResource GothamLight}" 
+                                   VerticalAlignment="Top" 
+                                   Margin="0 20 0 0" 
+                                   FontSize="18" 
+                                   MaxWidth="200" 
+                                   HorizontalAlignment="Left" 
+                                   TextWrapping="Wrap" 
+                                   Text="{Binding Name}" 
+                                   Foreground="White" />
+
+                        <StackPanel Margin="-5 1 0 0" Orientation="Horizontal">
+                            <controls:RatingBar x:Name="RatingBar" HorizontalAlignment="Left"
+                                                IsReadOnly="True"
+                                                Rating="{Binding Rating}" />
+
+                            <TextBlock x:Name="TextBlockRatingNumber" FontWeight="Light" 
+                                       FontFamily="{StaticResource GothamLight}" 
+                                       FontSize="15" 
+                                       Margin="15 3.5 0 0" 
+                                       HorizontalAlignment="Left" 
+                                       Text="{Binding RatingNumber}" 
+                                       Foreground="#767676" />
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <ScrollViewer Margin="-10 20 0 0" IsVisible="False" VerticalAlignment="Top"
+                     Grid.Row="2" Grid.Column="0" Background="Transparent"
+                     x:Name="TvShowsDisplayScrollViewer"
+                     ScrollChanged="TvShowsDisplay_OnScrollChanged">
+            <ItemsControl x:Name="TvShowsDisplay" Background="Transparent">
+
+                <ItemsControl.ItemTemplate>
+                     <DataTemplate x:DataType="netStream:Movie">
+                    <StackPanel PointerPressed="TvShowsDisplay_OnPointerPressed" Cursor="Hand" Margin="10 10 7 0" Orientation="Vertical">
+                        <StackPanel.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuItem Header="{DynamicResource DeleteFromFavoritesString}" Click="RemoveFavoriteTvShow"/>
+                            </MenuFlyout>
+                        </StackPanel.ContextFlyout>
+                        <Border BorderBrush="#1F2021" 
+                                VerticalAlignment="Top" 
+                                Height="375" 
+                                Width="250" 
+                                HorizontalAlignment="Left"
+                                BorderThickness="5"
+                        >
+                            <Border.Styles>
+                                <Style Selector="Border:pointerover">
+                                    <Setter Property="ZIndex" Value="1000"/>
+                                    <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                </Style>
+                                <Style Selector="Border:not(:pointerover)">
+                                    <Setter Property="ZIndex" Value="0"/>
+                                    <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                </Style>
+                            </Border.Styles>
+                            <Border.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                    <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                </Transitions>
+                            </Border.Transitions>
+                            <netStream:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                        </Border>
+                        
+                        <TextBlock x:Name="TextBlockName" FontWeight="Light" 
+                                   FontFamily="{StaticResource GothamLight}" 
+                                   VerticalAlignment="Top" 
+                                   Margin="0 20 0 0" 
+                                   FontSize="18" 
+                                   MaxWidth="200" 
+                                   HorizontalAlignment="Left" 
+                                   TextWrapping="Wrap" 
+                                   Text="{Binding Name}" 
+                                   Foreground="White" />
+
+                        <StackPanel Margin="-5 1 0 0" Orientation="Horizontal">
+                            <controls:RatingBar x:Name="RatingBar" HorizontalAlignment="Left"
+                                                IsReadOnly="True"
+                                                Rating="{Binding Rating}" />
+
+                            <TextBlock x:Name="TextBlockRatingNumber" FontWeight="Light" 
+                                       FontFamily="{StaticResource GothamLight}" 
+                                       FontSize="15" 
+                                       Margin="15 3.5 0 0" 
+                                       HorizontalAlignment="Left" 
+                                       Text="{Binding RatingNumber}" 
+                                       Foreground="#767676" />
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl> 

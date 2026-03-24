@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
+  <Application>
+    <!-- Newtonsoft.Json için gerekli türleri işaretle -->
+    <Assembly Name="Newtonsoft.Json" Dynamic="Required All" />
+
+    <!-- TMDbLib - Newtonsoft.Json ile deserialize edilen tüm türlerin metadata'sını koru -->
+    <Assembly Name="TMDbLib" Dynamic="Required All" />
+
+    <!-- NetStream projesindeki serialization kullanan sınıflar -->
+    <Assembly Name="NetStream">
+      <Type Name="NetStream.Torrent" Dynamic="Required All" />
+      <Type Name="NetStream.Item" Dynamic="Required All" />
+      <Type Name="NetStream.PlayerCache" Dynamic="Required All" />
+      <Type Name="NetStream.AppSettingsManager" Dynamic="Required All" />
+      <Type Name="NetStream.ResourceProvider" Dynamic="Required All" />
+      <Type Name="NetStream.Libtorrent" Dynamic="Required All" />
+      <Type Name="NetStream.Views.DownloadsPage" Dynamic="Required All" />
+      <!-- Serialize/Deserialize edilen diğer sınıflar -->
+    </Assembly>
+    
+    <!-- NetStream.Desktop için -->
+    <Assembly Name="NetStream.Desktop">
+      <Type Name="NetStream.Desktop.Program" Dynamic="Required All" />
+    </Assembly>
+    
+    <!-- Temel .NET System.Text.Json Serileştirme Türleri -->
+    <Assembly Name="System.Text.Json" Dynamic="Required All" />
+    <Assembly Name="System.Text.Encodings.Web" Dynamic="Required All" />
+  </Application>
+</Directives> 

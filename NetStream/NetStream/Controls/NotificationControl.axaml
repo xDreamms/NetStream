@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="NetStream.Controls.NotificationControl"
+             MinHeight="85" MinWidth="300" MaxWidth="500"
+             Background="Transparent">
+    
+    <Border Background="#3E3E3E" CornerRadius="8" Margin="0,5,5,5" Padding="15,0"
+            BoxShadow="0 4 10 0 #40000000">
+        <Grid ColumnDefinitions="Auto,*">
+            <!-- Icon Background and Checkmark -->
+            <Grid Grid.Column="0" Width="36" Height="36" VerticalAlignment="Center">
+                <Ellipse Fill="#28A745" />
+                <Path Data="M10,18.5 L14,22.5 L22.5,13.5" Stroke="#3E3E3E" StrokeThickness="3" StrokeLineCap="Round" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Width="14" Height="10"/>
+            </Grid>
+            <!-- Texts -->
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="15,10,15,10">
+                <TextBlock x:Name="TitleText" Text="Merhamet Yok izleme listesine eklendi" Foreground="White" FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap" />
+                <TextBlock x:Name="MessageText" Text="2026/02/22 02:49:30" Foreground="#A0A0A0" FontSize="13" Margin="0,4,0,0" TextWrapping="Wrap"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

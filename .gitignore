@@ -1,0 +1,87 @@
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE / editor settings
+.vs/
+.idea/
+.vscode/
+.env
+.env.*
+!.env.example
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+_ReSharper*/
+*.DotSettings.user
+
+# .NET / MSBuild outputs
+bin/
+obj/
+artifacts/
+publish/
+TestResults/
+[Ll]og/
+Generated\ Files/
+
+# Visual Studio / native build outputs
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+CTestTestfile.cmake
+cmake_install.cmake
+compile_commands.json
+install_manifest.txt
+Makefile
+*.VC.db
+*.VC.opendb
+*.opendb
+*.idb
+*.ilk
+*.ipdb
+*.iobj
+*.pch
+*.pdb
+*.tlog
+*.tmp
+*.cache
+*.obj
+*.o
+*.lo
+*.slo
+*.vcxproj.user
+x64/
+x86/
+ARM/
+ARM64/
+Debug/
+Release/
+
+# NuGet
+packages/
+*.nupkg
+*.snupkg
+
+# Mobile / app packaging outputs
+*.apk
+*.aab
+*.apks
+*.ipa
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
+*.dmg
+*.pkg
+
+# Generated logs / patch leftovers
+*.log
+*.orig
+*.rej
+
+# Local external runtime binaries
+copy these to build output/ffmpeg/

@@ -1,0 +1,16 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="NetStream.Views.GlobalNotificationWindow"
+        xmlns:controls="clr-namespace:NetStream.Controls"
+        SizeToContent="WidthAndHeight"
+        Background="Transparent"
+        TransparencyLevelHint="Transparent"
+        SystemDecorations="None"
+        WindowStartupLocation="Manual"
+        Topmost="True"
+        ShowInTaskbar="False">
+    
+    <Grid>
+        <controls:NotificationControl x:Name="NotificationPresenter" HorizontalAlignment="Right" VerticalAlignment="Top" />
+    </Grid>
+</Window>

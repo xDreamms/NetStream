@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             x:Class="NetStream.Views.ImageViewerOverlay"
+             Background="#CC000000"
+             IsVisible="False">
+
+    <Grid>
+        <!-- Close on background click -->
+        <Border Background="Transparent" PointerPressed="Background_OnPointerPressed"/>
+
+        <!-- Centered popup container -->
+        <Border HorizontalAlignment="Center" VerticalAlignment="Center"
+                Background="#1A1A1A" CornerRadius="12"
+                BorderBrush="#333333" BorderThickness="1"
+                BoxShadow="0 8 32 0 #88000000"
+                Padding="16" MaxWidth="1400" MaxHeight="900" Margin="40">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!-- Top bar -->
+                <Grid Grid.Row="0" Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Download button -->
+                    <Border Grid.Column="1" Background="#333333" CornerRadius="8" Cursor="Hand"
+                            Padding="14,8" Margin="0,0,10,0"
+                            PointerPressed="BtnDownload_OnClick">
+                        <Border.Styles>
+                            <Style Selector="Border:pointerover">
+                                <Setter Property="Background" Value="#444444"/>
+                            </Style>
+                        </Border.Styles>
+                        <StackPanel Orientation="Horizontal">
+                            <avalonia:Icon Value="fa-regular fa-download" Foreground="White" FontSize="16" Margin="0,0,8,0"/>
+                            <TextBlock Text="Download" Foreground="White" FontSize="14" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Close button -->
+                    <Border Grid.Column="2" Background="#333333" CornerRadius="8" Cursor="Hand"
+                            Padding="10,8"
+                            PointerPressed="BtnClose_OnPointerPressed">
+                        <Border.Styles>
+                            <Style Selector="Border:pointerover">
+                                <Setter Property="Background" Value="#E50914"/>
+                            </Style>
+                        </Border.Styles>
+                        <avalonia:Icon Value="fa-regular fa-xmark" Foreground="White" FontSize="18"/>
+                    </Border>
+                </Grid>
+
+                <!-- Image -->
+                <Border Grid.Row="1" CornerRadius="8" ClipToBounds="True">
+                    <Image x:Name="FullImage" Stretch="Uniform"/>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

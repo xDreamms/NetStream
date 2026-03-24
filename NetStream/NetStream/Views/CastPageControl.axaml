@@ -1,0 +1,213 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:avalonia1="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d" 
+             d:DesignHeight="3000" d:DesignWidth="1584" Width="NaN" Height="NaN"
+             Background="#111111"
+             Loaded="CastPage_OnLoaded" Unloaded="CastPage_OnUnloaded" 
+             x:Class="NetStream.CastPageControl"
+             x:CompileBindings="False">
+
+    <Grid>
+        <ScrollViewer Name="MainScrollViewer" ScrollChanged="ScrollViewer_OnScrollChanged" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid x:Name="CastInfo" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid x:Name="PosterGrid" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="0.04*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                            <local:AsyncImageControl VerticalAlignment="Top" Grid.Row="0" Grid.Column="0" x:Name="PosterImage" Source="{Binding Poster}"/>
+                        <Grid x:Name="GridCastInfo" Grid.Row="0" Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Viewbox Stretch="Uniform" Grid.Row="0" HorizontalAlignment="Left">
+                                    <TextBlock x:Name="CastName" FontFamily="{StaticResource GothamRegular}" Text="{Binding Name}" FontWeight="Normal" Foreground="White"/>
+                                </Viewbox>
+                            </Grid>
+
+                            <Viewbox x:Name="BiographyViewbox" Margin="0 15 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="0">
+                                <StackPanel x:Name="BiographyPanel" Width="500">
+                                    <TextBlock x:Name="Biography" Foreground="#BABABA" FontFamily="{StaticResource GothamRegular}" TextWrapping="Wrap" FontWeight="Light" Text="{Binding Biography}"/>
+                                </StackPanel>
+                            </Viewbox>
+
+                            <Grid x:Name="CastDetailsGrid" Grid.Row="2" Margin="0 20 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="0.1*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="0.1*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Viewbox Grid.Row="0" Grid.Column="0">
+                                        <TextBlock x:Name="KnownForLabel" FontSize="15" Text="{DynamicResource KnownForString}" FontFamily="{StaticResource GothamRegular}" FontWeight="Light" Foreground="#838383"/>
+                                    </Viewbox>
+                                </Grid>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="PlaceOfBirthLabel" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource PlaceOfBirthString}" FontWeight="Light" Foreground="#838383"/>
+                                </Grid>
+
+                                <Grid Grid.Row="4">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                        <TextBlock x:Name="BirthdayLabel" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource BirthdayString}" FontWeight="Light" Foreground="#838383"/>
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                            <TextBlock x:Name="KnownForValue" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="{Binding KnownFor}" FontWeight="Light" Foreground="#BABABA"/>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid Grid.Row="2" Grid.Column="2" HorizontalAlignment="Left">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                            <TextBlock x:Name="PlaceOfBirthValue" FontFamily="{StaticResource GothamRegular}" FontSize="15" Text="{Binding BirthPlace}" FontWeight="Light" Foreground="#BABABA"/>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid Grid.Row="4" Grid.Column="2">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                            <TextBlock x:Name="BirthdayValue" FontFamily="{StaticResource GothamRegular}" FontSize="15" Text="{Binding BirthDate}" FontWeight="Light" Foreground="#BABABA"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <StackPanel x:Name="SocialMediaPanel" Margin="0 20 0 0" Grid.Row="3" Orientation="Horizontal">
+                                <Grid Margin="0 0 15 0" Cursor="Hand" PointerExited="BtnFacebook_OnPointerLeave" PointerEntered="BtnFacebook_OnPointerEnter" 
+                                      Tapped="BtnFacebook_OnTapped" Background="#01000000">
+                                    <avalonia1:Icon Name="BtnFacebook" Value="fa-brands fa-facebook"
+                                                    FontSize="22"
+                                                    Foreground="White"/>
+                                </Grid>
+                               
+                                <Grid Background="#01000000" Margin="0 0 15 0" Cursor="Hand" PointerExited="BtnInstagram_OnPointerLeave" PointerEntered="BtnInstagram_OnPointerEnter"
+                                       Tapped="BtnInstagram_OnTapped">
+                                    <avalonia1:Icon Name="BtnInstagram" Value="fa-brands fa-instagram" 
+                                                    FontSize="24"
+                                                    Foreground="White"/>
+                                </Grid>
+                                <Grid Background="#01000000" Margin="0 0 15 0" Cursor="Hand" PointerExited="BtnImadb_OnPointerLeave" PointerEntered="BtnImadb_OnPointerEnter"
+                                       Tapped="BtnImadb_OnTapped">
+                                    <avalonia1:Icon Name="BtnImadb" Cursor="Hand" Value="fa-brands fa-imdb" 
+                                                    FontSize="24"
+                                                   Foreground="White"/>
+                                </Grid>
+                                <Grid Background="#01000000" Cursor="Hand" PointerExited="BtnTwitter_OnPointerLeave" PointerEntered="BtnTwitter_OnPointerEnter"
+                                       Tapped="BtnTwitter_OnTapped">
+                                    <avalonia1:Icon Name="BtnTwitter" Cursor="Hand" Value="fa-brands fa-twitter"
+                                                    FontSize="24"
+                                                    Foreground="White"/>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="MenuTabsGrid" Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="0.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid x:Name="GridTab" Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Cursor="Hand" Grid.Column="0" FontFamily="{StaticResource GothamRegular}" x:Name="KnownForMenuTab" Tapped="KnownForMenuTab_OnTapped" Text="{DynamicResource KnownForString2}" Foreground="White"/>
+                        <Rectangle  Grid.Row="0" x:Name="MenuLine" Grid.Column="0" VerticalAlignment="Bottom" Height="3" Fill="White"/>
+
+                        <TextBlock Grid.Row="0" Cursor="Hand" Grid.Column="2" FontFamily="{StaticResource GothamRegular}" x:Name="CreditsMenuTab" Tapped="CreditsMenuTab_OnTapped" Text="{DynamicResource CreditsString}" Foreground="#414141"/>
+
+                        <TextBlock Grid.Row="0" Cursor="Hand" Grid.Column="4" FontFamily="{StaticResource GothamRegular}" x:Name="PhotosMenuTab" Tapped="PhotosMenuTab_OnTapped" Text="{DynamicResource PhotosString}" Foreground="#414141"/>
+                    </Grid>
+                </Grid>
+
+                <Grid x:Name="CastPageContentGrid" Grid.Row="5" Margin="0 50 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.1*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ContentControl HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch" BorderThickness="0" x:Name="CastPageNavigation" Grid.Row="1" Grid.Column="1">
+                        <Interaction.Behaviors>
+                            <local:IgnoreMouseWheelBehavior />
+                        </Interaction.Behaviors>
+                    </ContentControl>
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl> 

@@ -1,0 +1,102 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:material="using:Material.Styles"
+             xmlns:assists="using:Material.Styles.Assists"
+             xmlns:netStream="clr-namespace:NetStream"
+             x:Class="NetStream.Views.SubtitleManagerWindow"
+             Loaded="SubtitleManagerWindow_OnLoaded"
+             Background="Transparent" x:CompileBindings="False" Unloaded="Control_OnUnloaded">
+
+    <Grid Background="#111111">
+            <Grid.RowDefinitions>
+            <RowDefinition Height="0.02*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.02*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="0.02*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+       
+        <Grid x:Name="MenuGrid" HorizontalAlignment="Center" Grid.Row="3" Grid.Column="1" Margin="0 0 0 30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock PointerPressed="MakeSubtitlesMenu_OnPreviewMouseLeftButtonDown" x:Name="MakeSubtitlesMenu" Cursor="Hand" Grid.Column="3" FontFamily="{StaticResource GothamRegular}" Text="Make Your Subtitles" FontSize="22" Foreground="#414141"></TextBlock>
+            <Rectangle x:Name="MenuLine" Height="3" Fill="White" Grid.Column="1" VerticalAlignment="Bottom"></Rectangle>
+            <TextBlock PointerPressed="OpenSubtitlesComMenu_OnPreviewMouseLeftButtonDown" x:Name="OpenSubtitlesComMenu" Cursor="Hand" Grid.Column="1" FontFamily="{StaticResource GothamRegular}" Text="OpenSubtitles.Com" FontSize="22" Foreground="White"></TextBlock>
+        </Grid>
+
+        <StackPanel HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="0 0 0 20">
+            <TextBlock FontWeight="Light" FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource SubtitleLanguageString}" Foreground="White"></TextBlock>
+            <ComboBox Width="320" x:Name="ComboBoxSubtitleLanguage" Margin="0 10 0 0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="4"
+                      PlaceholderText="{DynamicResource SelectLanguageString}"
+                      Classes="Outline">
+            </ComboBox>
+            </StackPanel>
+
+        <TextBlock x:Name="DownloadRemaining" Grid.Row="1" Text="" FontSize="20" FontFamily="{StaticResource GothamRegular}" HorizontalAlignment="Right" Foreground="White" Grid.Column="1">
+        </TextBlock>
+
+        <Grid x:Name="MakeSubtitlesView" Grid.Row="4" Grid.Column="1" IsVisible="False">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="AI Subtitle Generation" FontSize="24" Foreground="White" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                
+                <ProgressBar x:Name="GenerationProgressBar" Minimum="0" Maximum="100" Height="10" Width="500" Margin="0,0,0,10" Foreground="#30DB62" Background="#333"/>
+                <TextBlock x:Name="ProgressStatusText" Text="Ready to generate" Foreground="#AAA" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                
+                <Border Background="#1A1A1A" CornerRadius="8" Padding="15" Height="300" Width="600" BorderBrush="#333" BorderThickness="1">
+                    <ScrollViewer x:Name="LogScrollViewer">
+                        <TextBlock x:Name="LogOutput" Foreground="#00FF00" FontFamily="Consolas, Monospace" FontSize="12" TextWrapping="Wrap"/>
+                    </ScrollViewer>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <ScrollViewer  Grid.Row="4" Grid.Column="1" 
+                       ScrollChanged="SubtitlesDisplay_OnScrollChanged" 
+                               Background="Transparent"
+                       x:Name="SubtitlesDisplayScrollViewer" >
+            
+                    <ItemsControl x:Name="SubtitlesDisplay">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="netStream:Subtitle">
+                    <StackPanel  PointerPressed="StackPanelSubtitle_OnPointerPressed" x:Name="StackPanelSubtitle" Loaded="StackPanelSubtitle_OnLoaded" Cursor="Hand" Orientation="Horizontal" Width="{Binding #SubtitlesDisplay.Bounds.Width}">
+                        
+                        <Image Margin="5 0 0 0"  Source="{Binding Country}" Height="120" Width="120"/>
+                        
+                        <StackPanel Margin="15 20 0 0" Orientation="Vertical">
+                            <TextBlock FontSize="20" Foreground="White" Text="{Binding Name}"></TextBlock>
+                            <TextBlock FontSize="14" Foreground="White" Text="{Binding Votes, StringFormat='Vote count: {0}'}"></TextBlock>
+                            <TextBlock FontSize="14" Foreground="White" Text="{Binding Ratings, StringFormat='Rating: {0}'}"></TextBlock>
+                            <TextBlock FontSize="14" Foreground="White" Text="{Binding DownloadCount, StringFormat='Download Count: {0}'}"></TextBlock>
+                        </StackPanel>
+                        <Button VerticalAlignment="Top" Margin="20 17 0 0" Loaded="FrameworkElement_OnLoaded"
+                                Click="UIElement_OnPreviewMouseLeftButtonDown"
+                                Width="NaN"
+                                Content="Apply Without Sync"
+                                Classes="Outline Light" />
+                    </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+            
+        </ScrollViewer>
+        
+    </Grid>
+</UserControl>

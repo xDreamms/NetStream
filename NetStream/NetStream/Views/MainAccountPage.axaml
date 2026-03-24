@@ -1,0 +1,72 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
+             x:Class="NetStream.Views.MainAccountPage"
+             Unloaded="MainAccountPage_OnUnloaded"
+             Loaded="Control_OnLoaded">
+    
+    <Grid>
+        <StackPanel x:Name="AccountPanel" Orientation="Vertical">
+            <TextBlock x:Name="TextBlockAccount" FontSize="35" FontWeight="Medium" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource Account}" Foreground="White"/>
+            <StackPanel x:Name="UserProfileStackPanel" Margin="0 30 0 0" HorizontalAlignment="Left" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
+                    <Border x:Name="BorderGravatar" Width="100" Height="100" CornerRadius="50" Margin="0,0,0,0" 
+                            ClipToBounds="True"
+                            Background="#33FFFFFF"
+                            HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Image x:Name="Gravatar" Stretch="UniformToFill"/>
+                    </Border>
+                
+                    <StackPanel x:Name="StackPanelTextUsernameEmail" Orientation="Vertical" Margin="0 22 0 0">
+                        <TextBlock x:Name="TextBlockUsername" VerticalAlignment="Top" Margin="25 0 0 0" 
+                                   FontFamily="{StaticResource GothamRegular}" Text="" Foreground="White" 
+                                   FontSize="25" FontWeight="Normal"/>
+                        <TextBlock FontFamily="{StaticResource GothamRegular}" FontWeight="Light" FontSize="16" 
+                                   Foreground="White" Margin="25 0 0 0" x:Name="EmailTextBlock" Text=""/>
+                    </StackPanel>
+                </StackPanel>
+               
+                
+                <StackPanel x:Name="ButtonsContainerStackPanel" Orientation="Horizontal" Margin="0,0,0,0">
+                    <StackPanel x:Name="ProfileButtonsStackPanel" Margin="100 0 0 0" Orientation="Vertical">
+                        <Button Click="ButtonChangeProfileImage_OnPreviewMouseLeftButtonDown" x:Name="ButtonChangeProfileImage"  
+                               FontWeight="Regular" FontFamily="{StaticResource GothamRegular}" FontSize="15" Foreground="White" HorizontalAlignment="Left"
+                               Content="{DynamicResource ChangeProfileImage}"
+                               Classes="flat"/>
+                        <Button Click="ButtonChangePassword_OnPreviewMouseLeftButtonDown" x:Name="ButtonChangePassword" 
+                                FontWeight="Regular" FontFamily="{StaticResource GothamRegular}" FontSize="15" Foreground="White" HorizontalAlignment="Left"
+                                Content="{DynamicResource ChangePassword}"
+                                Classes="flat"/>
+                        <Button Click="ButtonChangeUsername_OnPreviewMouseLeftButtonDown" x:Name="ButtonChangeUsername" 
+                                FontWeight="Regular" FontFamily="{StaticResource GothamRegular}" FontSize="15" Foreground="White" HorizontalAlignment="Left"
+                                Content="{DynamicResource ChangeUsername}"
+                                Classes="flat"/>
+                    </StackPanel>
+                    
+                    <StackPanel x:Name="SignOutButtonStackPanel" Margin="100 0 0 0" Orientation="Vertical">
+                        <Button Click="ButtonChangeSignOut_OnPreviewMouseLeftButtonDown" x:Name="ButtonChangeSignOut" 
+                                FontWeight="Regular" FontFamily="{StaticResource GothamRegular}" FontSize="15" Foreground="White" HorizontalAlignment="Left"
+                                Content="{DynamicResource SignOut}"
+                                Classes="flat"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            
+            <StackPanel x:Name="SubscriptionStackPanel" Margin="0 45 0 0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock x:Name="SubscriptionText" Foreground="White" VerticalAlignment="Top" FontFamily="{StaticResource GothamRegular}" 
+                         FontSize="18" FontWeight="Normal" Text="{DynamicResource YourSubscriptionWillExpire}"/>
+                <TextBlock Margin="5 0 0 0" x:Name="ExpireTextBlock" Foreground="White" VerticalAlignment="Top" 
+                         FontWeight="Normal" FontFamily="{StaticResource GothamRegular}" FontSize="18" Text=""/>
+                <Button x:Name="ButtonRenew" Click="ButtonRenew_OnPreviewMouseLeftButtonDown" 
+                       FontWeight="Normal" Margin="30 -7 0 0" FontFamily="{StaticResource GothamRegular}" 
+                       FontSize="15" HorizontalAlignment="Left"
+                       Content="{DynamicResource Renew}"
+                       Classes="accent"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl> 

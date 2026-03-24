@@ -1,0 +1,108 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:netStream="clr-namespace:NetStream"
+             xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+             mc:Ignorable="d"
+             d:DesignHeight="882" d:DesignWidth="551"
+             x:Class="NetStream.Views.SignUpPage"
+             KeyDown="SignUpPage_OnKeyDown"
+             SizeChanged="Control_OnSizeChanged" Background="#1E1E21">
+
+    <Grid >
+        <dialogHostAvalonia:DialogHost x:Name="DialogHost" IsOpen="False">
+            <dialogHostAvalonia:DialogHost.DialogContent>
+                <Border Background="#222222" BorderBrush="#333333" BorderThickness="1" CornerRadius="4" 
+                    BoxShadow="0 4 20 0 #66000000" Padding="15">
+                <Grid>
+                    <StackPanel IsVisible="True" x:Name="StackPanelError">
+                        <TextBlock x:Name="TextBlockDialogText" FontFamily="{StaticResource GothamRegular}" Margin="10" Text="" Foreground="White" />
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Button Click="BtnCloseDialog_OnPreviewMouseLeftButtonDown" Margin="10" Name="BtnCloseDialog" Content="{DynamicResource OkayString}" />
+                            <Button IsVisible="False" Click="BtnSendVerificationAgain" Margin="10" Name="BtnSendVerification" Content="{DynamicResource EmailVerificationSendString}" />
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <StackPanel IsVisible="False" x:Name="UploadProfilePhoto" Orientation="Vertical">
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" Margin="10" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource SetDefaultPhoto}" Foreground="White"></TextBlock>
+                        <Grid Width="100" Height="100" Margin="0 20 0 5">
+                            <Grid Width="200" HorizontalAlignment="Center">
+                                <Image x:Name="ProfilePhoto" Stretch="Uniform"/>
+                            </Grid>
+                            <Ellipse Width="100" Height="100" Fill="Transparent" Stroke="Transparent" StrokeThickness="0">
+                                <Ellipse.Clip>
+                                    <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                                </Ellipse.Clip>
+                            </Ellipse>
+                        </Grid>
+                        <StackPanel Margin="0 26 0 0" HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Button Click="ButtonKeepIt_OnPreviewMouseLeftButtonDown" Margin="0 0 10 0"
+                                    x:Name="ButtonKeepIt"
+                                    Content="{DynamicResource KeepIt}"
+                            />
+                            <Button Click="ButtonSelect_OnPreviewMouseLeftButtonDown" Margin="0 0 10 0"
+                                    x:Name="ButtonSelect"
+                                    Content="{DynamicResource Select}"
+                            />
+                            <Button IsEnabled="False" Click="ButtonChangeProfilePhoto_OnPreviewMouseLeftButtonDown" 
+                                    Margin="0" x:Name="ButtonChangeProfilePhoto" Content="{DynamicResource Confirm}"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                    
+                    <StackPanel x:Name="ProgressReport" Orientation="Vertical" IsVisible="False">
+                        <ProgressBar Margin="10" IsIndeterminate="True" />
+                        <TextBlock FontSize="16" Margin="10" Text="" x:Name="ProgressInfo" Foreground="White"></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Border>
+                
+            </dialogHostAvalonia:DialogHost.DialogContent>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.12*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="0.2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                 <StackPanel Grid.Row="1">
+            <Image x:Name="NetStreamLogo" Margin="0 50 0 0" Height="150" Source="/Assets/NetStreamLogo.png"></Image>
+            <TextBlock x:Name="TextWelcome" FontFamily="{StaticResource GothamRegular}" FontWeight="Medium" Text="{DynamicResource WelcomeSignUp}" HorizontalAlignment="Center" FontSize="28" Margin="0 35 0  5" Foreground="White"></TextBlock>
+            <TextBlock x:Name="TextCreateAccount" FontFamily="{StaticResource GothamRegular}" FontSize="17" FontWeight="Normal" HorizontalAlignment="Center" Text="{DynamicResource CreateAccount}" Foreground="White"></TextBlock>
+            
+            <TextBox Margin="0 50 0 0" Width="500" BorderThickness="2" FontSize="18" Watermark="{DynamicResource DisplayNameString}" 
+                     x:Name="TextBoxDisplayName" Foreground="White" BorderBrush="#494949" 
+                     FontFamily="{StaticResource GothamRegular}" FontWeight="Light">
+            </TextBox>
+            
+            <TextBox Margin="0 20 0 0" Width="500" BorderThickness="2" FontSize="18" Watermark="{DynamicResource EmailString}" 
+                     x:Name="TextBoxEmail" Foreground="White" BorderBrush="#494949" 
+                     FontFamily="{StaticResource GothamRegular}" FontWeight="Light">
+            </TextBox>
+
+            <TextBox PasswordChar="•" GotFocus="TextBoxPassword_OnGotFocus" LostFocus="TextBoxPassword_OnLostFocus" 
+                     Margin="0 20 0 0" Width="500" BorderThickness="2" FontSize="18"
+                     x:Name="TextBoxPassword" Watermark="{DynamicResource PasswordString}" 
+                     Foreground="White" BorderBrush="#494949" 
+                     FontFamily="{StaticResource GothamRegular}" FontWeight="Light">
+            </TextBox>
+            
+            <Button  Height="53" Width="500" Margin="0 50 0 0" x:Name="BtnSignUp" 
+                    Click="BtnSignUp_OnPreviewMouseLeftButtonDown" Content="{DynamicResource SignUpString}" 
+                    CornerRadius="10" Background="{DynamicResource SystemAccentColor}"
+                    FontFamily="{StaticResource GothamRegular}" FontWeight="Normal">
+            </Button>
+
+            <Button x:Name="BtnSignIn" Theme="{StaticResource MaterialFlatButton}"  Height="53" Width="500" Margin="0 20 0 0" Click="UIElement_OnPreviewMouseLeftButtonDown" 
+                     Content="{DynamicResource SignInString}" CornerRadius="10"
+                     FontFamily="{StaticResource GothamRegular}" FontWeight="Normal">
+            </Button>
+        </StackPanel>
+            </Grid>
+             
+        </dialogHostAvalonia:DialogHost>
+     
+        
+      
+    </Grid>
+</UserControl> 

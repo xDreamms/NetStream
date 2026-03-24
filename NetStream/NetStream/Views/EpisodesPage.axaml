@@ -1,0 +1,136 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetStream"
+             mc:Ignorable="d" 
+             Width="NaN" Height="NaN"
+             x:Class="NetStream.Views.EpisodesPage" 
+             Loaded="EpisodesPage_OnLoaded" Unloaded="Control_OnUnloaded"
+             x:CompileBindings="False">
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.03*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.01*"/>
+                <RowDefinition Height="0.01*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="SeasonsTitle" HorizontalAlignment="Center" Margin="0 20 0 20" FontSize="28" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource SeasonsString}" Foreground="White" />
+        
+            <Grid Grid.Row="2">
+                <ItemsControl  Background="Transparent" x:Name="SeasonsDisplay">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel PointerPressed="SeasonOnPressed" Orientation="Horizontal" Cursor="Hand" Margin="0 20 20 20">
+                               
+                                <Border x:Name="MovieCardBorder" Classes="movie-card" BorderBrush="#1F2021" 
+                                        VerticalAlignment="Top" 
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="5"
+                                        Height="275" Width="190">
+                                    <Border.Styles>
+                                        <Style Selector="Border:pointerover">
+                                            <Setter Property="ZIndex" Value="1000"/>
+                                            <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                        </Style>
+                                        <Style Selector="Border:not(:pointerover)">
+                                            <Setter Property="ZIndex" Value="0"/>
+                                            <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                        </Style>
+                                    </Border.Styles>
+                                    <Border.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                            <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                        </Transitions>
+                                    </Border.Transitions>
+                                    <local:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                                </Border>
+                             
+
+                                <StackPanel x:Name="SeasonInfoStackPanel" Margin="20 15 0 0" Orientation="Vertical">
+                                    <TextBlock FontSize="20" FontWeight="Medium" FontFamily="{StaticResource GothamRegular}" Text="{Binding SeasonNumberText}" Foreground="White"/>
+                                    <StackPanel x:Name="StackPanelInfo" Margin="0 5 0 0" Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock FontSize="15" FontFamily="{StaticResource GothamRegular}" Text="{Binding Year}" Foreground="White"/>
+                                            <TextBlock FontSize="15" Margin="15 0 0 0" FontFamily="{StaticResource GothamRegular}" Text="{Binding EpisodeCountText}" Foreground="White"/>
+                                        </StackPanel>
+                                        <Button Width="NaN" FontWeight="Normal" Margin="15 -5 0 0" FontSize="12" FontFamily="{StaticResource GothamRegular}" Loaded="FrameworkElement_OnLoaded" x:Name="ButtonDownloadAllSeasons" Click="UIElement_OnPreviewMouseLeftButtonDown" Content="{DynamicResource DownloadALlSeasonString}"/>
+                                    </StackPanel>
+                                    <Panel Margin="0 10 0 0" >
+                                        <TextBlock HorizontalAlignment="Left" FontWeight="Light" FontFamily="{StaticResource GothamRegular}" x:Name="SeasonDescription" FontSize="14" TextWrapping="Wrap" Foreground="White" Text="{Binding Description}"/>
+                                    </Panel>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+
+            <TextBlock x:Name="EpisodesTitle" Grid.Row="3" Margin="0 40 0 20" HorizontalAlignment="Center" FontSize="28" FontFamily="{StaticResource GothamRegular}" Text="{DynamicResource EpisodesString2}" Foreground="White" />
+            <Grid Grid.Row="6">
+                <ItemsControl Margin="0 20 0 0"  Background="Transparent" x:Name="EpisodesDisplay">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel PointerPressed="EpisodeOnPressed" Orientation="Horizontal" Cursor="Hand" Margin="0 0 20 20">
+                               
+                                <Border x:Name="MovieCardBorder" Classes="movie-card" BorderBrush="#1F2021" 
+                                        VerticalAlignment="Top" 
+                                        HorizontalAlignment="Left"
+                                        BorderThickness="5"
+                                        Width="275" Height="160">
+                                    <Border.Styles>
+                                        <Style Selector="Border:pointerover">
+                                            <Setter Property="ZIndex" Value="1000"/>
+                                            <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                        </Style>
+                                        <Style Selector="Border:not(:pointerover)">
+                                            <Setter Property="ZIndex" Value="0"/>
+                                            <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                        </Style>
+                                    </Border.Styles>
+                                    <Border.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                            <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                        </Transitions>
+                                    </Border.Transitions>
+                                    <local:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                                </Border>
+                                
+                                
+
+                                <StackPanel x:Name="EpisodeInfoStackPanel" Margin="20 5 0 0" Orientation="Vertical">
+                                    <TextBlock FontFamily="{StaticResource GothamRegular}" FontWeight="Medium" FontSize="18" Text="{Binding EpisodeNumberText}" Foreground="White"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                                        <TextBlock FontFamily="{StaticResource GothamRegular}" FontSize="14" Text="{Binding RatingNumber}" Foreground="White"/>
+                                        <TextBlock FontSize="14" Margin="10 0 0 0" FontFamily="{StaticResource GothamRegular}" Text="{Binding Date}" Foreground="White"/>
+                                        <TextBlock Margin="10 0 0 0" FontSize="14" FontFamily="{StaticResource GothamRegular}" Text="{Binding DurationTime}" Foreground="White"/>
+                                    </StackPanel>
+                                    <Panel Margin="0 10 0 0" >
+                                        <TextBlock FontFamily="{StaticResource GothamRegular}" x:Name="EpisodeDescription"  FontSize="13" FontWeight="Light" TextWrapping="Wrap" Foreground="White" Text="{Binding Description}"/>
+                                    </Panel>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl> 

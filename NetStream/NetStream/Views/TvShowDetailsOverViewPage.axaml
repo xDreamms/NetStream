@@ -1,0 +1,153 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetStream"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d" 
+             x:Class="NetStream.Views.TvShowDetailsOverViewPage"
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="#111111" Loaded="TvShowDetailsOverViewPage_OnLoaded"
+             Unloaded="Control_OnUnloaded"
+             x:CompileBindings="False">
+
+    <Grid>
+        <StackPanel  x:DataType="local:TvShowDetail" HorizontalAlignment="Center">
+            <StackPanel x:Name="MovieDetailArea" Margin="0 50 0 30" VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                <Border x:Name="PosterBorder" Height="473" Width="315" BorderBrush="#1F2021" VerticalAlignment="Top" HorizontalAlignment="Center" BorderThickness="5" Margin="0 9 0 0">
+                    <local:AsyncImageControl Stretch="UniformToFill" Source="{Binding Poster}" />
+                </Border>
+
+                <StackPanel x:Name="InfoPanel"  Orientation="Vertical" Margin="35 35 0 0">
+                    <TextBlock x:Name="StoryLineString" FontFamily="{StaticResource GothamRegular}" FontWeight="Medium" FontSize="35" 
+                               HorizontalAlignment="Left" Text="{DynamicResource StorylineString}" Foreground="White" />
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0 10 0 0" x:Name="StackPanelOverview" Width="900">
+                            <TextBlock x:Name="OverviewString" FontSize="17" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal"
+                                       TextWrapping="Wrap" 
+                                       Foreground="#C6C6C6"
+                                       Text="{Binding Overview}" />
+                        </StackPanel>
+                    
+                    <StackPanel x:Name="DetailsMainPanel" Margin="0 30 0 0" Orientation="Vertical">
+                        <StackPanel x:Name="StackPanelMovieDetails" Orientation="Horizontal">
+                            
+                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="0 0 0 0" FontSize="15" HorizontalAlignment="Left" 
+                                           FontFamily="{StaticResource GothamRegular}"
+                                           FontWeight="Normal" Text="{DynamicResource DirectorString}" 
+                                           x:Name="DirectorString" Foreground="#C5C5C5" />
+                                <TextBlock Margin="0 15 0 0" FontSize="15" 
+                                           FontFamily="{StaticResource GothamRegular}" FontWeight="Normal" 
+                                           Text="{DynamicResource StatusString}" 
+                                           x:Name="StatusString" Foreground="#C5C5C5" />
+                                <TextBlock Margin="0 15 0 0" FontSize="15" 
+                                           FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Normal" Text="{DynamicResource ProductionString}" 
+                                           x:Name="ProductionString" Foreground="#C5C5C5" />
+                            </StackPanel>
+
+                            <StackPanel Margin="50 0 0 0" Orientation="Vertical">
+                                <TextBlock PointerPressed="DirectorText_OnPreviewMouseLeftButtonDown" 
+                                           PointerExited="DirectorText_OnMouseLeave" 
+                                           PointerEntered="DirectorText_OnMouseEnter" 
+                                           Margin="0 0 0 0" FontSize="15"
+                                           FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Normal" Text="{Binding Director}" 
+                                           Cursor="Hand" x:Name="DirectorText" Foreground="#C5C5C5" />
+                                <TextBlock Margin="0 15 0 0" FontSize="15" 
+                                           FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Normal" Text="{Binding Status}" 
+                                           x:Name="StatusText" Foreground="#C5C5C5" />
+                                <TextBlock Margin="0 15 0 0" FontSize="15" 
+                                           FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Normal" Text="{Binding Production}" 
+                                           x:Name="ProductionText" Foreground="#C5C5C5" />
+                            </StackPanel>
+
+                            </StackPanel>
+                            
+                            <StackPanel Orientation="Horizontal">
+                            <StackPanel x:Name="StackPanel2details" Margin="200 0 0 0" Orientation="Vertical">
+                                <TextBlock FontSize="15" FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Normal" Text="{DynamicResource GenreString}" 
+                                           Foreground="#C5C5C5" x:Name="GenreString" />
+                                <TextBlock Margin="0 15 0 0" FontSize="15" 
+                                           FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Normal" Text="{DynamicResource LanguageString}" 
+                                           x:Name="LanguageString" Foreground="#C5C5C5" />
+                            </StackPanel>
+
+                            <StackPanel x:Name="StackPanel3Details" Margin="50 0 0 0" Orientation="Vertical">
+                                <TextBlock FontSize="15" 
+                                           FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Normal" Text="{Binding Genre}" 
+                                           Foreground="#C5C5C5" x:Name="GenreText" />
+                                <TextBlock Margin="0 15 0 0" FontSize="15" 
+                                           FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Normal" Text="{Binding Language}" 
+                                           Foreground="#C5C5C5" x:Name="LanguageText" />
+                            </StackPanel>
+                                </StackPanel>
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Top" Margin="0 40 0 0" Orientation="Horizontal">
+                            <Grid Background="#01000000"  PointerPressed="BtnFacebook_OnPointerPressed" 
+                                  PointerEntered="BtnFacebook_OnPointerEnter" Cursor="Hand"  
+                                  PointerExited="BtnFacebook_OnPointerLeave">
+                                <avalonia:Icon  Value="fa-brands fa-facebook" x:Name="BtnFacebook"  
+                                                Margin="0 0 15 0" 
+                                                FontSize="22"   Foreground="White" />
+                            </Grid>
+                                    
+                            <Grid Background="#01000000" PointerPressed="BtnInstagram_OnPointerPressed" 
+                                  PointerEntered="BtnInstagram_OnPointerEnter" Cursor="Hand"  
+                                  PointerExited="BtnInstagram_OnPointerLeave">
+                                <avalonia:Icon  Value="fa-brands fa-instagram" x:Name="BtnInstagram"  
+                                                Margin="0 0 15 0" 
+                                                FontSize="24"   Foreground="White" />
+                            </Grid>
+                                    
+                                   
+                            <Grid Background="#01000000" PointerPressed="BtnImdb_OnPointerPressed" 
+                                  PointerEntered="BtnImdb_OnPointerEnter" Cursor="Hand"  
+                                  PointerExited="BtnImdb_OnPointerLeave" >
+                                <avalonia:Icon Value="fa-brands fa-imdb" x:Name="BtnImdb"  Margin="0 0 15 0" 
+                                               FontSize="24"   Foreground="White" />
+                            </Grid>
+                          
+                                   
+                            <Grid  Background="#01000000" PointerPressed="BtnTwitter_OnPointerPressed" 
+                                   PointerEntered="BtnTwitter_OnPointerEnter" Cursor="Hand"  
+                                   PointerExited="BtnTwitter_OnPointerLeave" >
+                                <avalonia:Icon Value="fa-brands fa-twitter" x:Name="BtnTwitter"  
+                                               Margin="0 0 15 0" 
+                                               FontSize="24"   Foreground="White" />
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+    <UserControl.Styles>
+        <Style Selector="TextBlock.responsive-text-small">
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style Selector="TextBlock.responsive-text-medium">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style Selector="TextBlock.responsive-text-large">
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        
+        <Style Selector="avalonia|Icon.responsive-icon-small">
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+        <Style Selector="avalonia|Icon.responsive-icon-medium">
+            <Setter Property="FontSize" Value="22" />
+        </Style>
+        <Style Selector="avalonia|Icon.responsive-icon-large">
+            <Setter Property="FontSize" Value="24" />
+        </Style>
+    </UserControl.Styles>
+</UserControl> 

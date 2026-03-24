@@ -1,0 +1,9 @@
+# PyTorch will be installed separately with --index-url
+# torch
+# torchaudio
+openai-whisper
+TTS
+deep-translator
+audio-separator[gpu]
+pydub
+ffmpeg-python

@@ -1,0 +1,76 @@
+<Project>
+  <!-- https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Avalonia packages -->
+    <!-- Important: keep version in sync! -->
+    <PackageVersion Include="AngleSharp" Version="1.3.0-beta.470" />
+    <PackageVersion Include="AngleSharp.Xml" Version="1.0.0" />
+    <PackageVersion Include="Autofac" Version="8.2.0" />
+    <PackageVersion Include="Avalonia" Version="11.2.8" />
+    <PackageVersion Include="Avalonia.Browser" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Controls.ItemsRepeater" Version="11.1.5" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.2.6" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.2.1" />
+    <PackageVersion Include="Avalonia.iOS" Version="11.2.1" />
+    <PackageVersion Include="Avalonia.Android" Version="11.2.1" />
+    <PackageVersion Include="Avalonia.Xaml.Behaviors" Version="11.2.0.14" />
+    <PackageVersion Include="BencodeNET" Version="5.0.0" />
+    <PackageVersion Include="BTCPayServer.Client" Version="2.0.1" />
+    <PackageVersion Include="CommandLineParser" Version="2.9.1" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageVersion Include="DialogHost.Avalonia" Version="0.9.2" />
+    <PackageVersion Include="Enums.NET" Version="5.0.0" />
+    <PackageVersion Include="FirebaseAuthentication.net" Version="4.1.0" />
+    <PackageVersion Include="FlareSolverrSharp" Version="3.0.7" />
+    <PackageVersion Include="Google.Cloud.Firestore" Version="3.10.0" />
+    <PackageVersion Include="Google.Cloud.Storage.V1" Version="4.11.0" />
+    <PackageVersion Include="LibVLCSharp" Version="3.9.4" />
+    <PackageVersion Include="LibVLCSharp.Android.AWindowModern" Version="3.9.2" />
+    <PackageVersion Include="LibVLCSharp.Avalonia" Version="3.9.4" />
+    <PackageVersion Include="Markdown.Avalonia" Version="11.0.3-a1" />
+    <PackageVersion Include="Material.Avalonia" Version="3.10.2-nightly.0.3" />
+    <PackageVersion Include="Material.Avalonia.Dialogs" Version="3.10.1" />
+    <PackageVersion Include="Material.Icons.Avalonia" Version="2.3.1" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.14" />
+    <PackageVersion Include="Microsoft.AspNetCore.Hosting" Version="2.3.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Routing" Version="2.3.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.3.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.14" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.JSInterop" Version="8.0.14" />
+    <PackageVersion Include="MimeMapping" Version="3.1.0" />
+    <PackageVersion Include="NLog" Version="5.4.0" />
+    <PackageVersion Include="Polly" Version="8.5.2" />
+    <PackageVersion Include="QRCoder" Version="1.6.0" />
+    <PackageVersion Include="RestSharp" Version="106.11.7" />
+    <PackageVersion Include="Semi.Avalonia" Version="11.2.1.5" />
+    <PackageVersion Include="Serilog" Version="4.2.1-dev-02340" />
+    <PackageVersion Include="Serilog.Sinks.Async" Version="2.1.0" />
+    <PackageVersion Include="Serilog.Sinks.File" Version="7.0.0-dev-02301" />
+    <PackageVersion Include="SubtitlesParser" Version="1.5.1" />
+    <PackageVersion Include="SukiUI" Version="6.0.0" />
+    <PackageVersion Include="System.ServiceProcess.ServiceController" Version="9.0.3" />
+    <PackageVersion Include="Tinify" Version="1.8.0" />
+    <PackageVersion Include="TMDbLib" Version="2.2.0" />
+    <PackageVersion Include="VideoLAN.LibVLC.Android" Version="3.5.3" />
+    <PackageVersion Include="VideoLAN.LibVLC.Mac" Version="3.0.21" />
+    <PackageVersion Include="VideoLAN.LibVLC.Windows" Version="3.0.21" />
+    <PackageVersion Include="Vlc.DotNet.Core" Version="3.1.0" />
+    <PackageVersion Include="WebView.Avalonia" Version="11.0.0.1" />
+    <PackageVersion Include="WebView.Avalonia.Android" Version="11.0.0.1" />
+    <PackageVersion Include="WebView.Avalonia.iOS" Version="11.0.0.1" />
+    <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.1" />
+    <PackageVersion Include="Xamarin.AndroidX.Media3.ExoPlayer" Version="1.5.1.1" />
+    <PackageVersion Include="Xamarin.AndroidX.Media3.Ui" Version="1.5.1.1" />
+    <PackageVersion Include="YamlDotNet" Version="16.3.0" />
+    <PackageVersion Include="YoutubeDLSharp" Version="1.1.1" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:controls="using:Avalonia.Controls"
+             xmlns:netStream="clr-namespace:NetStream"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NetStream.Views.WatchHistoryPage"
+             Loaded="WatchHistoryPage_OnLoaded" Unloaded="WatchHistoryPage_OnUnloaded" x:CompileBindings="False"
+             >
+
+    <Grid Background="#111111">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.05*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.03*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Viewbox x:Name="HeaderViewbox" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left">
+            <TextBlock FontFamily="{StaticResource GothamLight}" FontWeight="Normal" Text="{DynamicResource WatchHistoryString}" Foreground="White"/>
+        </Viewbox>
+
+        <ScrollViewer x:Name="WatchHistoryDisplayScrollViewer"
+                      Grid.Row="2" Grid.Column="1"
+                      Background="Transparent"
+                      ScrollChanged="WatchHistoryDisplay_OnScrollChanged"
+                      >
+            
+              <ItemsControl x:Name="WatchHistoryDisplay" Background="Transparent">
+            
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="0 20 20 0" Orientation="Horizontal" Cursor="Hand" x:Name="StackPanelMovie" PointerPressed="StackPanelMovie_OnPointerPressed">
+                        <StackPanel.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="{DynamicResource GoToDetails}" Name="ContextMenuDetails" Click="GotoDetailsMenuItemClick"/>
+                            </ContextMenu>
+                        </StackPanel.ContextMenu>
+                       
+                        <Border BorderBrush="#1F2021" 
+                                VerticalAlignment="Top" 
+                                Width="275" Height="150"
+                                HorizontalAlignment="Left"
+                                BorderThickness="5"
+                        >
+                            <Border.Styles>
+                                <Style Selector="Border:pointerover">
+                                    <Setter Property="ZIndex" Value="1000"/>
+                                    <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                </Style>
+                                <Style Selector="Border:not(:pointerover)">
+                                    <Setter Property="ZIndex" Value="0"/>
+                                    <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                </Style>
+                            </Border.Styles>
+                            <Border.Transitions>
+                                <Transitions>
+                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                    <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                </Transitions>
+                            </Border.Transitions>
+                            <netStream:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                        </Border>
+
+                        <StackPanel Orientation="Vertical" Margin="20 5 0 0">
+                            <TextBlock Foreground="White" HorizontalAlignment="Left" FontSize="21" FontFamily="{StaticResource GothamLight}" FontWeight="Normal" Width="350" TextWrapping="Wrap" Text="{Binding Name}"/>
+                            <TextBlock Foreground="White" FontSize="16" Margin="0 10 0 0" FontFamily="{StaticResource GothamLight}" FontWeight="Light" Text="{Binding RelativeDate}"/>
+                            <TextBlock Foreground="White" HorizontalAlignment="Right" FontSize="16" Margin="0 10 0 0" FontFamily="{StaticResource GothamLight}" FontWeight="Light" Text="{Binding ProgressText}"/>
+                            <ProgressBar Background="#808080" BorderBrush="#808080" Maximum="1" HorizontalAlignment="Left" Width="500" Margin="0 20 0 0" Value="{Binding Progress}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+        </ScrollViewer>
+      
+    </Grid>
+</UserControl> 

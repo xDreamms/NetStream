@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream"
+             mc:Ignorable="d" 
+             d:DesignHeight="1500" d:DesignWidth="1584"
+             x:Class="NetStream.SearchPageControl"
+             Loaded="Control_OnLoaded"
+             Unloaded="Control_OnUnloaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.02*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Background="#1F2021">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0,10,0">
+                <Image x:Name="SearchIcon" Source="/Assets/search.png" Width="28" Height="28" Margin="0,0,10,0"/>
+            </StackPanel>
+            
+            <AutoCompleteBox BorderBrush="Transparent" BorderThickness="0" Grid.Column="1" Background="#1F2021" Foreground="#9399A3"
+                     x:Name="SearchTextBox"
+                     VerticalAlignment="Center"
+                     Watermark="{DynamicResource SearchEmptyString}"
+                     TextChanged="NameTextBox_OnTextChanged">
+            </AutoCompleteBox>
+        </Grid>
+
+        <ContentControl BorderThickness="0" x:Name="SearchPageNavigation" Grid.Row="2"/>
+    </Grid>
+</UserControl> 

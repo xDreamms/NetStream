@@ -1,0 +1,96 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:netStream="clr-namespace:NetStream"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NetStream.Controls.HorizontalCastItemsControl">
+   
+    
+     <Grid>
+        <ScrollViewer Background="Transparent" 
+                      x:Name="ContentScrollViewer"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            
+            <Interaction.Behaviors>
+                <netStream:IgnoreMouseWheelBehavior />
+            </Interaction.Behaviors>
+            
+            <ItemsControl x:Name="ItemsDisplay">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="netStream:Cast">
+                        <StackPanel x:Name="StackPanelMain" Cursor="Hand" Margin="10 10 0 0" Orientation="Vertical" 
+                                    PointerPressed="StackPanelMain_OnPointerPressed">
+                            <Border x:Name="MovieCardBorder" Classes="movie-card" BorderBrush="#1F2021" 
+                                  VerticalAlignment="Top" 
+                                  HorizontalAlignment="Left"
+                                  BorderThickness="5">
+                                <Border.Styles>
+                                    <Style Selector="Border:pointerover">
+                                        <Setter Property="ZIndex" Value="1000"/>
+                                        <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                    </Style>
+                                    <Style Selector="Border:not(:pointerover)">
+                                        <Setter Property="ZIndex" Value="0"/>
+                                        <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                    </Style>
+                                </Border.Styles>
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                        <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                    </Transitions>
+                                </Border.Transitions>
+                                <netStream:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                            </Border>
+
+                            <TextBlock x:Name="CastName" FontWeight="Light" FontFamily="{StaticResource GothamLight}" Margin="0 17 0 0" FontSize="16" MaxWidth="200" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Name}" Foreground="White"></TextBlock>
+                            <TextBlock x:Name="CastRole" FontWeight="Light" FontFamily="{StaticResource GothamLight}" Margin="0 0 0 0" FontSize="15" MaxWidth="200" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Role}" Foreground="#888888"></TextBlock>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!-- Sağ Kaydırma Düğmesi -->
+        <Button Opacity="0.2" 
+              x:Name="ScrollRightButton" 
+              Margin="0 0 5 0" 
+              BorderBrush="Transparent" 
+              Padding="0" 
+              Background="Transparent" 
+              Width="40" 
+              Height="375" 
+              IsHitTestVisible="True"
+              VerticalAlignment="Top" 
+              HorizontalAlignment="Right">
+            <avalonia:Icon Value="fa-light fa-chevron-right" FontSize="24">
+            </avalonia:Icon>
+        </Button>
+        
+        <!-- Sol Kaydırma Düğmesi -->
+        <Button Opacity="0.2" 
+                Margin="5 0 0 0" 
+                x:Name="ScrollLeftButton" 
+                Padding="0" 
+                BorderBrush="Transparent" 
+                Background="Transparent" 
+                Width="40" 
+                Height="375" 
+                IsHitTestVisible="True"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top">
+            <avalonia:Icon Value="fa-light fa-chevron-left" FontSize="24">
+            </avalonia:Icon>
+        </Button>
+    </Grid>
+</UserControl>

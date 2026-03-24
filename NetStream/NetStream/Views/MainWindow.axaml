@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:NetStream.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:NetStream.Views"
+        xmlns:suki="https://github.com/kikipoulet/SukiUI"
+        mc:Ignorable="d" d:DesignWidth="1607" d:DesignHeight="900" Width="1607" Height="900"
+        x:Class="NetStream.Views.MainWindow"
+        Icon="/Assets/BACKoutput.ico"
+        Title="NetStream"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True" WindowStartupLocation="CenterScreen"
+        Closing="Window_OnClosing"
+        >
+        <Grid x:Name="MainGrid" RowDefinitions="30,*">
+
+                <!-- Title bar -->
+                <Grid ColumnDefinitions="Auto,*" IsHitTestVisible="False" Background="Black">
+                        <Image      Grid.Column="0" VerticalAlignment="Center" Source="/Assets/BACKoutput.ico" Width="18" Margin="12,0,12,0" ></Image>
+                        <TextBlock  Grid.Column="1" VerticalAlignment="Center" FontSize="12" >NetStream</TextBlock>
+                </Grid>
+
+                <!-- Window content -->
+                <ContentControl Grid.Row="1" x:Name="MainContentControl">
+                </ContentControl>        
+                
+                <!-- NEW DESIGN CONCEPT OVERLAY -->
+                <!-- Set IsVisible="False" to return to normal app -->
+                <views:HorizonConceptView x:Name="HorizonOverlay" Grid.Row="0" Grid.RowSpan="2" IsVisible="False" />
+                
+                <!-- Notification Container -->
+                <StackPanel x:Name="InAppNotificationContainer" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Spacing="10"/>
+        </Grid>
+       
+       
+        <!--<suki:SukiWindow.Hosts>
+                <suki:SukiDialogHost Name="DialogHost"/>
+        </suki:SukiWindow.Hosts>-->
+</Window>

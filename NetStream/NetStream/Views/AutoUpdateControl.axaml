@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             SizeChanged="Control_OnSizeChanged"
+             x:Class="NetStream.Views.AutoUpdateControl">
+  <Grid Background="#1E1E21">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="0.1*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="0.1*"/>
+    </Grid.ColumnDefinitions>
+    
+    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+        <StackPanel x:Name="MainStackPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0">
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="LogoImage" Source="/Assets/NetStreamLogo.png" Width="50" Height="50"/>
+                <TextBlock x:Name="TextAppName" Text="NetStream" FontSize="28" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15 0 0 0" Foreground="White" FontFamily="{StaticResource GothamRegular}"/>
+            </StackPanel>
+            
+            <TextBlock x:Name="TextUpdating" Text="{DynamicResource UpdatingAppString}" FontSize="22" Foreground="White" FontWeight="Normal" HorizontalAlignment="Left" Margin="0 30 0 15" FontFamily="{StaticResource GothamRegular}"/>
+            <ProgressBar x:Name="FileProgressBar" Minimum="0" Maximum="100" Value="0" Height="8" Width="350" Foreground="#FFE50914" Background="#808080"/>
+            
+            <TextBlock x:Name="DownloadingFilesText" Text="{DynamicResource DownloadingFilesString}" FontSize="16" Foreground="#B3B3B3" HorizontalAlignment="Left" Margin="0 15 0 5" FontFamily="{StaticResource GothamRegular}"/>
+            
+            <Grid x:Name="ProgressDetailsGrid" ColumnDefinitions="Auto, *, Auto" Width="350" Margin="0,5,0,0">
+                <TextBlock x:Name="FileCountText" Grid.Column="0" Text="{DynamicResource CalculatingString}" FontSize="14" Foreground="White" FontWeight="SemiBold" FontFamily="{StaticResource GothamRegular}"/>
+                <TextBlock x:Name="DownloadSpeedText" Grid.Column="2" Text="" FontSize="14" Foreground="#B3B3B3" FontFamily="{StaticResource GothamRegular}"/>
+            </Grid>
+            
+            <TextBlock x:Name="CurrentFileText" Text="" FontSize="13" Foreground="#808080" HorizontalAlignment="Left" Margin="0 5 0 0" TextTrimming="CharacterEllipsis" MaxWidth="350" FontFamily="{StaticResource GothamRegular}"/>
+        </StackPanel>
+
+        <StackPanel Margin=" 0 0 0 0" x:Name="PanaImage" HorizontalAlignment="Center" VerticalAlignment="Center" Width="320" Height="320">
+            <Image Source="/Assets/pana.png"/>
+        </StackPanel>
+    </StackPanel>
+  </Grid>
+</UserControl>

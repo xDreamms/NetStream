@@ -1,0 +1,163 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:netStream="clr-namespace:NetStream"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="NetStream.Views.DownloadsPageMobile"
+             Loaded="DownloadsPage_OnLoaded" 
+             x:CompileBindings="False">
+    
+     <Grid Background="#111111">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.05*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.03*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Viewbox HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1">
+            <TextBlock
+                       FontFamily="{StaticResource GothamRegular}"
+                       Text="{DynamicResource DownloadsString}" 
+                       Foreground="White" 
+                      />
+        </Viewbox>
+        
+
+        <ScrollViewer x:Name="DownloadsDisplayScrollViewer"
+                      Grid.Row="2" Grid.Column="1" 
+                      Background="Transparent"
+                      HorizontalScrollBarVisibility="Disabled" 
+                      VerticalScrollBarVisibility="Visible"
+                      >
+            
+            <ItemsControl x:Name="DownloadsDisplay">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Cursor="Hand" MaxHeight="500" MaxWidth="900" Margin="0 20 20 30"
+                          PointerPressed="DownloadsItem_OnPointerPressed">
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuItem Loaded="ContextMenuPause_OnLoaded" Name="ContextMenuPause" Header="{DynamicResource PauseString}" Click="MenuItem_OnClickPause"/>
+                                <MenuItem Header="{DynamicResource Delete}" Click="MenuItem_OnClick"/>
+                                <MenuItem Name="ContextMenuDetails" Header="{DynamicResource GoToDetails}" Click="MenuItem_ContextMenuDetailsOnClick"/>
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="0.2*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.02*"/>
+                            <RowDefinition Height="0.2*"/>
+                            <RowDefinition Height="0.02*"/>
+                            <RowDefinition Height="0.05*"/>
+                            <RowDefinition Height="0.01*"/>
+                            <RowDefinition Height="0.05*"/>
+                            <RowDefinition Height="0.03*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Viewbox Grid.RowSpan="8" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0">
+                                <Viewbox.Styles>
+                                    <Style Selector="Border:pointerover">
+                                        <Setter Property="ZIndex" Value="1000"/>
+                                        <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                    </Style>
+                                    <Style Selector="Border:not(:pointerover)">
+                                        <Setter Property="ZIndex" Value="0"/>
+                                        <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                    </Style>
+                                </Viewbox.Styles>
+                                <Viewbox.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                        <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                    </Transitions>
+                                </Viewbox.Transitions>
+                            <netStream:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                        </Viewbox>
+
+                        <TextBlock VerticalAlignment="Top"
+                                   FontFamily="{StaticResource GothamRegular}"
+                                   Grid.Row="1" Grid.Column="2" 
+                                   Foreground="White"
+                                   Margin="20 0 0 0" 
+                                   FontWeight="Normal" 
+                                   MaxWidth="350" 
+                                   TextWrapping="Wrap" 
+                                   Text="{Binding Title}"/>
+
+                        <TextBlock  VerticalAlignment="Top" Grid.Row="3" Grid.Column="2" 
+                                    Foreground="White"
+                                    FontFamily="{StaticResource GothamRegular}"
+                                    HorizontalAlignment="Left" 
+                                    Margin="20 0 0 0" 
+                                    FontWeight="Light" 
+                                    Text="{Binding PublishDate}"/>
+
+                        <TextBlock VerticalAlignment="Top" Grid.Row="5" Grid.Column="2" 
+                                   Foreground="White"
+                                   FontFamily="{StaticResource GothamRegular}"
+                                   HorizontalAlignment="Left" 
+                                   Margin="20 0 0 0" 
+                                   FontWeight="Light" 
+                                   Text="{Binding SizeProperty}"/>
+
+                        <Grid Grid.Column="2" Grid.Row="7" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.06*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.1*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock HorizontalAlignment="Left" 
+                                       Foreground="White"
+                                       FontFamily="{StaticResource GothamRegular}"
+                                       Margin="20 0 0 0" 
+                                       Grid.Row="0" 
+                                       FontWeight="Light" 
+                                       Text="{Binding DownloadSpeed}"/>
+
+                            <TextBlock Grid.Column="2" 
+                                       Foreground="White"
+                                       FontFamily="{StaticResource GothamRegular}"
+                                      HorizontalAlignment="Right" 
+                                      Margin="20 0 0 0" 
+                                      Grid.Row="0" 
+                                      FontWeight="Light" 
+                                      Text="{Binding Eta}"/>
+                                      
+                            <ProgressBar Background="#808080" 
+                                         BorderBrush="#808080" 
+                                         Grid.Column="0" 
+                                         Grid.ColumnSpan="3" 
+                                         Grid.Row="1" 
+                                         Margin="20 0 0 0" 
+                                         Value="{Binding DownloadPercent}"/>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        </ScrollViewer>
+        
+    </Grid>
+</UserControl>

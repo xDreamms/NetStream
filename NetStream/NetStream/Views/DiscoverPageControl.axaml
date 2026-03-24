@@ -1,0 +1,489 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream"
+             xmlns:controls="clr-namespace:NetStream.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="1500" d:DesignWidth="1584"
+             Width="NaN" Height="NaN"
+             Background="#111111"
+             Loaded="DiscoverPage_OnLoaded"
+             Unloaded="DiscoverPage_OnUnloaded"
+             x:Class="NetStream.DiscoverPageControl"
+             x:CompileBindings="False">
+    
+     <UserControl.Styles>
+        <Style Selector="Border.movie-card">
+            <Setter Property="Height" Value="375" />
+            <Setter Property="Width" Value="250" />
+        </Style>
+        
+        <Style Selector="Border.movie-card-medium">
+            <Setter Property="Height" Value="270" />
+            <Setter Property="Width" Value="180" />
+        </Style>
+        
+        <Style Selector="Border.movie-card-small">
+            <Setter Property="Height" Value="210" />
+            <Setter Property="Width" Value="140" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="MaxWidth" Value="200" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title-medium">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="MaxWidth" Value="180" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title-small">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="MaxWidth" Value="140" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid>
+        <Grid x:Name="HorizontalLayout">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.02*"/>
+                <ColumnDefinition Width="0.25*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer ScrollChanged="MainScroll_OnScrollChanged"  
+                          x:Name="MainScroll" 
+                          Grid.Column="1" 
+                          HorizontalScrollBarVisibility="Disabled" 
+                          VerticalScrollBarVisibility="Auto"
+                          Background="Transparent">
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="1" Background="Transparent">
+                            <Expander x:Name="ExpanderSort"
+                                      HorizontalAlignment="Stretch" 
+                                      Foreground="White">
+                                <Expander.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{DynamicResource SortString}"/>
+                                    </Grid>
+                                </Expander.Header>
+
+                                <Grid Margin="24,0,24,16">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.3*"/>
+                                        <RowDefinition Height="0.8*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.Row="0" VerticalAlignment="Center" Fill="White" Height="1"/>
+                                    <Grid Margin="0 20 0 0" Grid.Row="1" VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{DynamicResource SortResultsByString}"/>
+                                    </Grid>
+
+                                    <Grid Margin="0 20 0 0" Grid.Row="2" VerticalAlignment="Top">
+                                        <ComboBox SelectionChanged="SortComboBox_OnSelectionChanged" 
+                                                  x:Name="SortComboBox"
+                                                  PlaceholderText="{DynamicResource SortByString}">
+                                        </ComboBox>
+                                    </Grid>
+                                </Grid>
+                            </Expander>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="1" Background="Transparent">
+                            <Expander x:Name="ExpanderFilter"
+                                      HorizontalAlignment="Stretch" 
+                                      Foreground="White">
+                                <Expander.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{DynamicResource FilterString}"/>
+                                    </Grid>
+                                </Expander.Header>
+
+                                <Grid Margin="24,0,24,16">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.3*"/>
+                                        <RowDefinition Height="0.8*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.Row="0" VerticalAlignment="Center" Fill="White" Height="1"/>
+                                    <Grid Margin="0 30 0 0" Grid.Row="1" VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.7*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="{DynamicResource ReleaseDatesString}"/>
+                                    </Grid>
+
+                                    <Grid Margin="0 30 0 0" Grid.Row="2" VerticalAlignment="Top">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource FromString}" Foreground="White"/>
+                                        </Grid>
+
+                                        <Grid Grid.Row="1" Grid.Column="0" Margin="0 10 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{DynamicResource ToString}" Foreground="White"/>
+                                        </Grid>
+
+                                        <DatePicker x:Name="ReleaseDateFilterFrom" Grid.Column="2" Grid.Row="0"
+                                                    />
+
+                                        <DatePicker x:Name="ReleaseDateFilterTo" Margin="0 30 0 0" Grid.Column="2" Grid.Row="1"
+                                                   />
+                                    </Grid>
+
+                                    <Grid Grid.Row="3">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Rectangle Margin="0 50 0 0" Grid.Row="0" Height="1" Fill="White"/>
+                                        <Grid Grid.Row="1" Margin="0 20 0 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.3*"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{DynamicResource GenresString}" Foreground="White"/>
+                                        </Grid>
+
+                                        <ItemsControl Grid.Row="2" Background="Transparent" x:Name="GenresDisplay">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border PointerExited="BorderGenre_OnMouseLeave" 
+                                                           PointerEntered="BorderGenre_OnMouseEnter" 
+                                                           Loaded="BorderGenre_OnLoaded"
+                                                           x:Name="BorderGenre" 
+                                                           PointerPressed="BorderGenre_OnPreviewMouseLeftButtonDown" 
+                                                           Cursor="Hand" 
+                                                           Margin="0 20 5 0" 
+                                                           Padding="10" 
+                                                           BorderBrush="White" 
+                                                           BorderThickness="1" 
+                                                           Background="Transparent" 
+                                                           CornerRadius="10">
+                                                        <TextBlock FontSize="14" Text="{Binding Name}"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </Grid>
+
+                                    <Grid Grid.Row="4">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Rectangle Margin="0 30 0 0" Grid.Row="0" Height="1" Fill="White"/>
+                                        <Grid Margin="0 30 0 0" Grid.Row="1" VerticalAlignment="Center">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{DynamicResource UserScoreString}"/>
+                                        </Grid>
+                                        <Slider IsSnapToTickEnabled="True" 
+                                               TickFrequency="1" 
+                                               SmallChange="1" 
+                                               LargeChange="1" 
+                                               Maximum="10" 
+                                               Minimum="0" 
+                                               x:Name="MinVoteAverageSlider" 
+                                               Classes="Discrete"
+                                               Grid.Row="2" 
+                                               Margin="0 20 0 0"/>
+                                    </Grid>
+
+                                    <Grid Grid.Row="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Margin="0 30 0 0" Grid.Row="1" VerticalAlignment="Center">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{DynamicResource MinUserVotesString}"/>
+                                        </Grid>
+                                        <Slider IsSnapToTickEnabled="True" 
+                                               TickFrequency="1" 
+                                               SmallChange="1" 
+                                               LargeChange="1" 
+                                               Maximum="500" 
+                                               Minimum="0" 
+                                               x:Name="MinUserVotesSlider" 
+                                               Classes="Discrete"
+                                               Grid.Row="2" 
+                                               Margin="0 20 0 0"/>
+                                    </Grid>
+
+                                    <Grid Grid.Row="6">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Margin="0 30 0 0" Grid.Row="1" VerticalAlignment="Center">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{DynamicResource MinRuntimeString}"/>
+                                        </Grid>
+                                        <Slider IsSnapToTickEnabled="True" 
+                                               TickFrequency="1" 
+                                               SmallChange="1" 
+                                               LargeChange="1" 
+                                               Maximum="400" 
+                                               Minimum="0" 
+                                               x:Name="MinRuntimeSlider" 
+                                               Classes="Discrete"
+                                               Grid.Row="2" 
+                                               Margin="0 20 0 0"/>
+
+                                        <Grid Margin="0 30 0 0" Grid.Row="3" VerticalAlignment="Center">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{DynamicResource MaxRuntimeString}"/>
+                                        </Grid>
+                                        <Slider IsSnapToTickEnabled="True" 
+                                               TickFrequency="1" 
+                                               SmallChange="1" 
+                                               LargeChange="1" 
+                                               Value="400" 
+                                               Maximum="400" 
+                                               Minimum="0" 
+                                               x:Name="MaxRuntimeSlider" 
+                                               Classes="Discrete"
+                                               Grid.Row="4" 
+                                               Margin="0 20 0 0"/>
+                                    </Grid>
+
+                                    <Grid Grid.Row="7">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Margin="0 30 0 0" Grid.Row="1" VerticalAlignment="Center">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0" Text="{DynamicResource LanguageString}"/>
+                                        </Grid>
+
+                                        <ComboBox Margin="0 20 0 0" 
+                                                 x:Name="ComboBoxLanguages" 
+                                                 Foreground="White" 
+                                                 Grid.Row="3" 
+                                                 Grid.Column="0"
+                                                 PlaceholderText="{DynamicResource SelectLanguageString}">
+                                        </ComboBox>
+                                    </Grid>
+                                </Grid>
+                            </Expander>
+                        </Border>
+                    </Grid>
+
+                    <Button Click="SearchButton_OnPreviewMouseLeftButtonDown" 
+                           x:Name="SearchButton" 
+                           Content="{DynamicResource SearchString}" 
+                           Grid.Row="4" 
+                           Margin="0 25 0 0"
+                           HorizontalAlignment="Stretch"/>
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Background="Transparent">
+                            <Expander x:Name="ExpanderShowType"
+                                      HorizontalAlignment="Stretch" 
+                                      Foreground="White">
+                                <Expander.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{DynamicResource MediaTypeString}"/>
+                                    </Grid>
+                                </Expander.Header>
+
+                                <Grid Margin="24,0,24,16">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.3*"/>
+                                        <RowDefinition Height="0.8*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.Row="0" VerticalAlignment="Center" Fill="White" Height="1"/>
+
+                                    <Grid Margin="0 20 0 0" Grid.Row="2" VerticalAlignment="Top">
+                                        <ComboBox SelectionChanged="ShowTypeComboBox_OnSelectionChanged" 
+                                                 x:Name="ShowTypeComboBox"
+                                                 PlaceholderText="{DynamicResource TypeString}">
+                                        </ComboBox>
+                                    </Grid>
+                                </Grid>
+                            </Expander>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+
+            <Grid x:Name="GridMovies" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.03*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ScrollViewer Margin="-10 -10 0 0"
+                             Grid.Row="1" 
+                             Grid.Column="1"
+                             ScrollChanged="MoviesDisplay_OnScrollChanged"
+                             HorizontalScrollBarVisibility="Disabled" 
+                             VerticalScrollBarVisibility="Visible" 
+                             Background="Transparent" 
+                             x:Name="MoviesDisplayScrollViewer">
+                    <ItemsControl x:Name="MoviesDisplay">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="local:Movie">
+                                <StackPanel x:Name="StackPanelMovie" PointerPressed="StackPanelMovie_OnPointerPressed" Cursor="Hand" Margin="10 10 0 25" Orientation="Vertical">
+                                    <Border x:Name="MovieCardBorder" Classes="movie-card" BorderBrush="#1F2021" 
+                                            VerticalAlignment="Top" 
+                                            Height="375" 
+                                            Width="250" 
+                                            HorizontalAlignment="Left" 
+                                            BorderThickness="5">
+                                        <Border.Styles>
+                                            <Style Selector="Border:pointerover">
+                                                <Setter Property="ZIndex" Value="1000"/>
+                                                <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                            </Style>
+                                            <Style Selector="Border:not(:pointerover)">
+                                                <Setter Property="ZIndex" Value="0"/>
+                                                <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                            </Style>
+                                        </Border.Styles>
+                                        <Border.Transitions>
+                                            <Transitions>
+                                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                                <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                            </Transitions>
+                                        </Border.Transitions>
+                                        <local:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                                    </Border>
+
+                                    <TextBlock x:Name="MovieTitle" VerticalAlignment="Top" 
+                                               Margin="0 20 0 0" 
+                                               FontSize="18" 
+                                               MaxWidth="200" 
+                                               HorizontalAlignment="Left" 
+                                               TextWrapping="Wrap" 
+                                               Text="{Binding Name}" 
+                                               Foreground="White"/>
+
+                                    <StackPanel Margin="-5 1 0 0" Orientation="Horizontal">
+                                        <controls:RatingBar x:Name="MovieRating" HorizontalAlignment="Left"
+                                                            IsReadOnly="True"
+                                                            Rating="{Binding Rating}"/>
+
+                                        <TextBlock x:Name="RatingText" FontSize="15" 
+                                                   Margin="15 3.5 0 0" 
+                                                   HorizontalAlignment="Left" 
+                                                   Text="{Binding RatingNumber}" 
+                                                   Foreground="#767676"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl> 

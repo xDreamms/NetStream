@@ -1,0 +1,476 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:material="using:Material.Icons.Avalonia"
+            xmlns:netStream="clr-namespace:NetStream" 
+            xmlns:suki="https://github.com/kikipoulet/SukiUI" 
+            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" 
+            Background="Transparent" 
+            x:Class="NetStream.Views.CommentPage" x:Name="COmmentsPage"
+            Loaded="Control_OnLoaded"
+            PointerPressed="CommentPage_OnMouseDown" Unloaded="CommentPage_OnUnloaded" x:CompileBindings="False"
+            >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.02*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center"> 
+            <TextBlock x:Name="TextBlockCommentTitle" FontSize="24" VerticalAlignment="Center" Margin="10,0,0,0" 
+                       Text="{DynamicResource CommentsStringLowerCase}" Foreground="White" 
+                       FontFamily="{StaticResource GothamRegular}"/>
+            <TextBlock x:Name="TextBlockCommentCounter" FontFamily="{StaticResource GothamRegular}" VerticalAlignment="Center" 
+                       Margin="10,4,0,0" Text="" Foreground="#909196"/>
+        </StackPanel>
+
+        <Grid x:Name="ViewboxNoCommentsFound" Grid.Row="1" Grid.Column="1" IsVisible="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.4*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Row="0" Grid.Column="1" Margin="0,120,0,150">
+                <TextBlock Opacity="0.3" x:Name="NoCommentsFound" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal" 
+                           Text="{DynamicResource NoCommentsFound}" Foreground="#414141"/>
+            </Viewbox>
+        </Grid>
+
+        <StackPanel Margin="140" IsVisible="False" Grid.Row="1" Grid.Column="1" x:Name="SearchingPanel"
+                   Orientation="Vertical" VerticalAlignment="Center">
+            <ProgressBar Classes="circular"   IsIndeterminate="True" Foreground="White" Height="100" Width="100" />
+        </StackPanel>
+
+        <ListBox Loaded="CommentsDisplay_OnLoaded" IsVisible="False" Grid.Column="1" HorizontalAlignment="Stretch" 
+                 Width="NaN" Grid.Row="1" Margin="0" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                 Background="Transparent" 
+                 x:Name="CommentsDisplay">
+             <ListBox.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                                <Setter Property="Template">
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter Name="PART_ContentPresenter"
+                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                 Content="{TemplateBinding Content}"
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Top" />
+                                    </ControlTemplate>
+                                </Setter>
+                            </Style>
+                            
+                            <!-- Hover efektini devre dışı bırak -->
+                            <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Style>
+                            
+                            <!-- Seçili durumdaki efekti de kaldır -->
+                            <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Style>
+                        </ListBox.Styles>
+                        
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerTheme>
+                            <!--<ControlTheme BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem">
+                            
+                            </ControlTheme>-->
+                        </ListBox.ItemContainerTheme>
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="netStream:Comment">
+                    <StackPanel x:Name="StackPanelMain" Width="{Binding Bounds.Width, ElementName=CommentsDisplay}" Cursor="Hand"  
+                                Margin="0,0,0,10" Orientation="Horizontal">
+                        <Border x:Name="GravatarBorder" Width="67" Height="67" CornerRadius="33.5" Margin="0,15,0,0" 
+                                HorizontalAlignment="Left" VerticalAlignment="Top"
+                                ClipToBounds="True"
+                                Background="#33FFFFFF">
+                            <Image  Source="{Binding ProfileImage}" x:Name="Gravatar" Stretch="UniformToFill"/>
+                        </Border>
+                        <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                            <StackPanel Margin="0,20,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+                                <TextBlock x:Name="MainCommentDisplayName" Foreground="#FAFBFD" Margin="0" Text="{Binding DisplayName}" 
+                                           FontSize="16" FontWeight="Normal" FontFamily="{StaticResource GothamRegular}"/>
+                                <TextBlock x:Name="MainCommentDate" Foreground="#919297" Margin="7,2,0,0" Text="{Binding RelativeDate}" 
+                                           FontSize="12" FontWeight="Light" FontFamily="{StaticResource GothamRegular}"/>
+                                <material:MaterialIcon x:Name="MenuIconMainComment" Margin="10,0,0,0" Height="24" Width="24"
+                                                       Kind="DotsVertical" Foreground="#919198" PointerPressed="MenuIconMainComment_OnPointerPressed"
+                                                      ></material:MaterialIcon>
+                                <Popup x:Name="PopupBoxMainComment" 
+                                        Placement="Right"
+                                        PlacementTarget="{Binding ElementName=MenuIconMainComment}"
+                                        HorizontalOffset="5"
+                                        VerticalOffset="-20"
+                                        IsLightDismissEnabled="True"
+                                        IsOpen="False">
+                                    <Border Background="#1F1F27" CornerRadius="5" Padding="0">
+                                        <StackPanel MinWidth="100">
+                                            <Button Cursor="Hand" Click="PopupBOxMainCommentEditBtnPreviewMouseLeftDown" 
+                                                    x:Name="PopupBOxMainCommentEditBtn" HorizontalAlignment="Center" 
+                                                    FontFamily="{StaticResource GothamRegular}" FontSize="14" Margin="10,5,10,5" 
+                                                    Content="{DynamicResource Edit}"/>
+                                            <Button Cursor="Hand" Click="PopupBOxMainCommentDeleteBtnPreviewMouseLeftDown" 
+                                                    x:Name="PopupBOxMainCommentDeleteBtn" HorizontalAlignment="Center" 
+                                                    FontFamily="{StaticResource GothamRegular}" FontSize="14" Margin="10,0,10,5" 
+                                                    Content="{DynamicResource Delete}" Foreground="White"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Popup>
+                            </StackPanel>
+                            <StackPanel Margin="0,10,0,0" HorizontalAlignment="Left" x:Name="StackPanelTExtMain">
+                                <TextBlock TextTrimming="None"
+                                           VerticalAlignment="Top"
+                                           Height="NaN"
+                                           ClipToBounds="False" x:Name="TextBlockMainCommentText" FontFamily="{StaticResource GothamRegular}" FontSize="16" 
+                                           Foreground="#D3D4D7" TextWrapping="Wrap" Text="{Binding Text}"/>
+                                <Grid x:Name="GridEditArea" HorizontalAlignment="Left" Margin="-70,-20,0,0" 
+                                      IsVisible="False">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBox x:Name="MainCommentTextBoxEditReply" FontSize="14" Margin="10,20,0,0"
+                                                 Background="#1F1F27"
+                                                 Height="NaN"
+                                                 VerticalAlignment="Center"
+                                                 Watermark="{DynamicResource EditComment}" 
+                                                 Foreground="White"
+                                                 AcceptsReturn="True"
+                                                 TextWrapping="Wrap"
+                                                 />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                        <Button x:Name="MainCommentEditReplySendBtn" 
+                                                Click="MainCommentEditReplySendBtnPreviewMouseLeftDown"  
+                                                 VerticalAlignment="Top"
+                                                Content="{DynamicResource Save}" Margin="10,19,0,0"
+                                        />
+                                        <Button x:Name="MainCommentCancelEditReplySendBtn" 
+                                                Click="MainCommentCancelEditReplySendBtnPreviewMouseLeftDown"  
+                                                VerticalAlignment="Top"
+                                                Content="{DynamicResource Cancel}" Margin="10,19,0,0"
+                                        />
+                                    </StackPanel>
+                                  
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                <material:MaterialIcon x:Name="ThumbsUpMainComment" Height="20" Width="20"
+                                                     PointerPressed="ThumbsUpMainCOmmentPreviewMouseLeftDown" 
+                                                     Kind="ThumbUp" FontSize="18" Foreground="#919198"/>
+                                <TextBlock Margin="10,0,0,0" FontSize="18" FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Light" Foreground="#919198" Text="{Binding LikeCount}"/>
+                                <material:MaterialIcon x:Name="ThumbsDownMainComment" Height="20" Width="20"
+                                                     PointerPressed="ThumbsDownMainCOmmentPreviewMouseLeftDown" 
+                                                     Kind="ThumbDown" Margin="10,0,0,0" 
+                                                     FontSize="18" Foreground="#919198"/>
+                                <TextBlock Margin="10,0,0,0" FontSize="18" FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Light" Foreground="#919198" Text="{Binding DislikeCount}"/>
+                                <TextBlock x:Name="ReplyButton" PointerPressed="ReplyButtonPreviewMouseLeftDown" 
+                                           Margin="10,0,0,0" FontSize="18" FontFamily="{StaticResource GothamRegular}" 
+                                           FontWeight="Normal" Foreground="#919198" 
+                                           Text="{DynamicResource Reply}"/>
+                            </StackPanel>
+                            
+                            <Grid x:Name="GridReplyArea" HorizontalAlignment="Left" Margin="50 0 0 0" IsVisible="False" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <Border x:Name="ProfileImageReplyBorder" Cursor="Hand" Width="67" Height="67" CornerRadius="33.5" Margin="0,15,0,0" 
+                                                     HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                                     ClipToBounds="True"
+                                                     Background="#33FFFFFF"
+                                >
+                                    <Image  Source="{Binding ProfileImage}"  x:Name="ProfileImageReply" Stretch="UniformToFill"/>
+                                </Border>
+                                
+                                <StackPanel Grid.Column="1">
+                                    <TextBox x:Name="CommentTextBoxReply" FontSize="14" Margin="10 20 0 0"
+                                             Background="#1F1F27"
+                                             Height="NaN"
+                                             VerticalAlignment="Center"
+                                             Watermark="{DynamicResource AddComment}"
+                                             AcceptsReturn="True"
+                                             TextWrapping="Wrap"
+                                    />
+                                </StackPanel>
+                                <Button x:Name="CommentReplySendBtn" Click="CommentSendReplyButtonPreviewMouseLeftDown" Grid.Column="2" VerticalAlignment="Top"
+                                        Content="{DynamicResource Send}" Margin="10 19 0 0"
+                                        
+                                />
+                            </Grid>
+
+                            <Expander Header="{Binding ReplyCommentCount}" 
+                                     Width="{Binding Bounds.Width, ElementName=CommentsDisplay}"  
+                                     Background="Transparent" Margin="0,10,0,0"  
+                                     x:Name="ExpanderReplyComments"
+                                     HorizontalAlignment="Left"
+                                     Foreground="White">
+
+                                <ListBox Loaded="ReplyCommentsDisplayLoaded" Margin="20,0,0,0" 
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                         ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                         Background="Transparent" 
+                                         Width="{Binding Bounds.Width, ElementName=CommentsDisplay}" 
+                                         Height="NaN"  
+                                         x:Name="ReplyCommentsDisplay"
+                                         ItemsSource="{Binding ReplyComments}">
+                                    <ListBox.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                                <Setter Property="Template">
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter Name="PART_ContentPresenter"
+                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                 Content="{TemplateBinding Content}"
+                                                 HorizontalContentAlignment="Left"
+                                                 VerticalContentAlignment="Top" />
+                                    </ControlTemplate>
+                                </Setter>
+                            </Style>
+                            
+                            <!-- Hover efektini devre dışı bırak -->
+                            <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Style>
+                            
+                            <!-- Seçili durumdaki efekti de kaldır -->
+                            <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Style>
+                        </ListBox.Styles>
+                        
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerTheme>
+                            <!--<ControlTheme BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem">
+                               
+                            </ControlTheme>-->
+                        </ListBox.ItemContainerTheme>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate x:DataType="netStream:Comment">
+                                            <StackPanel Width="{Binding Bounds.Width, ElementName=ReplyCommentsDisplay}"  
+                                                       Cursor="Hand" Margin="25,0,0,10" Orientation="Horizontal">
+                                                <Border x:Name="GravatarBorder" Width="67" Height="67" CornerRadius="33.5" 
+                                                        Margin="0,15,0,0" HorizontalAlignment="Left" 
+                                                        VerticalAlignment="Top" 
+                                                        ClipToBounds="True"
+                                                        Background="#33FFFFFF"
+                                                        >
+                                                    <Image x:Name="Gravatar" Source="{Binding ProfileImage}" Stretch="UniformToFill"/>
+                                                </Border>
+                                                <StackPanel Margin="10,0,0,0" Orientation="Vertical">
+                                                    <StackPanel Margin="0,20,0,0" HorizontalAlignment="Left" 
+                                                              Orientation="Horizontal">
+                                                        <TextBlock Foreground="#FAFBFD" Margin="0" 
+                                                                 Text="{Binding DisplayName}" FontSize="16" 
+                                                                 FontWeight="Normal" FontFamily="{StaticResource GothamRegular}"/>
+                                                        <TextBlock Foreground="#919297" Margin="7,2,0,0" 
+                                                                 Text="{Binding RelativeDate}" FontSize="12" 
+                                                                 FontWeight="Light" FontFamily="{StaticResource GothamRegular}"/>
+                                                        <material:MaterialIcon x:Name="MenuIconReplyComment" 
+                                                                               Margin="10,0,0,0" FontSize="16"
+                                                                               Kind="DotsVertical" Foreground="#919198" Height="24" Width="24"
+                                                                               PointerPressed="MenuIconReplyComment_OnPointerPressed"
+                                                                              ></material:MaterialIcon>
+                                                        <Popup x:Name="PopupBoxReplyComment"
+                                                               Placement="Right"
+                                                               PlacementTarget="{Binding ElementName=MenuIconReplyComment}"
+                                                               HorizontalOffset="5" 
+                                                               VerticalOffset="-20"
+                                                               IsLightDismissEnabled="True"
+                                                               IsOpen="False">
+                                                            <Border Background="#1F1F27" CornerRadius="5" Padding="0">
+                                                                <StackPanel MinWidth="100">
+                                                                    <Button Cursor="Hand" 
+                                                                           Click="PopupBOxReplyCommentEditBtnPreviewMouseLeftDown" 
+                                                                           x:Name="PopupBOxReplyCommentEditBtn" 
+                                                                           HorizontalAlignment="Center" 
+                                                                           FontFamily="{StaticResource GothamRegular}" FontSize="14"  
+                                                                           Margin="10,5,10,5" 
+                                                                           Content="{DynamicResource Edit}"/>
+                                                                    <Button Cursor="Hand" 
+                                                                            Click="PopupBOxReplyCommentDeleteBtnPreviewMouseLeftDown" 
+                                                                           x:Name="PopupBOxReplyCommentDeleteBtn" 
+                                                                           HorizontalAlignment="Center" 
+                                                                           FontFamily="{StaticResource GothamRegular}" FontSize="14" 
+                                                                           Margin="10,0,10,5" 
+                                                                           Content="{DynamicResource Delete}" 
+                                                                           Foreground="White"/>
+                                                                </StackPanel>
+                                                            </Border>
+                                                        </Popup>
+                                                    </StackPanel>
+                                                    <StackPanel x:Name="StackPanelTExtReply" Margin="0,10,0,0" 
+                                                              HorizontalAlignment="Left">
+                                                        <TextBlock x:Name="TextBlockTextReplyComment" 
+                                                                 FontFamily="{StaticResource GothamRegular}" FontSize="16" 
+                                                                 Foreground="#D3D4D7" TextWrapping="Wrap" 
+                                                                 Text="{Binding Text}"/>
+                                                        <Grid x:Name="GridEditReplyArea" HorizontalAlignment="Left" 
+                                                             Margin="-70,-20,0,0" IsVisible="False">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="60"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <StackPanel Grid.Column="1">
+                                                                <TextBox x:Name="ReplyCommentTextBoxEditReply" 
+                                                                        FontSize="14" Margin="10,20,0,0"
+                                                                        Background="#1F1F27"
+                                                                        Height="NaN"
+                                                                        VerticalAlignment="Center"
+                                                                        Watermark="{DynamicResource EditComment}" 
+                                                                        Foreground="White"
+                                                                        AcceptsReturn="True"
+                                                                        TextWrapping="Wrap"
+                                                                />
+                                                            </StackPanel>
+                                                            <Button x:Name="ReplyCommentEditReplySendBtn" 
+                                                                  Click="ReplyCommentEditReplySendBtnPreviewMouseLeftDown"  
+                                                                  Grid.Column="2" VerticalAlignment="Top"
+                                                                  Content="{DynamicResource Save}" Margin="10,19,0,0"
+                                                            />
+                                                            <Button x:Name="ReplyCommentCancelEditReplySendBtn" 
+                                                                    Click="ReplyCommentCancelEditReplySendBtnPreviewMouseLeftDown"  
+                                                                  Grid.Column="3" VerticalAlignment="Top"
+                                                                  Content="{DynamicResource Cancel}" Margin="10,19,0,0"
+                                                            />
+                                                        </Grid>
+                                                    </StackPanel>
+                                                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                                                        <material:MaterialIcon x:Name="ThumbsUpReplyComments" 
+                                                                            Kind="ThumbUp" Height="20" Width="20"
+                                                                            PointerPressed="ThumsUpReplyCommentsPreviewMouseLeftDown" 
+                                                                            FontSize="18" Foreground="#919198"/>
+                                                        <TextBlock Margin="10,0,0,0" FontSize="18" FontFamily="{StaticResource GothamRegular}" 
+                                                                 FontWeight="Light" Foreground="#919198" 
+                                                                 Text="{Binding LikeCount}"/>
+                                                        <material:MaterialIcon x:Name="ThumbsDownReplyComments"  
+                                                                            Kind="ThumbDown" Height="20" Width="20"
+                                                                            PointerPressed="ThumsDownReplyCommentsPreviewMouseLeftDown" 
+                                                                            Margin="10,0,0,0" FontSize="18" 
+                                                                            Foreground="#919198"/>
+                                                        <TextBlock Margin="10,0,0,0" FontSize="18" FontFamily="{StaticResource GothamRegular}" 
+                                                                 FontWeight="Light" Foreground="#919198" 
+                                                                 Text="{Binding DislikeCount}"/>
+                                                        <TextBlock x:Name="ReplyBUtton2" 
+                                                                 PointerPressed="ReplyButton2PreviewMouseleftDown" 
+                                                                 Margin="10,0,0,0" FontSize="18" FontFamily="{StaticResource GothamRegular}" 
+                                                                 FontWeight="Normal" Foreground="#919198" 
+                                                                 Text="{DynamicResource Reply}"/>
+                                                    </StackPanel>
+                                                    <Grid x:Name="GridReply2Area" HorizontalAlignment="Left"
+                                                         Margin="50,0,0,0" IsVisible="False">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        
+                                                        <Border  Width="67" Height="67" 
+                                                               CornerRadius="33.5" Margin="0,10,0,0" 
+                                                               HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                                               ClipToBounds="True"
+                                                               Background="#33FFFFFF"
+                                                               >
+                                                            <Image x:Name="ProfileImageReply2"  Stretch="UniformToFill"/>
+                                                        </Border>
+
+                                                        <StackPanel Grid.Column="1">
+                                                            <TextBox x:Name="CommentTextBoxReply2" FontSize="14" 
+                                                                    Margin="10,20,0,0"
+                                                                    Background="#1F1F27"
+                                                                    Height="NaN"
+                                                                    VerticalAlignment="Center"
+                                                                    Watermark="{DynamicResource AddComment}" 
+                                                                    Foreground="White"
+                                                                    AcceptsReturn="True"
+                                                                    TextWrapping="Wrap"
+                                                            />
+                                                        </StackPanel>
+                                                        <Button x:Name="CommentReplySendBtn2" 
+                                                                Click="CommentReplySendBtn2_OnClick"
+                                                               Grid.Column="2" VerticalAlignment="Top"
+                                                               Content="{DynamicResource Send}" Margin="10,19,0,0"
+                                                              
+                                                        />
+                                                    </Grid>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                  
+                                </ListBox>
+                            </Expander>
+                        </StackPanel>
+                    </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+       
+    </ListBox>
+
+    <Grid Grid.Row="2" Grid.Column="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+        <Border x:Name="ProfileImageBorder"  Width="67" Height="67" CornerRadius="33.5" 
+               Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
+               ClipToBounds="True"
+               Background="#33FFFFFF"
+               >
+            <Image x:Name="ProfileImage" Stretch="UniformToFill"/>
+        </Border>
+
+        <StackPanel Grid.Column="1">
+            <TextBox x:Name="CommentTextBox" FontSize="14" Margin="10,20,0,0"
+                    Background="#1F1F27"
+                    Height="NaN"
+                    VerticalAlignment="Center"
+                    Watermark="{DynamicResource AddComment}" 
+                    Foreground="White"
+                    AcceptsReturn="True"
+                    TextWrapping="Wrap"
+            />
+        </StackPanel>
+        <Button x:Name="CommentSendBtn" Click="CommentSendBtn_OnClick" 
+               Grid.Column="2" VerticalAlignment="Top"
+               Content="{DynamicResource Send}" Margin="10,19,0,0"
+        />
+    </Grid>
+</Grid>
+</UserControl> 

@@ -1,0 +1,183 @@
+<UserControl x:Class="NetStream.Views.TvShowsPage"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:local="clr-namespace:NetStream"
+             xmlns:material="using:Material.Icons.Avalonia"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
+             xmlns:ia="using:Avalonia.Xaml.Interactions.Core"
+             xmlns:controls="clr-namespace:NetStream.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="2100" d:DesignWidth="1584"
+             Background="#111111" 
+             Loaded="Home_OnLoaded" Unloaded="Control_OnUnloaded" x:CompileBindings="False">
+    <UserControl.Resources>
+        <local:WidthToFontSizeConverter x:Key="WidthToFontSizeConverter"/>
+        <local:MainOverviewWidthConverter x:Key="MainOverviewWidthConverter"/>
+        <local:TruncateMainMovieNameTextConverter x:Key="TruncateMainMovieNameTextConverter" MaxLength="90" />
+        <local:TruncateMainMovieOverViewTextConverter x:Key="TruncateMainMovieOverViewTextConverter" MaxLength="600" />
+        <local:MainMovieNameWidthToPercentageConverter x:Key="MainMovieNameWidthToPercentageConverter" />
+    </UserControl.Resources>
+    <UserControl.Styles>
+        <!-- Responsive styles -->
+        <Style Selector="TextBlock.responsive-header">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        
+        <!-- Style for small screens will be applied programmatically -->
+        <Style Selector="TextBlock.responsive-header-small">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontFamily" Value="{StaticResource GothamRegular}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        
+        <!-- Movie card styles for different sizes -->
+        <Style Selector="Border.movie-card">
+            <Setter Property="Height" Value="375" />
+            <Setter Property="Width" Value="250" />
+        </Style>
+        
+        <Style Selector="Border.movie-card-medium">
+            <Setter Property="Height" Value="270" />
+            <Setter Property="Width" Value="180" />
+        </Style>
+        
+        <Style Selector="Border.movie-card-small">
+            <Setter Property="Height" Value="210" />
+            <Setter Property="Width" Value="140" />
+        </Style>
+        
+        <!-- Movie title text responsive -->
+        <Style Selector="TextBlock.movie-title">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="MaxWidth" Value="200" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title-medium">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="MaxWidth" Value="180" />
+        </Style>
+        
+        <Style Selector="TextBlock.movie-title-small">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="MaxWidth" Value="140" />
+        </Style>
+    </UserControl.Styles>
+    <Grid>
+        <ScrollViewer x:Name="MainScroll" Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+            <StackPanel Spacing="20" x:Name="GridSide" VerticalAlignment="Top"  Grid.Row="0" Grid.Column="1">
+                
+                <controls:MainMovieTvShow x:Name="MainMovieTvShow"></controls:MainMovieTvShow>
+                   
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid x:Name="PopularTvShowsHeaderGrid" Grid.Row="0" Margin="50,10,20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Classes="responsive-header" x:Name="PopularTvShowsTitle" Text="{DynamicResource PopularTvShowsString}"/>
+                        <TextBlock Grid.Column="1" 
+                                 FontSize="16" 
+                                 HorizontalAlignment="Right" 
+                                 Cursor="Hand" 
+                                 PointerPressed="ExploreMorePopularMovies_OnPreviewMouseLeftButtonDown" 
+                                 x:Name="exploreMorePopularTvShows" 
+                                 PointerEntered="ExploreMorePopularTvHome_OnMouseEnter" 
+                                 PointerExited="ExploreMorePopularTvHome_OnMouseLeave" 
+                                 Text="{DynamicResource ExploreMoreString}" 
+                                 Foreground="#828282" 
+                                 FontWeight="Light" 
+                                 FontFamily="{StaticResource GothamLight}">
+                        </TextBlock>
+                    </Grid>
+
+                    <controls:HorizontalMovieItemsControl x:Name="PopularTvControl" Grid.Row="1" 
+                                                          ItemsSource="{Binding Source={x:Static local:Service.PopularTvShows}}" 
+                                                          IsMovie="False" />
+                </Grid>
+
+                 <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid x:Name="TopRatedTvShowsHeaderGrid" Grid.Row="0" Margin="50,10,20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Classes="responsive-header" x:Name="TopRatedTvShowsTitle" Text="{DynamicResource TopRatedTvShowsString}"/>
+                        <TextBlock Grid.Column="1" 
+                                 FontSize="16" 
+                                 HorizontalAlignment="Right" 
+                                 Cursor="Hand" 
+                                 PointerPressed="ExploreMorePopularMovies_OnPreviewMouseLeftButtonDown" 
+                                 x:Name="exploreMoreTopRatedTvShows" 
+                                 PointerEntered="ExploreMorePopularTvHome_OnMouseEnter" 
+                                 PointerExited="ExploreMorePopularTvHome_OnMouseLeave" 
+                                 Text="{DynamicResource ExploreMoreString}" 
+                                 Foreground="#828282" 
+                                 FontWeight="Light" 
+                                 FontFamily="{StaticResource GothamLight}">
+                        </TextBlock>
+                    </Grid>
+
+                     <controls:HorizontalMovieItemsControl x:Name="TopRatedTvControl" Grid.Row="1" 
+                                                           ItemsSource="{Binding Source={x:Static local:Service.TopRatedTvShows}}" 
+                                                           IsMovie="False" />
+                </Grid>
+                
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Grid x:Name="AiringTodayTvShowsHeaderGrid" Grid.Row="0" Margin="50,10,20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBlock Grid.Column="0" Classes="responsive-header" x:Name="AiringTodayTvShowsTitle" Text="{DynamicResource TvShowsAiringTodayString}"/>
+                        <TextBlock Grid.Column="1" 
+                                 FontSize="16" 
+                                 HorizontalAlignment="Right" 
+                                 Cursor="Hand" 
+                                 PointerPressed="ExploreMorePopularMovies_OnPreviewMouseLeftButtonDown" 
+                                 x:Name="exploreMoreTvShowAiringToday" 
+                                 PointerEntered="ExploreMorePopularTvHome_OnMouseEnter" 
+                                 PointerExited="ExploreMorePopularTvHome_OnMouseLeave" 
+                                 Text="{DynamicResource ExploreMoreString}" 
+                                 Foreground="#828282" 
+                                 FontWeight="Light" 
+                                 FontFamily="{StaticResource GothamLight}">
+                        </TextBlock>
+                    </Grid>
+
+                    <controls:HorizontalMovieItemsControl x:Name="AiringTodayTvControl" Grid.Row="1" 
+                                                          ItemsSource="{Binding Source={x:Static local:Service.AiringTodayTvShows}}" 
+                                                          IsMovie="False" />
+                </Grid>
+                
+             
+
+                
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl> 

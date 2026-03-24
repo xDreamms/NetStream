@@ -1,0 +1,1086 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:vlc="using:LibVLCSharp.Avalonia"
+             xmlns:netStream="clr-namespace:NetStream"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+             mc:Ignorable="d"
+             x:Class="NetStream.Views.PlayerWindow"
+             Loaded="PlayerWindow_OnLoaded" 
+             KeyDown="PlayerWindow_OnKeyDown"
+             Focusable="True"
+             Background="Black" x:Name="PlayerWindowControl"
+             >
+    
+
+    <Grid KeyDown="PlayerWindow_OnKeyDown">
+        <vlc:VideoView Grid.Row="0" 
+                       PointerPressed="Player_OnPreviewMouseLeftButtonDown" 
+                       DoubleTapped="Player_OnMouseDoubleClick" 
+                       IsHitTestVisible="True"
+                       x:Name="Player">
+            <Grid Background="#01000000" PointerMoved="Player_OnPointerMoved" PointerWheelChanged="Player_OnMouseWheel"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Sol taraf: Back button ve Movie name -->
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" 
+                                Orientation="Horizontal" Margin="20 0 0 0">
+                        <Grid Width="NaN" Height="NaN" 
+                              VerticalAlignment="Center" HorizontalAlignment="Center" 
+                              Cursor="Hand" x:Name="ButtonBack" 
+                              PointerPressed="ButtonBack_OnPreviewMouseLeftButtonDown" Background="#01000000">
+                            <avalonia:Icon x:Name="BackImage" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                           Value="fa-regular fa-arrow-left"  
+                                           Foreground="White" FontSize="24" />
+                        </Grid>
+                    </StackPanel>
+                  
+                    <!-- Orta: Torrent Download Speed and Progress Indicator -->
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                Orientation="Horizontal" x:Name="TorrentProgressPanel" IsVisible="False">
+                        <TextBlock x:Name="TorrentSpeedText" Text="" Foreground="#B3FFFFFF" 
+                                   FontSize="14" Margin="0 0 15 0" />
+                        <TextBlock x:Name="TorrentProgressText" Text="" Foreground="#B3FFFFFF" 
+                                   FontSize="14" FontWeight="Medium" />
+                    </StackPanel>
+                    
+                    <!-- Sağ taraf: Volume text -->          
+                    <TextBlock IsVisible="False" Margin="0 0 20 0" Grid.Column="2" x:Name="VolumeText" 
+                               Text="" Foreground="White" />
+                </Grid>
+
+                <Grid Grid.Row="2" IsVisible="False" x:Name="ProgressGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.2*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.3*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="0.3*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock  Margin="0 -30 0 0" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1" 
+                               x:Name="LoadingTextBlock" Text="{DynamicResource Loading}" Foreground="White" />
+
+                    <ProgressBar VerticalAlignment="Top" Margin="0 -40 0 0" Grid.Row="2" x:Name="ProgressBarToPlay" 
+                                 Grid.Column="1" Grid.ColumnSpan="3" Height="3" Value="0" Background="#808080" 
+                                 BorderBrush="#808080" IsIndeterminate="True" Maximum="100" />
+
+                    <StackPanel x:Name="NextEpisodeStackPanel" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                                Orientation="Horizontal" Grid.Row="3" Grid.Column="4" Margin="0 0 80 25">
+                        <!-- ProgressButton component needs to be implemented or found an alternative in Avalonia -->
+                        <Button PointerPressed="NextEpisodeButton_OnPreviewMouseLeftButtonDown" Margin="15 0 0 0" 
+                                Cursor="Hand" Background="White" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                                Grid.Row="3" Grid.Column="2" x:Name="NextEpisodeButton" Height="NaN" Width="NaN"
+                                Padding="20 10 20 10">
+                            <StackPanel Orientation="Horizontal">
+                                <!-- FontAwesome icons need to be added differently in Avalonia -->
+                                <TextBlock Text="►" Foreground="Black" FontSize="30" />
+                                <TextBlock Foreground="Black" Margin="10 2 0 0" Text="Sonraki Bölüm" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.01*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.01*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
+                            <GradientStop Color="#00000000" Offset="0" />
+                            <GradientStop Color="#CC000000" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
+                    <StackPanel IsHitTestVisible="True" PointerExited="PanelControlVideo_OnMouseLeave" 
+                                PointerEntered="PanelControlVideo_OnMouseEnter" x:Name="PanelControlVideo" 
+                                IsVisible="True" Grid.Column="1" Orientation="Vertical" Margin="0 0 0 20">
+
+                        <!-- Top row: Progress Slider and Time Text -->
+                        <Grid Margin="15 0 15 0" IsHitTestVisible="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- A wider hit test area for the slider so users don't easily slip off -->
+                            <Grid Grid.Row="0" Grid.Column="0" Background="Transparent" 
+                                  PointerMoved="DurationSlider_OnMouseMove"
+                                  PointerEntered="DurationSlider_PointerEntered" 
+                                  PointerExited="DurationSlider_PointerExited"
+                                  Margin="0 -20 20 -20">
+                                
+                                <Slider Thumb.DragCompleted="DurationSlider_OnDragCompleted" PointerReleased="DurationSlider_OnPointerReleased" Thumb.DragStarted="DurationSlider_OnDragStarted"
+                                        TemplateApplied="DurationSlider_OnTemplateApplied" IsHitTestVisible="True" Cursor="Hand"
+                                        VerticalAlignment="Center" 
+                                        PointerWheelChanged="DurationSlider_OnMouseWheel"
+                                        ValueChanged="DurationSlider_OnValueChanged"
+                                        TickFrequency="0.01" Orientation="Horizontal" Maximum="1"
+                                        Foreground="{StaticResource BrushDefault}" Value="0" x:Name="DurationSlider">
+                                    <Slider.Styles>
+                                        
+                                        <Style Selector="Slider:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_InactiveState">
+                                            <Setter Property="Height" Value="5" />
+                                        <Setter Property="RenderTransform" Value="scaleY(1)" />
+                                        <Setter Property="Transitions">
+                                            <Transitions>
+                                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut" />
+                                            </Transitions>
+                                        </Setter>
+                                    </Style>
+        
+                                    <Style Selector="Slider:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Panel#PART_InnerPanel">
+                                        <Setter Property="Height" Value="5" />
+                                        <Setter Property="RenderTransform" Value="scaleY(1)" />
+                                        <Setter Property="Transitions">
+                                            <Transitions>
+                                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut" />
+                                            </Transitions>
+                                        </Setter>
+                                    </Style>
+        
+                                    <Style Selector="Thumb#PART_SliderThumb">
+                                        <Setter Property="Theme">
+                                            <ControlTheme TargetType="Thumb">
+                                                <Setter Property="Background" Value="Transparent" />
+                                                <Setter Property="Template">
+                                                    <ControlTemplate>
+                                                        <Panel Width="40"
+                                                               Height="40"
+                                                               ClipToBounds="False"
+                                                               HorizontalAlignment="Center"
+                                                               VerticalAlignment="Center">
+                                                            <Border Name="PART_HoverEffect"
+                                                                    Width="24"
+                                                                    Height="24"
+                                                                    CornerRadius="999"
+                                                                    Opacity="0"
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center"
+                                                                    Background="#30FFFFFF">
+                                                                <Border.Transitions>
+                                                                    <Transitions>
+                                                                        <DoubleTransition Property="Width" Duration="0:0:0.18" Easing="CubicEaseOut" />
+                                                                        <DoubleTransition Property="Height" Duration="0:0:0.18" Easing="CubicEaseOut" />
+                                                                        <DoubleTransition Property="Opacity" Duration="0:0:0.18" Easing="CubicEaseOut" />
+                                                                    </Transitions>
+                                                                </Border.Transitions>
+                                                            </Border>
+
+                                                            <Border Name="PART_ThumbGrip"
+                                                                    Width="14"
+                                                                    Height="14"
+                                                                    CornerRadius="999"
+                                                                    Background="#E50914"
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center">
+                                                                <Border.Transitions>
+                                                                    <Transitions>
+                                                                        <DoubleTransition Property="Width" Duration="0:0:0.18" Easing="CubicEaseOut" />
+                                                                        <DoubleTransition Property="Height" Duration="0:0:0.18" Easing="CubicEaseOut" />
+                                                                    </Transitions>
+                                                                </Border.Transitions>
+                                                            </Border>
+                                                        </Panel>
+                                                    </ControlTemplate>
+                                                </Setter>
+                                                <Style Selector="^:pointerover /template/ Border#PART_HoverEffect">
+                                                    <Setter Property="Width" Value="34" />
+                                                    <Setter Property="Height" Value="34" />
+                                                    <Setter Property="Opacity" Value="0.2"/>
+                                                </Style>
+                                                <Style Selector="^:pointerover /template/ Border#PART_ThumbGrip">
+                                                    <Setter Property="Width" Value="20" />
+                                                    <Setter Property="Height" Value="20" />
+                                                </Style>
+                                            </ControlTheme>
+                                        </Setter>
+                                    </Style>
+        
+                                    <!-- Active indicator stil ayarı -->
+                                    <Style Selector="Slider:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_Indicator">
+                                        <Setter Property="RenderTransform" Value="scaleY(1)" />
+                                        <Setter Property="Transitions">
+                                            <Transitions>
+                                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut" />
+                                            </Transitions>
+                                        </Setter>
+                                    </Style>
+                                    
+                                    <Style Selector="Slider.ScaledUp:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_InactiveState">
+                                        <Setter Property="RenderTransform" Value="scaleY(2)" />
+                                    </Style>
+                                    
+                                    <Style Selector="Slider.ScaledUp:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_Indicator">
+                                        <Setter Property="RenderTransform" Value="scaleY(2)" />
+                                    </Style>
+                                    
+                                    <Style Selector="Slider.ScaledUp:horizontal /template/ Thumb#PART_SliderThumb /template/ Border#PART_ThumbGrip">
+                                        <Setter Property="Width" Value="20" />
+                                        <Setter Property="Height" Value="20" />
+                                    </Style>
+                                    <Style Selector="Slider.ScaledUp:horizontal /template/ Thumb#PART_SliderThumb /template/ Border#PART_HoverEffect">
+                                        <Setter Property="Width" Value="34" />
+                                        <Setter Property="Height" Value="34" />
+                                    </Style>
+                                    <Style Selector="Slider.ScaledUp:horizontal:pointerover /template/ Thumb#PART_SliderThumb /template/ Border#PART_ThumbGrip">
+                                        <Setter Property="Width" Value="24" />
+                                        <Setter Property="Height" Value="24" />
+                                    </Style>
+                                    <Style Selector="Slider.ScaledUp:horizontal:pointerover /template/ Thumb#PART_SliderThumb /template/ Border#PART_HoverEffect">
+                                        <Setter Property="Width" Value="40" />
+                                        <Setter Property="Height" Value="40" />
+                                        <Setter Property="Opacity" Value="0.22" />
+                                    </Style>
+            
+                                    <!-- İnaktif track rengi (gri arka plan) -->
+                                    <Style Selector="Slider:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_InactiveState">
+                                        <Setter Property="Background" Value="#4D4D4D" /> 
+                                        <Setter Property="Opacity" Value="1" /> 
+                                        <Setter Property="Height" Value="5" />
+                                    </Style>
+        
+                                    <!-- Aktif track rengi (dolu kısım) -->
+                                    <Style Selector="Slider:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_Indicator">
+                                        <Setter Property="Background" Value="#E50914" /> 
+                                        <Setter Property="Opacity" Value="1" /> 
+                                    </Style>
+                                </Slider.Styles>
+                            </Slider>
+                            </Grid>
+                            
+                            <!-- The time text on the right -->
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <TextBlock x:Name="TxtCurrentTime" Text="00:00:00/ " Foreground="White" FontSize="14" IsVisible="False"/>
+                                <TextBlock x:Name="TxtDuration" Text="-00:00:00" Foreground="#B3FFFFFF" FontSize="14" />
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Margin="15 20 15 0" IsHitTestVisible="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- Left Controls -->
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="25" VerticalAlignment="Center">
+                                <!-- Play/Pause Button -->
+                                <Panel IsHitTestVisible="True" PointerPressed="ButtonPlay_OnPreviewMouseLeftButtonDown" 
+                                       Background="#01000000" PointerExited="ButttonPlay_OnPointerExited" PointerEntered="ButttonPlay_OnPointerEntered" Cursor="Hand">
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Image x:Name="PlayButton" Source="avares://NetStream/Assets/new_icons/pause_transparent_266x220.png" Width="30" Height="30" IsHitTestVisible="True"/>
+                                </Panel>
+                                
+                                <!-- Rewind 10s -->
+                                <Panel IsHitTestVisible="True" PointerPressed="ButtonRewind_OnPreviewMouseLeftButtonDown" PointerEntered="ButtonRewindPointerEntered" PointerExited="ButtonRewindPointerExited"
+                                       Background="#01000000" Cursor="Hand">
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Image x:Name="RewindIcon" Source="avares://NetStream/Assets/new_icons/rewind_10_transparent_266x220.png" Width="30" Height="30" IsHitTestVisible="True"/>
+                                </Panel>
+                                
+                                <!-- Forward 10s -->
+                                <Panel IsHitTestVisible="True" PointerPressed="ButtonForward_OnPreviewMouseLeftButtonDown" x:Name="ButtonForward" PointerEntered="ButtonForward_OnPointerEntered"
+                                       PointerExited="ButtonForward_OnPointerExited"
+                                       Background="#01000000" Cursor="Hand">
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Image x:Name="ForwardIcon" Source="avares://NetStream/Assets/new_icons/forward_10_transparent_266x220.png" Width="30" Height="30" IsHitTestVisible="True"/>
+                                </Panel>
+
+                                <!-- Volume -->
+                                <Panel IsHitTestVisible="True" Cursor="Hand" Background="#01000000" 
+                                       PointerPressed="ButtonMute_OnPreviewMouseLeftButtonDown" 
+                                       PointerEntered="ButtonMute_OnPointerEntered"
+                                       PointerExited="ButtonMute_OnPointerExited"
+                                       x:Name="ButtonMute">
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Image x:Name="MuteButton" Source="avares://NetStream/Assets/new_icons/volume1_transparent_266x220.png" Width="30" Height="30" IsHitTestVisible="True"/>
+                                </Panel>
+                            </StackPanel>
+                            
+                            <!-- Center Title -->
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       x:Name="MovieNameTextCenter" Text="" Foreground="White" FontWeight="Bold" FontSize="16" />
+
+                            <!-- Right Controls -->
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="25" VerticalAlignment="Center">
+                                
+                                <Panel IsHitTestVisible="True" Cursor="Hand" Background="#01000000" x:Name="ButtonNextEpisode" 
+                                       HorizontalAlignment="Right" PointerPressed="NextEpisodeButton_OnPreviewMouseLeftButtonDown"
+                                       PointerEntered="ButtonNextEpisode_OnPointerEntered" PointerExited="ButtonNextEpisode_OnPointerExited">
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Image x:Name="NextEpisodesIcon" Source="avares://NetStream/Assets/new_icons/next_transparent_266x220.png" Width="36" Height="36" IsHitTestVisible="True"/>
+                                </Panel>
+                                <!-- Episodes List -->
+                                <Panel IsHitTestVisible="True" Cursor="Hand" Background="#01000000" x:Name="ButtonEpisodeList" 
+                                       HorizontalAlignment="Right" PointerExited="ButtonEpisodeList_OnPointerExited" PointerEntered="ButtonEpisodeList_OnPointerEntered" >
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Image x:Name="EpisodesIcon" Source="avares://NetStream/Assets/new_icons/cast_transparent_266x220.png" Width="30" Height="30" IsHitTestVisible="True"/>
+                                </Panel>
+                                
+                                <!-- Subtitles -->
+                                <Panel IsHitTestVisible="True" Cursor="Hand" Background="#01000000" x:Name="ButtonSubtitle" PointerEntered="AudioSubtitlePopup_OnPointerEntered"
+                                       PointerExited="AudioSubtitlePopup_OnPointerExited"
+                                       HorizontalAlignment="Right">
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Image x:Name="SubtitleIcon" Source="avares://NetStream/Assets/new_icons/chat_transparent_266x220.png" Width="30" Height="30" IsHitTestVisible="True"/>
+                                </Panel>
+
+                                <!-- Subtitle Shift Settings -->
+                                <Panel IsHitTestVisible="True" Cursor="Hand" Background="#01000000" x:Name="ButtonSubtitleShift" 
+                                       PointerEntered="ButtonSubtitleShift_OnPointerEntered"
+                                       PointerExited="ButtonSubtitleShift_OnPointerExited"
+                                       HorizontalAlignment="Right"
+                                       >
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Viewbox Width="30" Height="30" IsHitTestVisible="True" Margin="2">
+                                        <avalonia:Icon Value="fa-solid fa-clock-rotate-left" Foreground="White" />
+                                    </Viewbox>
+                                </Panel>
+
+                                <!-- Sync Subtitles -->
+                                <Panel IsHitTestVisible="True" Cursor="Hand" Background="#01000000" x:Name="ButtonSyncSubtitle" 
+                                       PointerPressed="ButtonSyncSubtitle_OnPointerPressed"
+                                       HorizontalAlignment="Right"
+                                       >
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Viewbox Width="30" Height="30" IsHitTestVisible="True" Margin="2">
+                                        <avalonia:Icon Value="fa-solid fa-bolt" Foreground="White" />
+                                    </Viewbox>
+                                </Panel>
+
+                                <!-- Speed -->
+                                <Panel IsHitTestVisible="True" Cursor="Hand" Background="#01000000" x:Name="ButtonSpeed" 
+                                       HorizontalAlignment="Right" PointerEntered="ButtonSync_OnPointerEntered" PointerExited="ButtonSync_OnPointerExited" >
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Image x:Name="SpeedIcon" Source="avares://NetStream/Assets/new_icons/speed_transparent_266x220.png" Width="30" Height="30" IsHitTestVisible="True"/>
+                                </Panel>
+
+                                <!-- Fullscreen -->
+                                <Panel IsHitTestVisible="True" Cursor="Hand" Background="#01000000" x:Name="ButtonFullScreen" PointerEntered="ButtonFullScreen_OnPointerEntered"
+                                       PointerExited="ButtonFullScreen_OnPointerExited"
+                                       HorizontalAlignment="Right" PointerPressed="ButtonFullScreen_OnPreviewMouseLeftButtonDown">
+                                    <Panel.Styles>
+                                        <Style Selector="Panel:pointerover">
+                                            <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                        </Style>
+                                        <Style Selector="Panel:not(:pointerover)">
+                                            <Setter Property="RenderTransform" Value="scale(1)"/>
+                                        </Style>
+                                    </Panel.Styles>
+                                    <Panel.Transitions>
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                        </Transitions>
+                                    </Panel.Transitions>
+                                    <Image x:Name="FullScreenIcon" Source="avares://NetStream/Assets/new_icons/fullscreen_transparent_266x220.png" Width="30" Height="30" IsHitTestVisible="True"/>
+                                </Panel>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </vlc:VideoView>
+        
+        <!-- Yeni Tasarım Subtitle ve Audio Popup -->
+        <Popup x:Name="AudioSubtitlePopup" Placement="TopEdgeAlignedRight" PlacementTarget="{Binding ElementName=ButtonSubtitle}" IsOpen="False" VerticalOffset="-25">
+            <LayoutTransformControl x:Name="AudioSubtitlePopupTransform">
+                <Border x:Name="AudioSubtitlePopupBorder" PointerEntered="AudioSubtitlePopup_OnPointerEntered" PointerExited="AudioSubtitlePopup_OnPointerExited" Background="#1c1c1c" BorderBrush="#333333" BorderThickness="1" CornerRadius="8" MinWidth="450" MaxHeight="550" BoxShadow="0 4 20 0 #A0000000">
+                <Grid ColumnDefinitions="*,Auto,*,Auto,*,Auto,*">
+                    <!-- Seslendirme -->
+                    <StackPanel Grid.Column="0" Margin="15,20,15,20">
+                        <TextBlock Text="{DynamicResource AudioTracksString}" Foreground="White" FontWeight="Bold" FontSize="15" Margin="25,0,0,15"/>
+                        <ScrollViewer MaxHeight="350" x:Name="AudioScrollViewer">
+                            <ItemsControl x:Name="AudioTracksItemsControl">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="local:SubtitleTrackItem">
+                                        <Border Cursor="Hand" PointerPressed="AudioTrackItem_PointerPressed" Background="Transparent" Padding="5,8">
+                                            <Grid ColumnDefinitions="25,*">
+                                                <TextBlock Grid.Column="0" Text="✓" Foreground="White" IsVisible="{Binding IsSelected}" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding Name}" Foreground="{Binding TextColor, FallbackValue=White}" VerticalAlignment="Center" FontSize="13"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+
+                    <Border Grid.Column="1" Width="1" Background="#333333" Margin="0,15,0,15"/>
+
+                    <!-- Alt yazı -->
+                    <StackPanel Grid.Column="2" Margin="15,20,15,20">
+                        <TextBlock Text="{DynamicResource SubtitleTracksString}" Foreground="White" FontWeight="Bold" FontSize="15" Margin="25,0,0,15"/>
+                        <ScrollViewer MaxHeight="350" x:Name="SubtitleLangsScrollViewer">
+                            <ItemsControl x:Name="SubtitleLangsItemsControl">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="local:SubtitleTrackItem">
+                                        <Border Cursor="Hand" PointerPressed="SubtitleLangItem_PointerPressed" Background="Transparent" Padding="5,8">
+                                            <Grid ColumnDefinitions="25,*">
+                                                <TextBlock Grid.Column="0" Text="✓" Foreground="White" IsVisible="{Binding IsSelected}" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding Details, FallbackValue={Binding Name}}" Foreground="{Binding TextColor, FallbackValue=White}" VerticalAlignment="Center" FontSize="13"/>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+
+                    <Border Grid.Column="3" Width="1" Background="#333333" Margin="0,15,0,15"/>
+
+                    <!-- Bulunan Altyazılar -->
+                    <StackPanel Grid.Column="4" Margin="15,20,15,20">
+                        <TextBlock Text="{DynamicResource FoundSubtitlesString}" Foreground="White" FontWeight="Bold" FontSize="15" Margin="25,0,0,15"/>
+                        <ScrollViewer MaxHeight="350" x:Name="FoundSubtitlesScrollViewer">
+                            <ItemsControl x:Name="FoundSubtitlesItemsControl">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="local:SubtitleTrackItem">
+                                        <Border Cursor="Hand" PointerPressed="FoundSubtitleItem_PointerPressed" Background="Transparent" Padding="5,8">
+                                            <Grid ColumnDefinitions="25,*">
+                                                <TextBlock Grid.Column="0" Text="✓" Foreground="White" IsVisible="{Binding IsSelected}" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding Name}" Foreground="{Binding TextColor, FallbackValue=White}" TextWrapping="Wrap" FontSize="13"/>
+                                                    <TextBlock Text="{Binding Details, FallbackValue=''}" Foreground="#888888" FontSize="11" IsVisible="{Binding HasDetails, FallbackValue=False}"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+
+                    <Border Grid.Column="5" Width="1" Background="#333333" Margin="0,15,0,15"/>
+
+                    <!-- Kendi Altyazılarım / Own Subtitles -->
+                    <StackPanel Grid.Column="6" Margin="15,20,15,20">
+                        <TextBlock Text="{DynamicResource OwnSubtitlesString}" Foreground="White" FontWeight="Bold" FontSize="15" Margin="25,0,0,15"/>
+                        <Button Content="Manuel Altyazi Ekle"
+                                Click="AddManualSubtitle_Click"
+                                Background="#2A2A2A"
+                                Foreground="White"
+                                BorderBrush="#3A3A3A"
+                                CornerRadius="6"
+                                Padding="12,8"
+                                HorizontalAlignment="Stretch"
+                                Margin="0,0,0,12"
+                                Cursor="Hand" />
+                        <ScrollViewer MaxHeight="350" x:Name="OwnSubtitlesScrollViewer">
+                            <ItemsControl x:Name="OwnSubtitlesItemsControl">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="local:SubtitleTrackItem">
+                                        <Border Cursor="Hand" PointerPressed="OwnSubtitleItem_PointerPressed" Background="Transparent" Padding="5,8">
+                                            <Grid ColumnDefinitions="25,*">
+                                                <TextBlock Grid.Column="0" Text="✓" Foreground="White" IsVisible="{Binding IsSelected}" VerticalAlignment="Center" FontWeight="Normal"/>
+                                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding Name}" Foreground="{Binding TextColor, FallbackValue=White}" TextWrapping="Wrap" FontSize="13"/>
+                                                    <TextBlock Text="{Binding Details, FallbackValue=''}" Foreground="#888888" FontSize="11" IsVisible="{Binding HasDetails, FallbackValue=False}"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            </LayoutTransformControl>
+        </Popup>
+
+        <!-- Volume Popup -->
+        <Popup x:Name="VolumePopup"
+               PlacementTarget="{Binding #ButtonMute}"
+               Placement="Top"
+               IsOpen="False"
+               VerticalOffset="-10"
+               HorizontalOffset="10"
+               >
+            <Border PointerEntered="VolumePopup_OnPointerEntered"
+                    PointerExited="VolumePopup_OnPointerExited" Background="#222222" 
+                    BorderBrush="#333333" 
+                    Padding="15"
+                    Width="60"
+                    Height="160"
+                    BorderThickness="1" 
+                    CornerRadius="8"
+                    BoxShadow="0 4 8 0 #66000000">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <Slider Orientation="Vertical"
+                            Grid.Row="0" 
+                            x:Name="VolumeSlider"
+                            Minimum="0"
+                            Maximum="200"
+                            Loaded="VolumeSlider_OnLoaded"
+                            ValueChanged="VolumeSlider_OnValueChanged"
+                            >
+                        <Slider.Styles>
+                                
+                                <Style Selector="Slider:vertical /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_InactiveState">
+        <Setter Property="Width" Value="12" />
+       
+    </Style>
+    
+    <Style Selector="Slider:vertical /template/ ProgressBar#PART_ProgressLayer /template/ Panel#PART_InnerPanel">
+        <Setter Property="Width" Value="12" />
+        <Setter Property="RenderTransform" Value="scaleY(1)" />
+       
+    </Style>
+    
+                            <Style Selector="Thumb#PART_SliderThumb">
+                                <Setter Property="Theme">
+                                    <ControlTheme TargetType="Thumb">
+                                        <Setter Property="Template">
+                                            <ControlTemplate>
+                                                <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Border Name="PART_HoverEffect"
+                                                            Width="25" Height="25"
+                                                            CornerRadius="25"
+                                                            Opacity="0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="#30FFFFFF"/>
+                                
+                                                    <Border Name="PART_ThumbGrip"
+                                                            Width="20" Height="20"
+                                                            CornerRadius="20"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            RenderTransformOrigin="0.5,0.5"
+                                                            Background="#FFE50914">
+                                                        <Border.RenderTransform>
+                                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                        </Border.RenderTransform>
+                                                        <Border.Transitions>
+                                                            <Transitions>
+                                                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                                            </Transitions>
+                                                        </Border.Transitions>
+                                                    </Border>
+                                                </Panel>
+                                            </ControlTemplate>
+                                        </Setter>
+                    
+                                        <!-- <Style Selector="^:pointerover /template/ Border#PART_HoverEffect"> -->
+                                        <!--     <Setter Property="Opacity" Value="0.2"/> -->
+                                        <!-- </Style> -->
+                                        <!-- <Style Selector="^:pointerover /template/ Border#PART_ThumbGrip"> -->
+                                        <!--     <Setter Property="RenderTransform" Value="scale(1.5, 1.5)" /> -->
+                                        <!-- </Style> -->
+                                    </ControlTheme>
+                                </Setter>
+                            </Style>
+
+    <!-- Active indicator stil ayarı da ekleyelim -->
+    <Style Selector="Slider:vertical /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_Indicator">
+        <Setter Property="RenderTransform" Value="scaleY(1)" />
+        
+    </Style>
+    
+
+        <!-- İnaktif track rengi (gri arka plan) -->
+        <Style Selector="Slider:vertical /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_InactiveState">
+            <Setter Property="Background" Value="#808080" /> <!-- İstediğiniz renk kodu -->
+            <Setter Property="Opacity" Value="1" /> <!-- Tam opaklık için -->
+            <Setter Property="Width" Value="12" />
+        </Style>
+    
+        <!-- Aktif track rengi (dolu kısım) -->
+        <Style Selector="Slider:vertical /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_Indicator">
+            <Setter Property="Background" Value="#FFE50914" /> <!-- İstediğiniz renk kodu -->
+            <Setter Property="Opacity" Value="1" /> <!-- Tam opaklık için -->
+        </Style>
+                            </Slider.Styles>
+                    </Slider>
+                    
+                </Grid>
+            </Border>
+        </Popup>
+
+
+        <!-- Episode List Popup -->
+        <Popup x:Name="EpisodeListPopup" Placement="TopEdgeAlignedRight" PlacementTarget="{Binding ElementName=ButtonEpisodeList}" IsOpen="False" VerticalOffset="-25">
+            <LayoutTransformControl x:Name="EpisodePopupTransform">
+                <Border x:Name="EpisodePopupBorder" PointerEntered="EpisodeListPopup_OnPointerEntered" PointerExited="EpisodeListPopup_OnPointerExited" Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1" CornerRadius="8" Width="450" MaxHeight="550" BoxShadow="0 4 15 0 #000000">
+                    <Grid RowDefinitions="Auto,*">
+                    <Border Grid.Row="0" BorderBrush="#333333" BorderThickness="0,0,0,1" Padding="20,15">
+                        <Grid ColumnDefinitions="Auto,*">
+                            <Grid x:Name="EpisodeListBackButton" Grid.Column="0" Cursor="Hand" PointerPressed="EpisodeListSeason_PointerPressed" Margin="0,0,15,0" IsVisible="False" Background="Transparent">
+                                <avalonia:Icon Value="fa-regular fa-arrow-left" Foreground="White" FontSize="20" VerticalAlignment="Center"/>
+                            </Grid>
+                            <TextBlock x:Name="EpisodeListSeasonText" Grid.Column="1" Text="Bölümler" Foreground="White" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                    
+                    <ScrollViewer Grid.Row="1" x:Name="SeasonListScrollView" IsVisible="False">
+                        <ItemsControl x:Name="SeasonItemsControl" Background="Transparent" Margin="0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="local:SeasonItem">
+                                    <Border Cursor="Hand" PointerPressed="SeasonItem_PointerPressed" Padding="20">
+                                        <Border.Styles>
+                                            <Style Selector="Border:pointerover"><Setter Property="Background" Value="#222222"/></Style>
+                                        </Border.Styles>
+                                        <Grid ColumnDefinitions="30,*">
+                                            <TextBlock Grid.Column="0" Text="✓" Foreground="White" IsVisible="{Binding IsSelected}" VerticalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Name}" Foreground="White" FontSize="16" FontWeight="Bold" VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <ScrollViewer Grid.Row="1" x:Name="EpisodeListScrollView" IsVisible="True">
+                        <ItemsControl x:Name="EpisodeItemsControl" Background="Transparent" Margin="0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="local:EpisodeItemUI">
+                                    <Border Background="{Binding BackgroundColor}" BorderBrush="#222222" BorderThickness="0,0,0,1" Cursor="Hand" PointerPressed="EpisodeItem_PointerPressed" Padding="15,20">
+                                        <Border.Styles>
+                                            <Style Selector="Border:pointerover"><Setter Property="Background" Value="#2A2A2A"/></Style>
+                                        </Border.Styles>
+                                        <StackPanel>
+                                            <Grid ColumnDefinitions="40, *, 100">
+                                                <TextBlock Grid.Column="0" Text="{Binding EpisodeNumber}" Foreground="White" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding Name}" Foreground="White" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                                                
+                                                <!-- Track Line -->
+                                                <Grid Grid.Column="2" Height="2" Background="#444444" VerticalAlignment="Center" Margin="10,0,0,0" HorizontalAlignment="Right" Width="80">
+                                                    <Rectangle Fill="#E50914" Height="2" HorizontalAlignment="Left" Width="{Binding ProgressPixelWidth}"/>
+                                                </Grid>
+                                            </Grid>
+                                            
+                                            <Grid Margin="40,15,0,0" IsVisible="{Binding IsExpanded}" ColumnDefinitions="140, *">
+                                                <Border Grid.Column="0" CornerRadius="6" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Height="73" Width="130">
+                                                    <Panel Cursor="Hand" PointerPressed="EpisodeImage_PointerPressed">
+                                                        <netStream:AsyncImageControl Source="{Binding ImageUrl}" Stretch="UniformToFill" />
+                                                        <avalonia:Icon Value="fa-solid fa-play" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.7"/>
+                                                    </Panel>
+                                                </Border>
+                                                <TextBlock Grid.Column="1" Text="{Binding Overview}" Foreground="#CCCCCC" FontSize="13" TextWrapping="Wrap" MaxLines="4" TextTrimming="CharacterEllipsis" Margin="10,0,0,0" LineHeight="18" />
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+            </LayoutTransformControl>
+        </Popup>
+
+        <!-- Playback Speed Popup -->
+        <Popup x:Name="PlaybackSpeedPopup" Placement="TopEdgeAlignedRight" PlacementTarget="{Binding ElementName=SpeedIcon}" IsOpen="False" VerticalOffset="-25">
+            <LayoutTransformControl x:Name="SpeedPopupTransform">
+                <Border x:Name="SpeedPopupBorder" PointerEntered="PlaybackSpeedPopup_OnPointerEntered" PointerExited="PlaybackSpeedPopup_OnPointerExited" Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1" CornerRadius="8" BoxShadow="0 4 15 0 #000000">
+                    <Grid Width="480" Margin="20">
+                        <TextBlock x:Name="PlaybackSpeedTitle" Text="Yürütme Hızı" Foreground="White" FontWeight="Bold" FontSize="16" Margin="0,0,0,20"/>
+                        <Grid Margin="0,45,0,0">
+                        <!-- Gray line -->
+                        <Rectangle Height="2" Fill="#555555" VerticalAlignment="Top" Margin="25,9,25,0" />
+                        
+                        <!-- Background Dots -->
+                        <UniformGrid Columns="5" VerticalAlignment="Top" Margin="0,5,0,0">
+                            <Ellipse Width="10" Height="10" Fill="#CCCCCC" HorizontalAlignment="Center"/>
+                            <Ellipse Width="10" Height="10" Fill="#CCCCCC" HorizontalAlignment="Center"/>
+                            <Ellipse Width="10" Height="10" Fill="#CCCCCC" HorizontalAlignment="Center"/>
+                            <Ellipse Width="10" Height="10" Fill="#CCCCCC" HorizontalAlignment="Center"/>
+                            <Ellipse Width="10" Height="10" Fill="#CCCCCC" HorizontalAlignment="Center"/>
+                        </UniformGrid>
+                        
+                        <!-- Overlay for selection circles -->
+                        <UniformGrid Columns="5" VerticalAlignment="Top" Margin="0,-3,0,0">
+                            <Ellipse x:Name="Thumb05" Width="26" Height="26" StrokeThickness="4" Stroke="#555555" Fill="White" HorizontalAlignment="Center" Opacity="0"/>
+                            <Ellipse x:Name="Thumb075" Width="26" Height="26" StrokeThickness="4" Stroke="#555555" Fill="White" HorizontalAlignment="Center" Opacity="0"/>
+                            <Ellipse x:Name="Thumb10" Width="26" Height="26" StrokeThickness="4" Stroke="#555555" Fill="White" HorizontalAlignment="Center" Opacity="1"/>
+                            <Ellipse x:Name="Thumb125" Width="26" Height="26" StrokeThickness="4" Stroke="#555555" Fill="White" HorizontalAlignment="Center" Opacity="0"/>
+                            <Ellipse x:Name="Thumb15" Width="26" Height="26" StrokeThickness="4" Stroke="#555555" Fill="White" HorizontalAlignment="Center" Opacity="0"/>
+                        </UniformGrid>
+                        
+                        <UniformGrid Columns="5" VerticalAlignment="Top" Margin="0,35,0,0">
+                            <TextBlock x:Name="Text05" Text="0,5x" Foreground="#CCCCCC" FontSize="14" TextAlignment="Center" />
+                            <TextBlock x:Name="Text075" Text="0,75x" Foreground="#CCCCCC" FontSize="14" TextAlignment="Center" />
+                            <TextBlock x:Name="Text10" Text="1x (Normal)" Foreground="White" FontWeight="Bold" FontSize="14" TextAlignment="Center" />
+                            <TextBlock x:Name="Text125" Text="1,25x" Foreground="#CCCCCC" FontSize="14" TextAlignment="Center" />
+                            <TextBlock x:Name="Text15" Text="1,5x" Foreground="#CCCCCC" FontSize="14" TextAlignment="Center" />
+                        </UniformGrid>
+                        
+                        <!-- Clickable Areas -->
+                        <UniformGrid Columns="5" VerticalAlignment="Top" Margin="0,-10,0,0" Height="80">
+                            <Border Background="Transparent" Cursor="Hand" PointerPressed="Speed05_Pressed" />
+                            <Border Background="Transparent" Cursor="Hand" PointerPressed="Speed075_Pressed" />
+                            <Border Background="Transparent" Cursor="Hand" PointerPressed="Speed10_Pressed" />
+                            <Border Background="Transparent" Cursor="Hand" PointerPressed="Speed125_Pressed" />
+                            <Border Background="Transparent" Cursor="Hand" PointerPressed="Speed15_Pressed" />
+                        </UniformGrid>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </LayoutTransformControl>
+        </Popup>
+
+
+
+        <!-- Subtitle Shift Popup -->
+        <Popup x:Name="SubtitleShiftPopup" Placement="TopEdgeAlignedRight" PlacementTarget="{Binding ElementName=ButtonSubtitleShift}" IsOpen="False" VerticalOffset="-25">
+            <LayoutTransformControl x:Name="SubtitleShiftPopupTransform">
+                <Border x:Name="SubtitleShiftPopupBorder" PointerEntered="SubtitleShiftPopup_OnPointerEntered" PointerExited="SubtitleShiftPopup_OnPointerExited" Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1" CornerRadius="8" BoxShadow="0 4 15 0 #000000">
+                    <StackPanel Width="280" Margin="20" Spacing="20">
+                        <TextBlock x:Name="SubtitleShiftTitle" Text="Altyazı Gecikmesi (ms)" Foreground="White" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center"/>
+                        
+                        <Grid ColumnDefinitions="Auto,*,Auto" HorizontalAlignment="Center">
+                            <Button Grid.Column="0" Width="40" Height="40" CornerRadius="20" Background="#333333" Cursor="Hand" Click="SubtitleShiftMinus_Pressed">
+                                <TextBlock Text="-" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            </Button>
+                            
+                            <TextBox Grid.Column="1" x:Name="SubtitleShiftTextBox" Text="500" Width="100" Height="40" Background="#222222" Foreground="White" BorderBrush="#444444" CornerRadius="4" TextAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Margin="20,0"/>
+                            
+                            <Button Grid.Column="2" Width="40" Height="40" CornerRadius="20" Background="#333333" Cursor="Hand" Click="SubtitleShiftPlus_Pressed">
+                                <TextBlock Text="+" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-2,0,0"/>
+                            </Button>
+                        </Grid>
+                        
+                        <Button Content="Kayıt Et" HorizontalAlignment="Center" Width="150" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="#E50914" Foreground="White" FontWeight="Bold" CornerRadius="4" Cursor="Hand" Click="SaveShiftedSubtitle_Pressed" />
+                    </StackPanel>
+                </Border>
+            </LayoutTransformControl>
+        </Popup>
+
+        <!-- Next Episode Popup -->
+        <Popup x:Name="NextEpisodeHoverPopup" Placement="TopEdgeAlignedRight" PlacementTarget="{Binding ElementName=ButtonNextEpisode}" IsOpen="False" VerticalOffset="-25">
+            <LayoutTransformControl x:Name="NextEpisodePopupTransform">
+                <Border x:Name="NextEpisodePopupBorder" PointerEntered="NextEpisodeHoverPopup_OnPointerEntered" PointerExited="NextEpisodeHoverPopup_OnPointerExited" Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1" CornerRadius="8" Width="450" BoxShadow="0 4 15 0 #000000">
+                    <Grid RowDefinitions="Auto,*">
+                        <Border Grid.Row="0" BorderBrush="#333333" BorderThickness="0,0,0,1" Padding="20,15">
+                            <TextBlock Text="Sonraki Bölüm" Foreground="White" FontWeight="Bold" FontSize="18" />
+                        </Border>
+                        
+                        <Grid Grid.Row="1" ColumnDefinitions="140, *" Margin="20">
+                            <Border Grid.Column="0" CornerRadius="6" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Height="73" Width="130">
+                                <netStream:AsyncImageControl x:Name="NextEpImageOverlay" Stretch="UniformToFill" />
+                            </Border>
+                            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                                <TextBlock x:Name="NextEpTitleOverlay" Text="Bölüm Adı" Foreground="White" FontWeight="Bold" FontSize="16" />
+                                <TextBlock x:Name="NextEpDescOverlay" Text="Bölüm Açıklaması..." Foreground="#CCCCCC" FontSize="13" TextWrapping="Wrap" MaxLines="4" Margin="0,5,0,0" LineHeight="18" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </LayoutTransformControl>
+        </Popup>
+
+        <!-- Yeni Thumbnail Popup ekleyelim -->
+        <Popup x:Name="ThumbnailPreviewPopup" 
+               IsOpen="False" 
+               PlacementTarget="{Binding #DurationSlider}"
+               Placement="Top"
+               VerticalOffset="-30"
+              
+              >
+            <Border Background="#111111" 
+                    BorderBrush="#333333" 
+                    BorderThickness="1" 
+                    CornerRadius="4"
+                    Padding="8"
+                    BoxShadow="0 4 20 0 #66000000">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Thumbnail resmi için -->
+                    <Image x:Name="ThumbnailPreviewImage" 
+                           Width="320" 
+                           Height="180" 
+                           Stretch="UniformToFill" 
+                           Grid.Row="0" />
+                    
+                    <!-- Zaman bilgisi -->
+                    <TextBlock x:Name="ThumbnailTimeText" 
+                               Grid.Row="1" 
+                               Margin="0,8,0,0"
+                               FontSize="14"
+                               Foreground="White"
+                               HorizontalAlignment="Center" />
+                </Grid>
+            </Border>
+        </Popup>
+        
+        <!-- Preview Line (Dikey çizgi) -->
+        <!-- <Canvas x:Name="PreviewLineCanvas"  -->
+        <!--         IsVisible="False"  -->
+        <!--         IsHitTestVisible="False" -->
+        <!--         Width="3" -->
+        <!--         Height="{Binding #PlayerWindowControl.Bounds.Height}"> -->
+        <!--     <Line x:Name="PreviewLine"  -->
+        <!--           Stroke="White"  -->
+        <!--           StrokeThickness="1"  -->
+        <!--           Opacity="1" -->
+        <!--           StartPoint="0,0" -->
+        <!--           EndPoint="0,1000" /> -->
+        <!-- </Canvas> -->
+        
+        <!-- Subtitle Sync Popup (Renders above Video) -->
+        <Popup x:Name="SubtitleSyncPopup" Placement="Center" PlacementTarget="{Binding #PlayerWindowControl}" IsOpen="False" IsLightDismissEnabled="True">
+            <Border Background="#1A1A1A" BorderBrush="#333333" BorderThickness="1" CornerRadius="12" 
+                    Width="800" Height="650"
+                    BoxShadow="0 10 30 0 #000000"
+                    PointerPressed="SubtitleSyncGridInner_PointerPressed">
+                <Grid RowDefinitions="Auto, *">
+                    <!-- Header -->
+                    <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Margin="20">
+                        <TextBlock Text="{DynamicResource SubtitleOperationsString}" Foreground="White" FontWeight="Bold" FontSize="22" VerticalAlignment="Center" />
+                        <Button Grid.Column="1" Background="Transparent" BorderBrush="Transparent" Cursor="Hand" Click="CloseSubtitleSyncGrid_Click">
+                            <avalonia:Icon Value="fa-solid fa-xmark" Foreground="White" FontSize="24" />
+                        </Button>
+                    </Grid>
+                    
+                    <!-- Tabs -->
+                    <TabControl Grid.Row="1" Margin="20,0,20,20">
+                        <!-- Tab 1: Sync -->
+                        <TabItem Header="{DynamicResource SyncTabString}" Foreground="White" FontSize="16">
+                            <Grid RowDefinitions="Auto, Auto, *, Auto" Margin="0,20,0,0">
+                                
+                                <StackPanel Grid.Row="0" Spacing="15" Margin="0,0,0,20">
+                                    <TextBlock Text="{DynamicResource RefFileTypeErrorString}" Foreground="#CCCCCC" FontSize="14" />
+                                    <ComboBox x:Name="RefTypeComboBox" SelectedIndex="0" Width="300" Foreground="White" Background="#2A2A2A">
+                                        <ComboBoxItem Content="{DynamicResource SyncFullVideoStreamString}" />
+                                        <ComboBoxItem Content="{DynamicResource SyncRefSubtitleString}" />
+                                    </ComboBox>
+                                </StackPanel>
+                                
+                                <!-- File Pickers -->
+                                <StackPanel Grid.Row="1" Spacing="15" Margin="0,0,0,20">
+                                    <!-- Bozuk Altyazı, already set from current subtitle but user can change if they want. Actually we'll default it to current subtitle. -->
+                                    <TextBlock Text="{DynamicResource TargetSubtitleToFixString}" Foreground="#CCCCCC" FontSize="14" />
+                                    <Grid ColumnDefinitions="*, Auto">
+                                        <TextBox x:Name="InputSubtitlePath" IsReadOnly="True" Background="#2A2A2A" Foreground="White" CornerRadius="4" />
+                                    </Grid>
+                                    
+                                    <StackPanel x:Name="RefSubtitlePanel" IsVisible="{Binding ElementName=RefTypeComboBox, Path=SelectedIndex}" Spacing="10" Margin="0,10,0,0">
+                                        <TextBlock Text="{DynamicResource RefSubtitleFileString}" Foreground="#CCCCCC" FontSize="14" />
+                                        <Grid ColumnDefinitions="*, Auto">
+                                            <TextBox x:Name="RefSubtitlePath" IsReadOnly="True" Background="#2A2A2A" Foreground="White" CornerRadius="4" Margin="0,0,10,0"/>
+                                            <Button Grid.Column="1" Content="{DynamicResource SelectButtonString}" Cursor="Hand" Background="#333333" Foreground="White" Click="SelectRefSubtitle_Click" />
+                                        </Grid>
+                                    </StackPanel>
+                                </StackPanel>
+                                
+                                <!-- Console / Log -->
+                                <Border Grid.Row="2" Background="#0A0A0A" BorderBrush="#333333" BorderThickness="1" CornerRadius="6" Margin="0,0,0,20">
+                                    <ScrollViewer x:Name="SyncLogScrollViewer">
+                                        <TextBlock x:Name="SyncLogText" Text="" Foreground="#00FF00" FontFamily="Consolas, Courier New" FontSize="12" Margin="10" TextWrapping="Wrap" />
+                                    </ScrollViewer>
+                                </Border>
+                                
+                                <!-- Actions & Progress -->
+                                <Grid Grid.Row="3" ColumnDefinitions="Auto, *">
+                                    <Button x:Name="StartSyncButton" Grid.Column="0" Content="{DynamicResource StartSyncButtonString}" Background="#E50914" Foreground="White" FontWeight="Bold" Padding="20,10" Cursor="Hand" Click="StartSync_Click" />
+                                    <!-- Progress -->
+                                    <Grid Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center">
+                                        <ProgressBar x:Name="SyncProgressBar" Height="4" Value="0" Maximum="100" Background="#333333" BorderBrush="#333333" Foreground="#E50914" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        
+                        <!-- Tab 2: Make Your Subtitles -->
+                        <TabItem Header="{DynamicResource TranslateTabString}" Foreground="White" FontSize="16">
+                            <Grid RowDefinitions="Auto, *, Auto" Margin="0,20,0,0">
+                                <StackPanel Grid.Row="0" Spacing="15" Margin="0,0,0,10">
+                                    <TextBlock Text="{DynamicResource SubtitleFileToTranslateString}" Foreground="#CCCCCC" FontSize="14" />
+                                    <Grid ColumnDefinitions="*, Auto">
+                                        <TextBox x:Name="SourceSubtitleToTranslatePath" IsReadOnly="True" Background="#2A2A2A" Foreground="White" CornerRadius="4" Margin="0,0,10,0" />
+                                        <Button Grid.Column="1" Content="{DynamicResource SelectButtonString}" Cursor="Hand" Background="#333333" Foreground="White" Click="SelectSourceTranslateSubtitle_Click" />
+                                    </Grid>
+
+                                    <!-- Added Translate Controls -->
+                                    <Grid ColumnDefinitions="*, 15, *" RowDefinitions="Auto, Auto">
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Hedef Dil" Foreground="#CCCCCC" FontSize="14" Margin="0,0,0,5" />
+                                        <ComboBox x:Name="TargetLangComboBox" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Background="#2A2A2A" Foreground="White" />
+                                        
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Çeviri Yöntemi" Foreground="#CCCCCC" FontSize="14" Margin="0,0,0,5" />
+                                        <ComboBox x:Name="TranslateMethodComboBox" Grid.Row="1" Grid.Column="2" SelectedIndex="0" HorizontalAlignment="Stretch" Background="#2A2A2A" Foreground="White">
+                                            <ComboBoxItem Content="Google Translate (Free)" />
+                                            <ComboBoxItem Content="OpenAI" />
+                                            <ComboBoxItem Content="Gemini" />
+                                            <ComboBoxItem Content="DeepL" />
+                                        </ComboBox>
+                                    </Grid>
+                                    
+                                    <StackPanel Spacing="5">
+                                        <TextBlock Text="API Key (Google Translate harici yöntemler için)" Foreground="#CCCCCC" FontSize="14" />
+                                        <TextBox x:Name="TranslateApiKeyTextBox" Background="#2A2A2A" Foreground="White" CornerRadius="4" PasswordChar="*" Watermark="API Anahtarınızı girin..." />
+                                    </StackPanel>
+                                </StackPanel>
+                                
+                                <Border Grid.Row="1" Background="#0A0A0A" BorderBrush="#333333" BorderThickness="1" CornerRadius="6" Margin="0,0,0,20">
+                                    <ScrollViewer x:Name="TranslateLogScrollViewer">
+                                        <TextBlock x:Name="TranslateLogText" Text="[Bekleniyor...]\n" Foreground="#00AAFF" FontFamily="Consolas, Courier New" FontSize="12" Margin="10" TextWrapping="Wrap" />
+                                    </ScrollViewer>
+                                </Border>
+                                
+                                <Grid Grid.Row="2" ColumnDefinitions="Auto, *">
+                                    <Button x:Name="StartTranslateButton" Grid.Column="0" Content="{DynamicResource StartTranslateButtonString}" Background="#E50914" Foreground="White" FontWeight="Bold" Padding="20,10" Cursor="Hand" Click="StartTranslate_Click" />
+                                    
+                                    <Grid Grid.Column="1" Margin="20,0,0,0" VerticalAlignment="Center">
+                                        <ProgressBar x:Name="TranslateProgressBar" Height="4" Value="0" Maximum="100" Background="#333333" BorderBrush="#333333" Foreground="#00AAFF" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl> 

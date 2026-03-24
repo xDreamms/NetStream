@@ -1,0 +1,90 @@
+[project]
+name = "libtorrent"
+requires-python = ">=3.9"
+version = "2.0.11"
+
+[tool.cibuildwheel]
+skip = "{pp*,}"
+
+[tool.cibuildwheel.macos]
+before-all = [
+  "./tools/cibuildwheel/setup_boost.sh $BOOST_VERSION $BOOST_ROOT",
+  "brew install openssl"
+]
+test-command = [
+  "cd {project}/bindings/python",
+  "python test.py"
+]
+
+[tool.cibuildwheel.macos.environment]
+BOOST_BUILD_PATH = "/tmp/boost/tools/build"
+BOOST_ROOT = "/tmp/boost"
+BOOST_VERSION = "1.83.0"
+PATH = "/tmp/boost:$PATH"
+
+[[tool.cibuildwheel.overrides]]
+before-all = [
+  "./tools/cibuildwheel/setup_boost.sh $BOOST_VERSION $BOOST_ROOT",
+  "./tools/cibuildwheel/setup_ccache_on_manylinux.sh",
+  "./tools/cibuildwheel/setup_openssl.sh",
+  "yum install -y glibc-static" # needed for libutil.a and libdl.a
+]
+before-test = "ccache -s"
+select = "*-manylinux_*"
+test-command = [
+  "cd {project}/bindings/python",
+  "python test.py"
+]
+
+[tool.cibuildwheel.overrides.environment] # sub-table of previous block!
+BOOST_BUILD_PATH = "/tmp/boost/tools/build"
+BOOST_ROOT = "/tmp/boost"
+BOOST_VERSION = "1.83.0"
+PATH = "/usr/local/ccache/bin:/tmp/boost:$PATH"
+
+[[tool.cibuildwheel.overrides]]
+before-all = [
+  "./tools/cibuildwheel/setup_boost.sh $BOOST_VERSION $BOOST_ROOT",
+  "./tools/cibuildwheel/setup_openssl.sh",
+  "apk add ccache openssl-dev openssl-libs-static"
+]
+before-test = "ccache -s"
+select = "*-musllinux_*"
+test-command = [
+  "cd {project}/bindings/python",
+  "python test.py"
+]
+
+[tool.cibuildwheel.overrides.environment] # sub-table of previous block!
+BOOST_BUILD_PATH = "/tmp/boost/tools/build"
+BOOST_ROOT = "/tmp/boost"
+BOOST_VERSION = "1.83.0"
+PATH = "/usr/lib/ccache/bin:/tmp/boost:$PATH"
+
+[[tool.cibuildwheel.overrides]]
+before-all = [
+  "bash -c './tools/cibuildwheel/setup_boost.sh $BOOST_VERSION $BOOST_ROOT'"
+]
+select = "*-win32"
+
+[[tool.cibuildwheel.overrides]]
+before-all = [
+  "bash -c './tools/cibuildwheel/setup_boost.sh $BOOST_VERSION $BOOST_ROOT'"
+]
+select = "*-win_amd64"
+
+[tool.cibuildwheel.windows]
+# This 'ugly' before-test pulls in all OpenSSL dlls such that all (yes, multiple!) Python interpreters can find them.
+before-test = '''python -c "import glob,shutil;[shutil.copy(f,'C:/Windows/System32') for f in glob.glob('C:/Program Files/OpenSSL/bin/*.dll')]"'''
+test-command = '''bash -c "cd '{project}/bindings/python' && python test.py"'''
+
+[tool.cibuildwheel.windows.environment]
+BOOST_BUILD_PATH = 'c:/boost/tools/build'
+BOOST_ROOT = 'c:/boost'
+BOOST_VERSION = "1.83.0"
+PATH = 'c:/boost;$PATH'
+
+[tool.isort]
+profile = "google"
+single_line_exclusions = []
+src_paths = ["."]

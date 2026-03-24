@@ -1,0 +1,218 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:netStream="clr-namespace:NetStream"
+             mc:Ignorable="d"
+             x:Class="NetStream.Views.MovieDetailsPhotosPage" Width="NaN" Height="NaN"
+             Background="#111111" Loaded="Control_OnLoaded" Unloaded="Control_OnUnloaded"
+             x:CompileBindings="False" 
+             >
+    
+     <Grid>
+     
+         <Grid>
+             <Grid.RowDefinitions>
+                 <RowDefinition Height="0.03*"></RowDefinition>
+                 <RowDefinition Height="0.01*"></RowDefinition>
+                 <RowDefinition Height="2*"></RowDefinition>
+                 <RowDefinition Height="0.3*"></RowDefinition>
+                 <RowDefinition Height="0.03*"></RowDefinition>
+                 <RowDefinition Height="0.01*"></RowDefinition>
+                 <RowDefinition Height="2*"></RowDefinition>
+                 <RowDefinition Height="*"></RowDefinition>
+             </Grid.RowDefinitions>
+
+             <Grid Grid.Row="0" Margin="0 40 0 0">
+                 <Grid.ColumnDefinitions>
+                 <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                     <ColumnDefinition Width="*"></ColumnDefinition>
+                     <ColumnDefinition Width="0.8*"></ColumnDefinition>
+             </Grid.ColumnDefinitions>
+
+             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                 <TextBlock x:Name="TextBlockBackdrop" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal" FontSize="24"  Text="{DynamicResource BackdropsString}" Foreground="White" ></TextBlock>
+                 <TextBlock  FontFamily="{StaticResource GothamRegular}" FontWeight="Light" x:Name="BackDropsImageCounter" Text="" Foreground="#888888" ></TextBlock>
+             </StackPanel>
+         </Grid>
+             <Grid Grid.Row="2" >
+             <ListBox Margin="-10 10 0 0"    
+                        SelectionChanged="PhotosDisplay_OnSelectionChanged"  
+                        ScrollViewer.ScrollChanged="PhotosDisplay_OnScrollChanged"  
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                        Background="Transparent" 
+                        x:Name="PhotosDisplay"
+                        >
+                 <ListBox.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                                <Setter Property="Template">
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter Name="PART_ContentPresenter"
+                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                 Content="{TemplateBinding Content}"
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Top" />
+                                    </ControlTemplate>
+                                </Setter>
+                            </Style>
+                            
+                            <!-- Hover efektini devre dışı bırak -->
+                            <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Style>
+                            
+                            <!-- Seçili durumdaki efekti de kaldır -->
+                            <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Style>
+                        </ListBox.Styles>
+                 <ListBox.ItemsPanel>
+                     <ItemsPanelTemplate>
+                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                     </ItemsPanelTemplate>
+                 </ListBox.ItemsPanel>
+                 <ListBox.ItemContainerTheme>
+                     <!--<ControlTheme BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem">
+                               
+                            </ControlTheme>-->
+                 </ListBox.ItemContainerTheme>
+                     <ListBox.ItemTemplate>
+                         <DataTemplate DataType="netStream:PhotoDetail">
+                         <StackPanel Cursor="Hand"  Margin="10 10 0 0" >
+                             <Border x:Name="BorderBackdrop" BorderBrush="#1F2021" 
+                                     VerticalAlignment="Top" 
+                                     Height="270" 
+                                     Width="360" 
+                                     HorizontalAlignment="Left"
+                                     BorderThickness="5"
+                             >
+                                 <Border.Styles>
+                                     <Style Selector="Border:pointerover">
+                                         <Setter Property="ZIndex" Value="1000"/>
+                                         <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                     </Style>
+                                     <Style Selector="Border:not(:pointerover)">
+                                         <Setter Property="ZIndex" Value="0"/>
+                                         <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                     </Style>
+                                 </Border.Styles>
+                                 <Border.Transitions>
+                                     <Transitions>
+                                         <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                         <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                     </Transitions>
+                                 </Border.Transitions>
+                                 <netStream:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                             </Border>
+                         </StackPanel>
+                         </DataTemplate>
+                     </ListBox.ItemTemplate>
+                    
+                 </ListBox>
+             </Grid>
+
+
+             <Grid Margin="0 50 0 0" Grid.Row="4">
+                 <Grid.ColumnDefinitions>
+                 <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                 <ColumnDefinition Width="*"></ColumnDefinition>
+                 <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                 </Grid.ColumnDefinitions>
+                 
+                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                     <TextBlock x:Name="TextBlockPosters" FontFamily="{StaticResource GothamRegular}" FontWeight="Normal" FontSize="24"  Text="{DynamicResource PostersString}" Foreground="White" ></TextBlock>
+
+                 <TextBlock FontFamily="{StaticResource GothamRegular}" FontWeight="Light" x:Name="PosterImageCounter" Text="" Foreground="#888888" ></TextBlock>
+             </StackPanel>
+                
+                 
+             </Grid>
+             <Grid Grid.Row="6" >
+             <ListBox Margin="-10 10 0 0"  SelectionChanged="PostersDisplay_OnSelectionChanged"  ScrollViewer.ScrollChanged="PostersDisplay_OnScrollChanged"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled" Background="Transparent" x:Name="PostersDisplay">
+               
+                  <ListBox.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                                <Setter Property="Template">
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter Name="PART_ContentPresenter"
+                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                 Content="{TemplateBinding Content}"
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Top" />
+                                    </ControlTemplate>
+                                </Setter>
+                            </Style>
+                            
+                            <!-- Hover efektini devre dışı bırak -->
+                            <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Style>
+                            
+                            <!-- Seçili durumdaki efekti de kaldır -->
+                            <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Style>
+                        </ListBox.Styles>
+                 <ListBox.ItemsPanel>
+                     <ItemsPanelTemplate>
+                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                     </ItemsPanelTemplate>
+                 </ListBox.ItemsPanel>
+                 <ListBox.ItemContainerTheme>
+                     <!--<ControlTheme BasedOn="{StaticResource {x:Type ListBoxItem}}" TargetType="ListBoxItem">
+                               
+                            </ControlTheme>-->
+                 </ListBox.ItemContainerTheme>
+                     <ListBox.ItemTemplate>
+                         <DataTemplate DataType="netStream:PhotoDetail">
+                             <StackPanel Cursor="Hand"  Margin="10 10 0 0" >
+                                 <Border x:Name="BorderPoster" BorderBrush="#1F2021" 
+                                         VerticalAlignment="Top" 
+                                         Height="270" 
+                                         Width="360" 
+                                         HorizontalAlignment="Left"
+                                         BorderThickness="5"
+                                 >
+                                     <Border.Styles>
+                                         <Style Selector="Border:pointerover">
+                                             <Setter Property="ZIndex" Value="1000"/>
+                                             <Setter Property="RenderTransform" Value="scale(1.05) translate(0px, 0px)"/>
+                                         </Style>
+                                         <Style Selector="Border:not(:pointerover)">
+                                             <Setter Property="ZIndex" Value="0"/>
+                                             <Setter Property="RenderTransform" Value="scale(1) translate(0px, 0px)"/>
+                                         </Style>
+                                     </Border.Styles>
+                                     <Border.Transitions>
+                                         <Transitions>
+                                             <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.4" Easing="CubicEaseOut"/>
+                                             <IntegerTransition Property="ZIndex" Duration="0:0:0"/>
+                                         </Transitions>
+                                     </Border.Transitions>
+                                     <netStream:AsyncImageControl Source="{Binding Poster}" Stretch="UniformToFill"/>
+                                 </Border>
+                             </StackPanel>
+                         </DataTemplate>
+                     </ListBox.ItemTemplate>
+                    
+                 </ListBox>
+             </Grid>
+
+
+         </Grid>
+
+ </Grid>
+</UserControl>

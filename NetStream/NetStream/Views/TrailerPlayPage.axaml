@@ -1,0 +1,435 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NetStream.Views"
+             xmlns:vlc="using:LibVLCSharp.Avalonia"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             mc:Ignorable="d"
+             x:Class="NetStream.Views.TrailerPlayPage"
+             Loaded="TrailerPlayPage_OnLoaded"
+             KeyDown="TrailerPlayPage_OnKeyDown"
+             Focusable="True"
+             Background="Black" x:Name="TrailerPlayPageControl">
+
+    <Grid KeyDown="TrailerPlayPage_OnKeyDown">
+        <vlc:VideoView Grid.Row="0"
+                       PointerPressed="Player_OnPreviewMouseLeftButtonDown"
+                       DoubleTapped="Player_OnMouseDoubleClick"
+                       IsHitTestVisible="True"
+                       x:Name="Player">
+            <Grid Background="#01000000" PointerMoved="Player_OnPointerMoved" PointerWheelChanged="Player_OnMouseWheel">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Sol taraf: Back button ve Video name -->
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0"
+                                Orientation="Horizontal" Margin="20 0 0 0">
+                        <Grid Width="NaN" Height="NaN"
+                              VerticalAlignment="Center" HorizontalAlignment="Center"
+                              Cursor="Hand" x:Name="ButtonBack"
+                              PointerPressed="ButtonBack_OnPreviewMouseLeftButtonDown" Background="#01000000">
+                            <avalonia:Icon x:Name="BackImage" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                           Value="fa-regular fa-arrow-left"
+                                           Foreground="White" FontSize="24" />
+                        </Grid>
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10 0 0 0"
+                                   x:Name="MovieNameText" Text="" Foreground="White" FontWeight="Normal" />
+                    </StackPanel>
+
+                    <!-- Sag taraf: Volume text -->
+                    <TextBlock IsVisible="False" Margin="0 0 20 0" Grid.Column="2" x:Name="VolumeText"
+                               Text="" Foreground="White" />
+                </Grid>
+
+                <Grid Grid.Row="2" IsVisible="False" x:Name="ProgressGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.2*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.3*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="0.3*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Margin="0 -30 0 0" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="1"
+                               x:Name="LoadingTextBlock" Text="{DynamicResource Loading}" Foreground="White" />
+
+                    <ProgressBar VerticalAlignment="Top" Margin="0 -40 0 0" Grid.Row="2" x:Name="ProgressBarToPlay"
+                                 Grid.Column="1" Grid.ColumnSpan="3" Height="3" Value="0" Background="#808080"
+                                 BorderBrush="#808080" IsIndeterminate="True" Maximum="100" />
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.01*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.01*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.Background>
+                        <LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
+                            <GradientStop Color="#00000000" Offset="0" />
+                            <GradientStop Color="#CC000000" Offset="1" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+
+                    <StackPanel IsHitTestVisible="True" PointerExited="PanelControlVideo_OnMouseLeave"
+                                PointerEntered="PanelControlVideo_OnMouseEnter" x:Name="PanelControlVideo"
+                                IsVisible="True" Grid.Column="1" Orientation="Vertical" Margin="0 0 0 20">
+
+                        <Slider Thumb.DragCompleted="DurationSlider_OnDragCompleted" PointerReleased="DurationSlider_OnPointerReleased" Thumb.DragStarted="DurationSlider_OnDragStarted"
+                                TemplateApplied="DurationSlider_OnTemplateApplied" IsHitTestVisible="True" Cursor="Hand"
+                                PointerMoved="DurationSlider_OnMouseMove" Margin="20 0 20 20"
+                                PointerEntered="DurationSlider_PointerEntered" PointerExited="DurationSlider_PointerExited"
+                                VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"
+                                PointerWheelChanged="DurationSlider_OnMouseWheel"
+                                ValueChanged="DurationSlider_OnValueChanged"
+                                TickFrequency="0.01" Orientation="Horizontal" Maximum="1"
+                                Foreground="{StaticResource BrushDefault}" Value="0" x:Name="DurationSlider">
+                            <Slider.Styles>
+
+                                <Style Selector="Slider:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_InactiveState">
+                                    <Setter Property="Height" Value="5" />
+                                    <Setter Property="RenderTransform" Value="scaleY(1)" />
+                                    <Setter Property="Transitions">
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut" />
+                                        </Transitions>
+                                    </Setter>
+                                </Style>
+
+                                <Style Selector="Slider:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Panel#PART_InnerPanel">
+                                    <Setter Property="Height" Value="5" />
+                                    <Setter Property="RenderTransform" Value="scaleY(1)" />
+                                    <Setter Property="Transitions">
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut" />
+                                        </Transitions>
+                                    </Setter>
+                                </Style>
+
+                                <Style Selector="Thumb#PART_SliderThumb">
+                                    <Setter Property="Theme">
+                                        <ControlTheme TargetType="Thumb">
+                                            <Setter Property="Template">
+                                                <ControlTemplate>
+                                                    <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                        <Border Name="PART_HoverEffect"
+                                                                Width="25" Height="25"
+                                                                CornerRadius="25"
+                                                                Opacity="0"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"
+                                                                Background="#30FFFFFF"/>
+
+                                                        <Border Name="PART_ThumbGrip"
+                                                                Width="15" Height="15"
+                                                                CornerRadius="15"
+                                                                Background="#E50914"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"
+                                                                RenderTransformOrigin="0.5,0.5">
+                                                            <Border.RenderTransform>
+                                                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                            </Border.RenderTransform>
+                                                            <Border.Transitions>
+                                                                <Transitions>
+                                                                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                                                </Transitions>
+                                                            </Border.Transitions>
+                                                        </Border>
+                                                    </Panel>
+                                                </ControlTemplate>
+                                            </Setter>
+
+                                            <Style Selector="^:pointerover /template/ Border#PART_HoverEffect">
+                                                <Setter Property="Opacity" Value="0.2"/>
+                                            </Style>
+                                            <Style Selector="^:pointerover /template/ Border#PART_ThumbGrip">
+                                                <Setter Property="RenderTransform" Value="scale(1.5, 1.5)" />
+                                            </Style>
+                                        </ControlTheme>
+                                    </Setter>
+                                </Style>
+
+                                <!-- Active indicator stil ayari -->
+                                <Style Selector="Slider:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_Indicator">
+                                    <Setter Property="RenderTransform" Value="scaleY(1)" />
+                                    <Setter Property="Transitions">
+                                        <Transitions>
+                                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut" />
+                                        </Transitions>
+                                    </Setter>
+                                </Style>
+
+                                <!-- ScaledUp class eklendiginde buyuyecek -->
+                                <Style Selector="Slider.ScaledUp:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_InactiveState">
+                                    <Setter Property="RenderTransform" Value="scaleY(2)" />
+                                </Style>
+
+                                <Style Selector="Slider.ScaledUp:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_Indicator">
+                                    <Setter Property="RenderTransform" Value="scaleY(2)" />
+                                </Style>
+
+                                <!-- Inaktif track rengi (gri arka plan) -->
+                                <Style Selector="Slider:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_InactiveState">
+                                    <Setter Property="Background" Value="#4D4D4D" />
+                                    <Setter Property="Opacity" Value="1" />
+                                    <Setter Property="Height" Value="5" />
+                                </Style>
+
+                                <!-- Aktif track rengi (dolu kisim) -->
+                                <Style Selector="Slider:horizontal /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_Indicator">
+                                    <Setter Property="Background" Value="#E50914" />
+                                    <Setter Property="Opacity" Value="1" />
+                                </Style>
+                            </Slider.Styles>
+                        </Slider>
+
+                        <Grid Margin="11 15 17 0" IsHitTestVisible="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Play/Pause Button -->
+                            <Panel IsHitTestVisible="True" PointerPressed="ButtonPlay_OnPreviewMouseLeftButtonDown"
+                                   Background="#01000000" Grid.Column="0" Cursor="Hand">
+                                <Panel.Styles>
+                                    <Style Selector="Panel:pointerover">
+                                        <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                    </Style>
+                                    <Style Selector="Panel:not(:pointerover)">
+                                        <Setter Property="RenderTransform" Value="scale(1)"/>
+                                    </Style>
+                                </Panel.Styles>
+                                <Panel.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                    </Transitions>
+                                </Panel.Transitions>
+                                <avalonia:Icon IsHitTestVisible="True" x:Name="PlayButton" Value="fa-regular fa-pause" Foreground="White" FontSize="28"
+                                               Width="NaN" Height="NaN" />
+                            </Panel>
+
+                            <!-- Rewind 10s -->
+                            <Panel IsHitTestVisible="True" PointerPressed="ButtonRewind_OnPreviewMouseLeftButtonDown"
+                                   Background="#01000000" Grid.Column="2" Cursor="Hand">
+                                <Panel.Styles>
+                                    <Style Selector="Panel:pointerover">
+                                        <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                    </Style>
+                                    <Style Selector="Panel:not(:pointerover)">
+                                        <Setter Property="RenderTransform" Value="scale(1)"/>
+                                    </Style>
+                                </Panel.Styles>
+                                <Panel.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                    </Transitions>
+                                </Panel.Transitions>
+                                <avalonia:Icon IsHitTestVisible="True" x:Name="RewindIcon" Value="fa-regular fa-rotate-left" Foreground="White" FontSize="24"
+                                               Width="NaN" Height="NaN" />
+                            </Panel>
+
+                            <!-- Forward 10s -->
+                            <Panel IsHitTestVisible="True" PointerPressed="ButtonForward_OnPreviewMouseLeftButtonDown"
+                                   Background="#01000000" Grid.Column="4" Cursor="Hand">
+                                <Panel.Styles>
+                                    <Style Selector="Panel:pointerover">
+                                        <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                    </Style>
+                                    <Style Selector="Panel:not(:pointerover)">
+                                        <Setter Property="RenderTransform" Value="scale(1)"/>
+                                    </Style>
+                                </Panel.Styles>
+                                <Panel.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                    </Transitions>
+                                </Panel.Transitions>
+                                <avalonia:Icon IsHitTestVisible="True" x:Name="ForwardIcon" Value="fa-regular fa-rotate-right" Foreground="White" FontSize="24"
+                                               Width="NaN" Height="NaN" />
+                            </Panel>
+
+                            <!-- Volume -->
+                            <Panel IsHitTestVisible="True" Cursor="Hand" Margin="0 0 0 0" Background="#01000000"
+                                   Grid.Column="6" PointerPressed="ButtonMute_OnPreviewMouseLeftButtonDown"
+                                   PointerEntered="ButtonMute_OnPointerEntered"
+                                   PointerExited="ButtonMute_OnPointerExited"
+                                   x:Name="ButtonMute">
+                                <Panel.Styles>
+                                    <Style Selector="Panel:pointerover">
+                                        <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                    </Style>
+                                    <Style Selector="Panel:not(:pointerover)">
+                                        <Setter Property="RenderTransform" Value="scale(1)"/>
+                                    </Style>
+                                </Panel.Styles>
+                                <Panel.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                    </Transitions>
+                                </Panel.Transitions>
+                                <avalonia:Icon IsHitTestVisible="True" x:Name="MuteButton" Value="fa-regular fa-volume-high" Foreground="White" FontSize="24"
+                                               Width="NaN" Height="NaN" />
+                            </Panel>
+
+                            <!-- Time Display -->
+                            <StackPanel IsHitTestVisible="True" Orientation="Horizontal" Grid.Column="7"
+                                        HorizontalAlignment="Left" Margin="20 5 0 0">
+                                    <TextBlock Margin="0 0 0 0" IsHitTestVisible="True" x:Name="TxtCurrentTime"
+                                               Text="00:00:00/" Foreground="White" FontSize="16" />
+
+                                    <TextBlock IsHitTestVisible="True" x:Name="TxtDuration"
+                                               Text="00:00:00" Foreground="#B3B3B3" FontSize="16" />
+                            </StackPanel>
+
+                            <!-- Fullscreen -->
+                            <Panel IsHitTestVisible="True" Grid.Column="8" Cursor="Hand" Background="#01000000" x:Name="ButtonFullScreen"
+                                   HorizontalAlignment="Right" PointerPressed="ButtonFullScreen_OnPreviewMouseLeftButtonDown">
+                                <Panel.Styles>
+                                    <Style Selector="Panel:pointerover">
+                                        <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                    </Style>
+                                    <Style Selector="Panel:not(:pointerover)">
+                                        <Setter Property="RenderTransform" Value="scale(1)"/>
+                                    </Style>
+                                </Panel.Styles>
+                                <Panel.Transitions>
+                                    <Transitions>
+                                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                    </Transitions>
+                                </Panel.Transitions>
+                                <avalonia:Icon x:Name="FullScreenIcon" IsHitTestVisible="True" Value="fa-regular fa-expand" Foreground="White" FontSize="24" />
+                            </Panel>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </vlc:VideoView>
+
+        <!-- Volume Popup -->
+        <Popup x:Name="VolumePopup"
+               PlacementTarget="{Binding #ButtonMute}"
+               Placement="Top"
+               IsOpen="False"
+               VerticalOffset="-10"
+               HorizontalOffset="10">
+            <Border PointerEntered="VolumePopup_OnPointerEntered"
+                    PointerExited="VolumePopup_OnPointerExited" Background="#222222"
+                    BorderBrush="#333333"
+                    Padding="15"
+                    Width="60"
+                    Height="160"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    BoxShadow="0 4 8 0 #66000000">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Slider Orientation="Vertical"
+                            Grid.Row="0"
+                            x:Name="VolumeSlider"
+                            Minimum="0"
+                            Maximum="200"
+                            Loaded="VolumeSlider_OnLoaded"
+                            ValueChanged="VolumeSlider_OnValueChanged">
+                        <Slider.Styles>
+
+                            <Style Selector="Slider:vertical /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_InactiveState">
+                                <Setter Property="Width" Value="12" />
+                            </Style>
+
+                            <Style Selector="Slider:vertical /template/ ProgressBar#PART_ProgressLayer /template/ Panel#PART_InnerPanel">
+                                <Setter Property="Width" Value="12" />
+                                <Setter Property="RenderTransform" Value="scaleY(1)" />
+                            </Style>
+
+                            <Style Selector="Thumb#PART_SliderThumb">
+                                <Setter Property="Theme">
+                                    <ControlTheme TargetType="Thumb">
+                                        <Setter Property="Template">
+                                            <ControlTemplate>
+                                                <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Border Name="PART_HoverEffect"
+                                                            Width="25" Height="25"
+                                                            CornerRadius="25"
+                                                            Opacity="0"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Background="#30FFFFFF"/>
+
+                                                    <Border Name="PART_ThumbGrip"
+                                                            Width="20" Height="20"
+                                                            CornerRadius="20"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            RenderTransformOrigin="0.5,0.5"
+                                                            Background="#FFE50914">
+                                                        <Border.RenderTransform>
+                                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                        </Border.RenderTransform>
+                                                        <Border.Transitions>
+                                                            <Transitions>
+                                                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="CubicEaseOut"/>
+                                                            </Transitions>
+                                                        </Border.Transitions>
+                                                    </Border>
+                                                </Panel>
+                                            </ControlTemplate>
+                                        </Setter>
+                                    </ControlTheme>
+                                </Setter>
+                            </Style>
+
+                            <!-- Active indicator -->
+                            <Style Selector="Slider:vertical /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_Indicator">
+                                <Setter Property="RenderTransform" Value="scaleY(1)" />
+                            </Style>
+
+                            <!-- Inaktif track rengi (gri arka plan) -->
+                            <Style Selector="Slider:vertical /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_InactiveState">
+                                <Setter Property="Background" Value="#808080" />
+                                <Setter Property="Opacity" Value="1" />
+                                <Setter Property="Width" Value="12" />
+                            </Style>
+
+                            <!-- Aktif track rengi (dolu kisim) -->
+                            <Style Selector="Slider:vertical /template/ ProgressBar#PART_ProgressLayer /template/ Border#PART_Indicator">
+                                <Setter Property="Background" Value="#FFE50914" />
+                                <Setter Property="Opacity" Value="1" />
+                            </Style>
+                        </Slider.Styles>
+                    </Slider>
+                </Grid>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

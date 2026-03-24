@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetStream.Views"
+        mc:Ignorable="d"
+        x:Class="NetStream.Views.SplashScreenWindow"
+        Background="Transparent" 
+        SizeChanged="Control_OnSizeChanged"
+        >
+        <Grid  Background="#1E1E21">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.1*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.1*"/>
+            </Grid.ColumnDefinitions>
+            
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" >
+                <StackPanel x:Name="MainStackPanel"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="LogoImage" Source="/Assets/NetStreamLogo.png" Width="50" Height="50"/>
+                        <TextBlock x:Name="TextAppName" Text="NetStream" FontSize="28" FontWeight="Medium" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15 0 0 0" Foreground="White" FontFamily="{StaticResource GothamRegular}"/>
+                    </StackPanel>
+                    <TextBlock x:Name="TextLoading" Text="{DynamicResource Loading}" FontSize="17" Foreground="White" FontWeight="Normal" HorizontalAlignment="Left" Margin="0 30 0 15" FontFamily="{StaticResource GothamRegular}"/>
+                    <ProgressBar x:Name="ProgressBarLoading" Background="#808080" BorderBrush="#808080" Name="ProgressBar" Value="0" Height="5" Width="280" IsIndeterminate="True"/>
+                </StackPanel>
+
+                <StackPanel Margin=" 0 0 0 0" x:Name="PanaImage" HorizontalAlignment="Center" VerticalAlignment="Center" Width="320" Height="320">
+                    <Image Source="/Assets/pana.png"/>
+                </StackPanel>
+            </StackPanel>
+
+           
+        </Grid>
+</UserControl> 
