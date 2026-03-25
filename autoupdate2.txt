@@ -1,6 +1,6 @@
 {
   "latest_version": "2.6.0.0",
-  "generated_at_utc": "2026-03-25T16:49:13.0010098Z",
+  "generated_at_utc": "2026-03-25T17:01:01.7247914Z",
   "files": [
     {
       "path": "ffmpeg.zip",
@@ -71,8 +71,8 @@
     {
       "path": "NetStream.Desktop.exe",
       "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/NetStream.Desktop.exe",
-      "sha256": "08d5af2b2a765341f9ddea5be99d5a1b0a2458a5ef6af7227e89135999f7d344",
-      "size": 130567168,
+      "sha256": "f87efb4928fc0f39489658ba7a180a12c7f377dd623786584769d09b030e118b",
+      "size": 130569728,
       "type": "file"
     },
     {

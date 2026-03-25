@@ -85,7 +85,7 @@ public partial class App : Application
         LanguageManager.SwitchLanguage();
         MainWindow mainWindow = new MainWindow();
 
-        /*try
+        try
         {
             var filesToDownload = await AutoUpdater.GetUpdatesToDownloadAsync();
             if (filesToDownload != null && filesToDownload.Count > 0)
@@ -102,7 +102,7 @@ public partial class App : Application
         catch (Exception ex)
         {
             Log.Error($"AutoUpdate failed: {ex.Message}");
-        }*/
+        }
 
         mainWindow.SetContent(new SplashScreenWindow());
         mainWindow.Show();

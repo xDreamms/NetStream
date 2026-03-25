@@ -65,8 +65,8 @@ public static class AutoUpdater
     // TODO: ZIP HASHLERINI BURAYA YAZINIZ. Her guncellemede bu degerleri degistirmeniz gerekmektedir.
     private static readonly Dictionary<string, string> LocalZipHashes = new(StringComparer.OrdinalIgnoreCase)
     {
-        { "ffmpeg.zip", "d52ea2fb30f4f906f77050f3beb6ed24909a1920483c68b3f2792e37f0cccdf8" }, 
-        { "JacketConfig.zip", "7824b49a76290d03e0d2f80163c65e8b8842b87c1417edafdec20d44b92fc7cb" }, 
+        { "ffmpeg.zip", "6a1f7ba48e1e4208291349a0fccde266cf3fa5e5778ee838979ced68e5995d1f" }, 
+        { "JacketConfig.zip", "6c07b6192856d14f62982e47c1b7de026a60b2ffdcf510a68ed4290a4bb7aa21" }, 
         { "libvlc.zip", "800e1ab5f51064d487df106bc18517a76330854f85a1ff312e58b78bbec03f5a" } 
     };
 
