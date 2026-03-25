@@ -189,23 +189,21 @@
     </ItemGroup>
 
     <ItemGroup>
-      <!-- LibTorrentSharp replaced by LibTorrentSharp2 (native C DLL + P/Invoke) -->
-      <!-- LibTorrentSharp2.dll is copied to output by NetStream.Desktop.csproj -->
-      <Reference Include="MovieCollection.OpenSubtitles">
-        <HintPath>..\..\..\MovieCollection.OpenSubtitles.dll</HintPath>
-      </Reference>
-      <Reference Include="Projektanker.Icons.Avalonia">
-        <HintPath>..\..\..\Projektanker.Icons.Avalonia.dll</HintPath>
-      </Reference>
-      <Reference Include="Projektanker.Icons.Avalonia.FontAwesome">
-        <HintPath>..\..\..\Projektanker.Icons.Avalonia.FontAwesome.dll</HintPath>
-      </Reference>
-      <Reference Include="TorznabClient">
-        <HintPath>..\..\..\TorznabClient.dll</HintPath>
-      </Reference>
+      <Folder Include="Assets\img\" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Assets\img\" />
+      <Reference Include="MovieCollection.OpenSubtitles">
+        <HintPath>..\..\..\..\MovieCollection.OpenSubtitles.dll</HintPath>
+      </Reference>
+      <Reference Include="Projektanker.Icons.Avalonia">
+        <HintPath>..\..\..\..\Projektanker.Icons.Avalonia.dll</HintPath>
+      </Reference>
+      <Reference Include="Projektanker.Icons.Avalonia.FontAwesome">
+        <HintPath>..\..\..\..\Projektanker.Icons.Avalonia.FontAwesome.dll</HintPath>
+      </Reference>
+      <Reference Include="TorznabClient">
+        <HintPath>..\..\..\..\TorznabClient.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>

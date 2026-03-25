@@ -21,6 +21,7 @@ using Avalonia.Controls.Presenters;
 using TMDbLib.Objects.Movies;
 using NETCore.Encrypt;
 using NetStream.Services;
+using TorrentWrapper;
 
 namespace NetStream.Views
 {
@@ -41,7 +42,8 @@ namespace NetStream.Views
             Log.Information("Loaded Downloads Page");
             MainView.Instance.SizeChanged += InstanceOnSizeChanged;
         }
-        
+
+        private bool startedAlerts = true;
         private async void OnLoad()
         {
             DownloadsDisplay.ItemsSource = torrents;
@@ -65,6 +67,22 @@ namespace NetStream.Views
                         //     await Libtorrent.Pause(item.Hash);
                         //     finishedTorrents.Add(item.Hash);
                         // }
+                        if (activeTorrents.Any())
+                        {
+                            if (!startedAlerts)
+                            {
+                                LibtorrentClient.sessionManager.StartListeningAlerts();
+                                startedAlerts = true;
+                            }
+                        }
+                        else
+                        {
+                            if (startedAlerts)
+                            {
+                                LibtorrentClient.sessionManager.StopListeningAlerts();
+                                startedAlerts = false;
+                            }
+                        }
                         foreach (var item in activeTorrents)
                         {
                             if (!item.IsCompleted && item.Hash != null && !(finishedTorrents.Any(x => x == item.Hash)))

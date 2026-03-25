@@ -1,11 +1,11 @@
 {
-  "latest_version": "2.5.0.0",
-  "generated_at_utc": "2026-03-23T13:44:01.4148273Z",
+  "latest_version": "2.6.0.0",
+  "generated_at_utc": "2026-03-25T16:36:04.4826675Z",
   "files": [
     {
       "path": "ffmpeg.zip",
       "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/ffmpeg.zip",
-      "sha256": "d52ea2fb30f4f906f77050f3beb6ed24909a1920483c68b3f2792e37f0cccdf8",
+      "sha256": "6a1f7ba48e1e4208291349a0fccde266cf3fa5e5778ee838979ced68e5995d1f",
       "size": 185739326,
       "type": "zip",
       "extract_to": "ffmpeg"
@@ -13,7 +13,7 @@
     {
       "path": "JacketConfig.zip",
       "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/JacketConfig.zip",
-      "sha256": "7824b49a76290d03e0d2f80163c65e8b8842b87c1417edafdec20d44b92fc7cb",
+      "sha256": "6c07b6192856d14f62982e47c1b7de026a60b2ffdcf510a68ed4290a4bb7aa21",
       "size": 60207,
       "type": "zip",
       "extract_to": "JacketConfig"
@@ -64,15 +64,15 @@
     {
       "path": "LibTorrentSharp2.dll",
       "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/LibTorrentSharp2.dll",
-      "sha256": "578b9c04f7dc42a3ed6f3d9cdbf744c36ba5173d7c8825ec2a5732439aab0618",
-      "size": 182272,
+      "sha256": "53fe8cdb146abb843235a633df32fe7764cc26f45d28e6e3b96a3178907aab6f",
+      "size": 184832,
       "type": "file"
     },
     {
       "path": "NetStream.Desktop.exe",
-      "url": "https://github.com/xDreamms/NetStream/releases/download/2.5.0.0/NetStream.Desktop.exe",
-      "sha256": "fed015aa93e1728355f9ddddf0610c5cdc9a53a061d07f3b8ce6864ad07b3790",
-      "size": 132033024,
+      "url": "https://github.com/xDreamms/NetStream/releases/download/Updates/NetStream.Desktop.exe",
+      "sha256": "2da0da584a22ecd5211f3bd330582fbf5e8444e8c130a4689717f248565fa3db",
+      "size": 130567168,
       "type": "file"
     },
     {

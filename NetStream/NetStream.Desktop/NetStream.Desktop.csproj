@@ -49,14 +49,6 @@
         <Link>LibTorrentSharp2.dll</Link>
       </None>
     </ItemGroup>
-    <ItemGroup>
-      <Reference Include="Projektanker.Icons.Avalonia">
-        <HintPath>..\..\..\Projektanker.Icons.Avalonia.dll</HintPath>
-      </Reference>
-      <Reference Include="Projektanker.Icons.Avalonia.FontAwesome">
-        <HintPath>..\..\..\Projektanker.Icons.Avalonia.FontAwesome.dll</HintPath>
-      </Reference>
-    </ItemGroup>
 
     <ItemGroup>
       <None Include="..\..\copy these to build output\**\*"
@@ -66,6 +58,15 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="Projektanker.Icons.Avalonia">
+        <HintPath>..\..\..\..\Projektanker.Icons.Avalonia.dll</HintPath>
+      </Reference>
+      <Reference Include="Projektanker.Icons.Avalonia.FontAwesome">
+        <HintPath>..\..\..\..\Projektanker.Icons.Avalonia.FontAwesome.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 </Project>
