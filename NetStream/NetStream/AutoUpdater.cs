@@ -58,7 +58,7 @@ public class UpdateProgressInfo
 
 public static class AutoUpdater
 {
-    public const string CurrentVersion = "2.5.0.0";
+    public const string CurrentVersion = "2.6.0.0";
     private const string UpdateCheckUrl = "https://github.com/xDreamms/NetStream/raw/refs/heads/main/autoupdate2.txt";
     private const int TimeoutSeconds = 15;
 
