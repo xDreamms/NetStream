@@ -85,3 +85,4 @@ packages/
 
 # Local external runtime binaries
 copy these to build output/ffmpeg/
+/NetStream/NetStream/NetStreamEnvironment.cs
